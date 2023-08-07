@@ -210,7 +210,13 @@ gap:2rem;
     margin-top: 30px;
    background-color: #f0eef5; 
 }
-.oval-image {
+.oval-image{
+    width: 110px;
+    border-radius: 50%;
+    margin-left: 53px;
+  
+}
+.oval-image-1 {
     width: 100px;
     border-radius: 50%;
   margin-left: 621px;

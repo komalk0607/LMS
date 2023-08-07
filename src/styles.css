@@ -77,4 +77,19 @@
     max-width: 100%;
     overflow-x: hidden;
 }
-  
+.modal-popup-content{
+  width: 520px;
+  height: 185px;
+}
+.modal-popup-body{
+  font-size: large;
+  margin-top: -3px;
+  margin-left: 51px;
+  margin-right: 51px;
+}
+.modal-popup-title{
+  width: 43px;
+  height: 41px;
+  margin-left: 211px;
+  margin-top: 14px;
+}
