@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row">
         <div class="card-group">
-            <div class="card-1 col-sm-12 text-white bg-1">
+            <div class="card-3 col-sm-12 text-white bg-1">
                 <div class="card-body-1">
                     <h4 class="card-title card-title-1 text-center">
                         20
@@ -11,7 +11,7 @@
                     </h4>
                 </div>
             </div>
-            <div class="card-1 text-white bg-2">
+            <div class="card-3 text-white bg-2">
                 <div class="card-body">
                     <h4 class="card-title card-title-1 text-center">
                         300k
@@ -21,7 +21,7 @@
                     </h4>
                 </div>
             </div>
-            <div class="card-1 text-white bg-3">
+            <div class="card-3 text-white bg-3">
                 <div class="card-body">
                     <h4 class="card-title card-title-1 text-center">
                         400k
@@ -31,7 +31,7 @@
                     </h4>
                 </div>
             </div>
-            <div class="card-1 text-white bg-4">
+            <div class="card-3 text-white bg-4">
                 <div class="card-body">
                     <h4 class="card-title card-title-1 text-center">
                         300k
@@ -46,7 +46,7 @@
         </div>
 
         <div class="card-group">
-            <div class="card-1 text-white bg-2 mt-0">
+            <div class="card-3 text-white bg-2 mt-0">
                 <div class="card-body">
                     <h4 class="card-title card-title-1 text-center">
                         20
@@ -58,8 +58,9 @@
             </div>
 
             <div class="col-md-8 offset-1">
-                <button class="btn-new-course pull-right" data-bs-toggle='offcanvas' data-bs-target='#filter1'
-                    aria-controls='offcanvasExample'><img src="assets/img/video.png" class="camera" alt="">
+                <button class="btn-new-course pull-right" data-bs-toggle='offcanvas' data-bs-target='#filter'
+                    (click)="closeCanvas()" aria-controls='offcanvasExample'><img src="assets/img/video.png"
+                        class="camera" alt="">
                     Add New Course</button>
 
 
@@ -68,71 +69,207 @@
     </div>
 
 </div>
+
+<div id="div-1" class="container">
+    <div class="row" style="margin-left: -20px;">
+        <form [formGroup]="formSearchGrid">
+            <div class="col-md-2">
+                <input class="input-field form-control" style="width: 110px;" type="text" formControlName="COURSE_NAME"
+                    placeholder="Course Name">
+            </div>
+            <div class="col-md-2">
+                <input class="input-field form-control" style="width: 120px; margin-left:10px" type="text"
+                    formControlName="NO_OF_MODULES" placeholder="No Of Module">
+            </div>
+            <div class="col-md-1">
+                <input class="input-field form-control" style="width: 130px;margin-left:-10px;" type="text"
+                    formControlName="CATEGORY" placeholder="Category">
+            </div>
+            <div class="col-md-2">
+                <input class="input-field form-control" style="width: 150px;" type="text" formControlName="SUB_CATEGORY"
+                    placeholder="Sub Category">
+            </div>
+            <div class="col-md-2">
+                <ng-select class="search-input-dropdown" [searchable]="true" [clearable]="true" style="width: 130px;"
+                    placeholder="Level Of Course">
+                    <ng-option class="dropdown-item" [disabled]="true" value="">--Select Level Of Course--
+                    </ng-option>
+                    <ng-option value="Beginner">Beginner</ng-option>
+                    <ng-option value="Advance">Advance</ng-option>
+                </ng-select>
+            </div>
+
+
+            <div class="col-md-2 mt-5" style="width: 150px;margin-right:20px;margin-left:-20px">
+                <button class="btn-div"><img src="assets/img/search.png" class="btn-search" alt=""
+                        (click)="searchGrid()">
+                    <!-- <i class='bx bx-search button btn-search' style='color:#eeeeee'></i> -->
+                </button>
+                <!-- <i class='bx bx-search button btn-search'style='color:#ffffff' (click)="searchGrid()"></i> -->
+                <!-- <i class="fa fa-search button btn-search" aria-hidden="true"></i> -->
+            </div>
+            <div class="col-md-1 mt-5" style="width: 150px;">
+                <button class="btn-div" style="color: #ffffff;margin-left: -30px;"
+                    (click)="clearSearch()">Clear</button>
+            </div>
+        </form>
+    </div>
+
+</div>
+<div class="table-1">
+    <table datatable [dtOptions]="dtoptions" class="table bg-head table-hover"
+       >
+        <thead  class="text-center" >
+            <tr>
+                <th style="padding-left: 60px;padding-top: 20px;">Course Name</th>
+                <th>No of Module</th>
+                <!-- <th>No of Sub Module</th> -->
+                <th>Category</th>
+                <th>Sub Category</th>
+                <th>Level of Course</th>
+                <th>Like</th>
+                <th>Purchased</th>
+                <th>View</th>
+                <th>Rating</th>
+                <th style="width: 120px;">Action</th>
+            </tr>
+        </thead>
+        <tbody class="text-center " style="font-size: small;">
+            <tr *ngFor="let item of data">
+                <td>{{item?.COURSE_NAME}}</td>
+                <td>{{item?.NO_OF_MODULES}}</td>
+                <!-- <td>-</td> -->
+                <td>{{item?.CATEGORY}}</td>
+                <td>{{item?.SUB_CATEGORY}}</td>
+                <td>{{item?.LEVEL_OF_COURSE}}</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td>
+                    <div><a data-bs-toggle="modal" (click)="deleteCourse(item?.COURSE_ID)" data-bs-target=""
+                            aria-controls='exampleModal'>
+                            <i class='bx bx-trash mr-2' style='color:#e22326;font-size: 20px;'></i></a>
+                        <a data-bs-toggle='offcanvas' (click)="editCourseById(item?.COURSE_ID)" data-bs-target='#filter'
+                            aria-controls='offcanvasExample'>
+                            <i class='bx bxs-edit mr-2' style='color:#686868 ;font-size: 20px;'></i></a>
+                        <a><i class='bx bx-video-plus mr-2' style='color:#686868 ;font-size: 20px; '></i></a>
+                        <a><i class='bx bx-list-ul bx-flip-vertical mr-2'
+                                style='color:#686868;font-size: 20px;'></i></a>
+                    </div>
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+
 <div class="offcanvas offcanvas-end offcanvas-border" tabindex="-1" id="filter" aria-labelledby="offcanvasExampleLabel">
     <div class="offcanvas-header">
         <h5 class="offcanvas-title add-course-title" id="offcanvasExampleLabel">Add Course</h5>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"
+            (click)="closeCanvas()"></button>
     </div>
     <div class="offcanvas-body add-course">
-        <form [formGroup]="addCourseForm">
+        <form [formGroup]="formAddCourse">
             <div class="form-row ml-3 mt-2">
-                <div class="form-group col-md-6  mt-2">
-                    <label for="courseName" class="label-1">Course Name</label>
-                    <input type="text" class="form-control input-1" id="courseName" formControlName="courseName"
+                <div class="form-group form-check col-md-6 mt-2">
+                    <label for="COURSE_NAME" class="label-1">Course Name <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control  input-1" id="COURSE_NAME" formControlName="COURSE_NAME"
+                        [ngClass]="{ 'is-invalid': courseSubmitted && c['COURSE_NAME'].errors }" maxlength="30"
                         placeholder="Course Name">
+                    <div *ngIf="courseSubmitted && c['COURSE_NAME'].errors" class="invalid-feedback">
+                        <div class="form-validation-msg" *ngIf="c['COURSE_NAME'].errors?.['required']"> Please enter
+                            course name</div>
+                        <!-- <div *ngIf="c['COURSE_NAME'].errors?.['maxlength']"> maxlength=20</div> -->
+                    </div>
                 </div>
                 <div class="form-group col-md-6  mt-2">
-                    <label for="noOfModule" class="label-1">Number of Module</label>
-                    <input type="number" class="form-control input-1" id="noOfModule" formControlName="noOfModule"
+                    <label for="NO_OF_MODULES" class="label-1">Number of Module <span
+                            class="text-danger">*</span></label>
+                    <input type="number" class="form-control input-1" id="NO_OF_MODULES" formControlName="NO_OF_MODULES"
+                        [ngClass]="{ 'is-invalid': courseSubmitted && c['NO_OF_MODULES'].errors }"
                         placeholder="Number of Module">
+                    <div *ngIf="courseSubmitted && c['NO_OF_MODULES'].errors" class="invalid-feedback">
+                        <div class="form-validation-msg" *ngIf="c['NO_OF_MODULES'].errors?.['required']"> Please enter
+                            no. of modules</div>
+                    </div>
                 </div>
                 <div class="form-group col-md-6 mt-2">
-                    <label for="category" class="label-1">Category</label>
-                    <input type="text" class="form-control input-1" id="category" formControlName="category"
-                        placeholder="Category">
+                    <label for="CATEGORY" class="label-1">Category <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control input-1" id="CATEGORY" formControlName="CATEGORY"
+                        [ngClass]="{ 'is-invalid': courseSubmitted && c['CATEGORY'].errors }" placeholder="Category">
+                    <div *ngIf="courseSubmitted && c['CATEGORY'].errors" class="invalid-feedback">
+                        <div class="form-validation-msg" *ngIf="c['CATEGORY'].errors?.['required']"> Please enter
+                            category</div>
+                    </div>
                 </div>
                 <div class="form-group col-md-6  mt-2">
-                    <label for="subCategory" class="label-1">Sub Category</label>
-                    <input type="text" class="form-control input-1" id="subCategory" formControlName="subCategory"
+                    <label for="SUB_CATEGORY" class="label-1">Sub Category <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control input-1" id="SUB_CATEGORY" formControlName="SUB_CATEGORY"
+                        [ngClass]="{ 'is-invalid': courseSubmitted && c['SUB_CATEGORY'].errors }"
                         placeholder="Sub Category">
+                    <div *ngIf="courseSubmitted && c['SUB_CATEGORY'].errors" class="invalid-feedback">
+                        <div class="form-validation-msg" *ngIf="c['SUB_CATEGORY'].errors?.['required']"> Please enter
+                            sub category</div>
+                    </div>
                 </div>
                 <div class="form-group col-md-6  mt-2">
-                    <!-- <label for="levelOfCourse" class="label-1 form-label">Level Of Course</label>
-                    <ng-select class="form-control input-1" name="" id="levelOfCourse" required formControlName="levelOfCourse">
-                        <ng-option value="Beginner">Beginner</ng-option >
-                        <ng-option  value="Advance">Advance</ng-option >
-                    </ng-select> -->
-                    <label for="" class="form-label label-1">Level Of Course</label>
-                    <ng-select class="form-control select-menu input-1" [searchable]="true" [clearable]="true"
-                        formControlName="levelOfCourse">
+                    <label for="" class="form-label label-1">Level Of Course <span class="text-danger">*</span></label>
+                    <ng-select class="input-dropdown" [searchable]="true" [clearable]="true"
+                        [ngClass]="{ 'is-invalid': courseSubmitted && c['LEVEL_OF_COURSE'].errors }"
+                        formControlName="LEVEL_OF_COURSE" placeholder="Level Of Course">
                         <ng-option class="dropdown-item" [disabled]="true" value="">--Select Level Of Course--
                         </ng-option>
                         <ng-option value="Beginner">Beginner</ng-option>
                         <ng-option value="Advance">Advance</ng-option>
                     </ng-select>
+                    <div *ngIf="courseSubmitted && c['LEVEL_OF_COURSE'].errors" class="invalid-feedback">
+                        <div class="form-validation-msg" *ngIf="c['LEVEL_OF_COURSE'].errors?.['required']"> Please
+                            select level of course</div>
+                    </div>
                 </div>
                 <div class="form-group col-md-6  mt-2">
-                    <label for="instructor" class="label-1">Instructor</label>
-                    <input type="text" class="form-control input-1" id="instructor" formControlName="instructor"
-                        placeholder="Instructor">
+                    <label for="INSTRUCTOR_NAME" class="label-1">Instructor <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control input-1" id="INSTRUCTOR_NAME"
+                        [ngClass]="{ 'is-invalid': courseSubmitted && c['INSTRUCTOR_NAME'].errors }"
+                        formControlName="INSTRUCTOR_NAME" placeholder="Instructor">
+                    <div *ngIf="courseSubmitted && c['INSTRUCTOR_NAME'].errors" class="invalid-feedback">
+                        <div class="form-validation-msg" *ngIf="c['INSTRUCTOR_NAME'].errors?.['required']"> Please enter
+                            instructor name</div>
+                    </div>
                 </div>
-                <div class="form-group col-md-6  mt-2">
-                    <label for="whatYouWillLearn" class="label-1">What you will learn</label>
-                    <input type="text" class="form-control  input-2" id="whatYouWillLearn"
-                        placeholder="What you will learn" rows="7" formControlName="whatYouWillLearn">
+                <div class="form-group col-md-12  mt-2">
+                    <label for="COURSE_OUTCOME" class="label-1">What you will learn <span
+                            class="text-danger">*</span></label>
+                    <textarea type="text" class="form-control  input-3 mr-1" id="COURSE_OUTCOME" rows="6" cols="40"
+                        [ngClass]="{ 'is-invalid': courseSubmitted && c['COURSE_OUTCOME'].errors }"
+                        placeholder="What you will learn" rows="7" formControlName="COURSE_OUTCOME" ></textarea>
+                    <div *ngIf="courseSubmitted && c['COURSE_OUTCOME'].errors" class="invalid-feedback">
+                        <div class="form-validation-msg" *ngIf="c['COURSE_OUTCOME'].errors?.['required']"> Please enter
+                            course outcome </div>
+                    </div>
                 </div>
-                <div class="form-group col-md-6  mt-2">
+                <!-- <div class="form-group col-md-6  mt-2">
                     <label for="whoCanAttend" class="label-1">Who can attend</label>
                     <input type="text" class="form-control  input-2" id="whoCanAttend" placeholder="Who can attend"
                         rows="7" formControlName="whoCanAttend">
-                </div>
+                </div> -->
             </div>
             <div class="form-row ml-3">
                 <div class="form-group col-md-12  mt-2">
-                    <label for="courseDescription" class="label-1">Course Description</label>
-                    <input type="text" class="form-control input-3 " id="courseDescription"
-                        placeholder="Course Description" formControlName="courseDescription">
+                    <label for="COURSE_DESCRIPTION" class="label-1">Course Description <span
+                            class="text-danger">*</span></label>
+                    <textarea type="text" class="form-control input-3 mr-1" id="COURSE_DESCRIPTION" rows="6" cols="40"
+                        [ngClass]="{ 'is-invalid': courseSubmitted && c['COURSE_DESCRIPTION'].errors }"
+                        placeholder="Course Description" formControlName="COURSE_DESCRIPTION" ></textarea>
+                    <div *ngIf="courseSubmitted && c['COURSE_DESCRIPTION'].errors" class="invalid-feedback">
+                        <div class="form-validation-msg" *ngIf="c['COURSE_DESCRIPTION'].errors?.['required']"> Please
+                            course description</div>
+                    </div>
                 </div>
+
             </div>
         </form>
         <div class="row pull-right">
@@ -141,12 +278,12 @@
 
 
             <button class="btn-p pull-right ml-2" data-bs-toggle='offcanvas' data-bs-target=''
-                aria-controls='offcanvasExample'>
-                Save</button>
+                aria-controls='offcanvasExample' (click)="submitCourse()">
+                Save Only Course</button>
             <button class="btn-p pull-right ml-2" data-bs-toggle='offcanvas' data-bs-target=''
                 aria-controls='offcanvasExample'>
                 Add Quiz</button>
-            <button class="btn-p pull-right ml-2 mr-4" (click)="submit()">
+            <button class="btn-p pull-right ml-2 mr-4" (click)="submitModule()">
                 Add Module</button>
         </div>
     </div>
@@ -154,69 +291,108 @@
 <div class="offcanvas offcanvas-end offcanvas-border" tabindex="-1" id="filter1"
     aria-labelledby="offcanvasExampleLabel">
       <div class=" row offcanvas-header">
-        <!--     <h5 class="offcanvas-title" id="offcanvasExampleLabel">Offcanvas</h5> -->
         <h5 class="offcanvas-title add-module-title col-md-10" id="offcanvasExampleLabel">Add Module</h5>
             <button type="button" class="btn-close text-reset col-md-2" data-bs-dismiss="offcanvas"
             aria-label="Close"></button>
          
     </div>
       <div class="offcanvas-body add-module">
-        <form [formGroup]="addModuleForm">
+        <form [formGroup]="formAddModule">
             <div class="form-row ml-3 mt-2">
                 <div class="form-group col-md-6  mt-2">
-                    <label for="moduleName" class="label-1">Module Name</label>
-                    <input type="text" class="form-control input-4" id="moduleName" formControlName="moduleName"
+                    <label for="COURSE_NAME" class="label-1">Course Name <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control input-4" id="COURSE_NAME" formControlName="COURSE_NAME"
+                        readonly placeholder="Course Name">
+
+                </div>
+                <div class="form-group col-md-6  mt-2">
+                    <label for="MODULE_NAME" class="label-1">Module Name <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control input-4" id="MODULE_NAME" formControlName="MODULE_NAME"
+                        [ngClass]="{ 'is-invalid': moduleSubmitted && m['MODULE_NAME'].errors }"
                         placeholder="Module Name">
-                </div>
-                <div class="form-group col-md-3 mt-2">
-                    <label for="moduleNumber" class="label-1">Module Number</label>
-                    <input type="number" class="form-control input-5" id="moduleNumber" formControlName="moduleNumber"
-                        placeholder="Module Number">
-                </div>
-                <div class="form-group col-md-3 mt-2">
-                    <label for="duration" class="label-1">Duration</label>
-                    <input type="text" class="form-control input-5" id="duration" formControlName="duration"
-                        placeholder="Duration">
+                    <div *ngIf="moduleSubmitted && m['MODULE_NAME'].errors" class="invalid-feedback">
+                        <div class="form-validation-msg" *ngIf="m['MODULE_NAME'].errors?.['required']"> Please enter
+                            module name</div>
+                    </div>
                 </div>
             </div>
+            <div class="form-row ml-3 mt-2">
+                <div class="form-group col-md-6 mt-2">
+                    <label for="MODULE_NUMBER" class="label-1">Module Number <span class="text-danger">*</span></label>
+                    <input type="number" class="form-control input-5" id="MODULE_NUMBER" formControlName="MODULE_NUMBER"
+                        [ngClass]="{ 'is-invalid': moduleSubmitted && m['MODULE_NUMBER'].errors }"
+                        placeholder="Module Number">
+                    <div *ngIf="moduleSubmitted && m['MODULE_NUMBER'].errors" class="invalid-feedback">
+                        <div class="form-validation-msg" *ngIf="m['MODULE_NUMBER'].errors?.['required']"> Please enter
+                            module number</div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6 mt-2">
+                    <label for="MODULE_DURATION" class="label-1">Duration <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control input-5" id="MODULE_DURATION"
+                        [ngClass]="{ 'is-invalid': moduleSubmitted && m['MODULE_DURATION'].errors }"
+                        formControlName="MODULE_DURATION" placeholder="Duration">
+                    <div *ngIf="moduleSubmitted && m['MODULE_DURATION'].errors" class="invalid-feedback">
+                        <div class="form-validation-msg" *ngIf="m['MODULE_DURATION'].errors?.['required']"> Please enter
+                            duration </div>
+                    </div>
+                </div>
+            </div>
+
+
             <div class="form-row ml-3">
                 <div class="form-group col-md-12  mt-2">
-                    <label for="moduleDescription" class="label-1">Module Description</label>
-                    <input type="text" class="form-control input-3 " id="moduleDescription"
-                        placeholder="Module Description" formControlName="moduleDescription">
+                    <label for="MODULE_DESCRIPTION" class="label-1">Module Description</label>
+                    <textarea type="text" class="form-control input-3 mr-2" id="MODULE_DESCRIPTION"  rows="6" cols="40"
+                        [ngClass]="{ 'is-invalid': moduleSubmitted && m['MODULE_DESCRIPTION'].errors }"
+                        placeholder="Module Description" formControlName="MODULE_DESCRIPTION"> </textarea>
+                    <div *ngIf="moduleSubmitted && m['MODULE_DESCRIPTION'].errors" class="invalid-feedback">
+                        <div class="form-validation-msg" *ngIf="m['MODULE_DESCRIPTION'].errors?.['required']"> Please
+                            enter module description</div>
+                    </div>
                 </div>
             </div>
             <div class="form-row ml-3">
                 <div class="form-group col-md-6 mt-2">
-                    <label for="uploadThumbnail" class="label-1">Upload Your Thumbnail</label>
+                    <label for="THUMBNAIL_PATH" class="label-1">Upload Your Thumbnail <span class="text-danger">*</span></label>
                     <div class="upload-box text-center ">
-                        <div class=""> <img class=" img-upload" id="delnullFile" src="assets/img/Capture.png"
-                                (click)="setThumbnail($event)"></div>
-                        <small style="font-weight: 700;">Click here to upload or <br> drop media here</small>
-                        <input class="file-upload text-center" hidden type="file" id="fileThumbnail"
-                            accept="image/jpeg" name="myfile" formControlDOC_DOC_NAME="uploadThumbnail" #nam
-                            multiple>
+                        <div class="file-upload">
+                            <button (click)="fileupload.click()" style="all: unset;"><img class=" img-upload"
+                                    id="delnullFile" src="assets/img/Capture.png"></button>
+                        </div>
+                        <small style="font-weight: 700;margin-bottom: 2px;">Click here to upload or <br> drop media here</small>
+                        <input class="file-upload text-center" hidden type="file" id="THUMBNAIL_PATH"
+                            accept="image/jpeg" name="myfile" formControlDOC_DOC_NAME="THUMBNAIL_PATH"
+                            [ngClass]="{ 'is-invalid': moduleSubmitted && m['THUMBNAIL_PATH'].errors }"
+                            (change)="upload($event)" #fileupload multiple>
+                        <div *ngIf="moduleSubmitted && m['THUMBNAIL_PATH'].errors" class="invalid-feedback" style="margin-bottom: 10px;">
+                            <div class="form-validation-msg" *ngIf="m['THUMBNAIL_PATH'].errors?.['required']"> Please
+                                upload thumbnail</div>
+                        </div>
                     </div>
                 </div>
                 <div class="form-group col-md-6  mt-2">
 
-                        <label for="uploadVideo" class="label-1">Upload Your Video</label>
-                        <div class="upload-box text-center">
-                            <div class=""> <img class=" img-upload" id="delnullFile" src="assets/img/Capture.png"
-                                    (click)="setThumbnail($event)"></div>
-                            <small style="font-weight: 700;">Click here to upload or <br> drop media here</small>
-                            <input class="file-upload text-center" hidden type="file" id="fileThumbnail"
-                                accept="video/*" name="myfile" formControlDOC_DOC_NAME="uploadVideo" #nam
-                                multiple>
+                    <label for="VIDEO_PATH" class="label-1">Upload Your Video <span class="text-danger">*</span></label>
+                    <div class="upload-box text-center">
+                        <div class=""> <img class=" img-upload" id="delnullFile" src="assets/img/Capture.png"
+                                (click)="setThumbnail($event)"></div>
+                        <small style="font-weight: 700;">Click here to upload or <br> drop media here</small>
+                        <input class="file-upload text-center" hidden type="file" id="VIDEO_PATH" accept="video/*"
+                            [ngClass]="{ 'is-invalid': moduleSubmitted && m['VIDEO_PATH'].errors }"
+                            name="myfile" formControlDOC_DOC_NAME="VIDEO_PATH" #nam multiple>
+                        <div *ngIf="moduleSubmitted && m['VIDEO_PATH'].errors" class="invalid-feedback">
+                            <div class="form-validation-msg" *ngIf="m['VIDEO_PATH'].errors?.['required']"> Please upload video</div>
                         </div>
+                    </div>
                 </div>
             </div>
 
-            <button class="btn-add pull-right ml-2" (click)="SubmitModule()">
+            <button class="btn-add pull-right ml-2" (click)="addButton()">
                 Add</button>
 
-            <table class="table table-2">
-                <thead class="bg-head-1">
+            <div style="margin-left: 12px;"><table class="table table-scroll table-bordered">
+                <thead class="table-2 bg-head-1 ">
                     <tr>
                         <td>Module Name</td>
                         <td>Module Number</td>
@@ -227,25 +403,64 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let item of data1">
-                        <td>{{item?.coursename}}</td>
-                        <td>{{item?.noofmodule}}</td>
-                        <td>{{item?.noofsubmodule}}</td>
-                        <td>{{item?.category}}</td>
+                    <tr *ngFor="let item of arryAddModule">
+                        <td>{{item?.MODULE_NAME}}</td>
+                        <td>{{item?.MODULE_NUMBER}}</td>
+                        <td>{{item?.MODULE_DURATION}}</td>
+                        <td>{{item?.MODULE_DESCRIPTION}}</td>
                         <td class="">
-                            <div><a><i class='bx bx-trash' style='color:#e22326;size: 10px;'></i></a>
-                                <a><i class='bx bxs-edit'></i></a>
-                                <a><i class='bx bx-video-plus' style='color:#1a1a1a'></i></a>
-                                <a><i class='bx bx-list-ul bx-flip-vertical' style='color:#1a1a1a'></i></a>
+                            <div><a><i class='bx bx-trash' style='color:#e22326;size: 10px;font-size: 15px;'></i></a>
+                                <a><i class='bx bxs-edit' style="font-size: 15px;" (click)="editModule(item)"></i></a>
+                                <a><i class='bx bx-video-plus' style='color:#1a1a1a;font-size: 15px;'></i></a>
+                                <a><i class='bx bx-list-ul bx-flip-vertical'
+                                        style='color:#1a1a1a;font-size: 15px;'></i></a>
                             </div>
 
                         </td>
                     </tr>
                 </tbody>
-            </table>
+            </table></div>
+            
+
+
+            <!-- <div class="container">
+                <table class="table table-scroll table-striped">
+                    <thead>
+                        <tr>
+                            <td>Module Name</td>
+                            <td>Module Number</td>
+                            <td>Duration</td>
+                            <td>Module Description</td>
+                            <td>Action</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of arryAddModule">
+                            <td>{{item?.MODULE_NAME}}</td>
+                            <td>{{item?.MODULE_NUMBER}}</td>
+                            <td>{{item?.MODULE_DURATION}}</td>
+                            <td>{{item?.MODULE_DESCRIPTION}}</td>
+                            <td class="">
+                                <div><a><i class='bx bx-trash' style='color:#e22326;size: 10px;'></i></a>
+                                    <a><i class='bx bxs-edit'></i></a>
+                                    <a><i class='bx bx-video-plus' style='color:#1a1a1a'></i></a>
+                                    <a><i class='bx bx-list-ul bx-flip-vertical' style='color:#1a1a1a'></i></a>
+                                </div>
+    
+                            </td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div> -->
+
+
             <div class="row pull-right">
-                <button class="btn-p pull-right ml-2" (click)="SubmitModule()" aria-controls='offcanvasExample'>
+                <button class="btn-p pull-right ml-2" (click)="saveButton()" aria-controls='offcanvasExample'>
                     Save</button>
+                <button class="btn-p  ml-2" data-bs-toggle='offcanvas' aria-controls='offcanvasExample'
+                    data-bs-target='#filter'>
+                    Back</button>
 
             </div>
 
@@ -253,107 +468,3 @@
          
     </div>
 </div>
-<div id="div-1" class="container">
-    <div class="row">
-        <div class="col-md-2">
-            <input class="input-field" type="text" placeholder="Course Name">
-        </div>
-        <div class="col-md-2">
-            <input class="input-field" type="text" placeholder="No Of Module">
-        </div>
-        <div class="col-md-2">
-            <input class="input-field" type="text" placeholder="Category">
-        </div>
-        <div class="col-md-2">
-            <input class="input-field" type="text" placeholder="Sub Category">
-        </div>
-        <div class="col-md-2">
-
-            <select class="input-field" name="" id="" required>
-                <option value="" [disabled] selected hidden>Level Of Course</option>
-                <option value="Beginner">Beginner</option>
-                <option value="Advance">Advance</option>
-            </select>
-        </div>
-        <div class="col-md-2 mt-5 btn-div">
-            <img src="assets/img/search.png" class="btn-search" alt="">
-            <!-- <i class='bx bx-search button btn-search' style='color:#eeeeee'></i> -->
-            <i class='bx bx-search button btn-search' style='color:#ffffff'></i>
-            <!-- <i class="fa fa-search button btn-search" aria-hidden="true"></i> -->
-        </div>
-    </div>
-
-</div>
-<div class="table-1">
-    <table datatable [dtOptions]="dtoptions" class="table " style="outline-style: solid;outline-color: #ffffff;">
-        <thead class="bg-head text-white">
-            <tr>
-                <td>Course Name</td>
-                <td>No of Module</td>
-                <td>No of Sub Module</td>
-                <td>Category</td>
-                <td>Sub Category</td>
-                <td>Level of Course</td>
-                <td>Like</td>
-                <td>Purchased</td>
-                <td>View</td>
-                <td>Rating</td>
-                <td>Action</td>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let item of data">
-                <td>{{item?.coursename}}</td>
-                <td>{{item?.noofmodule}}</td>
-                <td>{{item?.noofsubmodule}}</td>
-                <td>{{item?.category}}</td>
-                <td>{{item?.subcategory}}</td>
-                <td>{{item?.levelofcourse}}</td>
-                <td>{{item?.like}}</td>
-                <td>{{item?.purchased}}</td>
-                <td>{{item?.view}}</td>
-                <td>{{item?.rating}}</td>
-                <td>
-                    <div><a data-bs-toggle="modal" data-bs-target="#exampleModalCenter" aria-controls='exampleModal'>
-                        <i class='bx bx-trash' style='color:#e22326;size: 100px;'></i></a>
-                        <a  data-bs-toggle='offcanvas' data-bs-target='#filter'
-                        aria-controls='offcanvasExample'><i class='bx bxs-edit'></i></a>
-                        <a><i class='bx bx-video-plus' style='color:#1a1a1a'></i></a>
-                        <a><i class='bx bx-list-ul bx-flip-vertical' style='color:#1a1a1a'></i></a>
-                    </div>
-
-                </td>
-            </tr>
-        </tbody>
-    </table>
-
-</div>
-
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
-    Launch demo modal
-  </button>
-  
-  <!-- Modal -->
-  <div class="modal fade in" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content modal-popup-content">
-        <div class="row">
-          <h5 class="col-md-9" id="exampleModalCenterTitle">
-            <img src="assets/img/cross-click.png" class=" modal-popup-title" alt="">
-            <!-- <i class='bx bx-x-circle modal-popup-title' style='color:#e41616'  ></i> -->
-        </h5>
-          <button type="button" class="close col-md-3 ml-3 " data-bs-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body modal-popup-body">
-          Are you sure you want to delete this record?
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-primary">Yes</button>
-        </div>
-      </div>
-    </div>
-  </div>
