@@ -117,9 +117,8 @@
 
 </div>
 <div class="table-1">
-    <table datatable [dtOptions]="dtoptions" class="table bg-head table-hover"
-       >
-        <thead  class="text-center" >
+    <table datatable [dtOptions]="dtoptions" class="table bg-head table-hover">
+        <thead class="text-center">
             <tr>
                 <th style="padding-left: 60px;padding-top: 20px;">Course Name</th>
                 <th>No of Module</th>
@@ -245,7 +244,7 @@
                             class="text-danger">*</span></label>
                     <textarea type="text" class="form-control  input-3 mr-1" id="COURSE_OUTCOME" rows="6" cols="40"
                         [ngClass]="{ 'is-invalid': courseSubmitted && c['COURSE_OUTCOME'].errors }"
-                        placeholder="What you will learn" rows="7" formControlName="COURSE_OUTCOME" ></textarea>
+                        placeholder="What you will learn" rows="7" formControlName="COURSE_OUTCOME"></textarea>
                     <div *ngIf="courseSubmitted && c['COURSE_OUTCOME'].errors" class="invalid-feedback">
                         <div class="form-validation-msg" *ngIf="c['COURSE_OUTCOME'].errors?.['required']"> Please enter
                             course outcome </div>
@@ -263,7 +262,7 @@
                             class="text-danger">*</span></label>
                     <textarea type="text" class="form-control input-3 mr-1" id="COURSE_DESCRIPTION" rows="6" cols="40"
                         [ngClass]="{ 'is-invalid': courseSubmitted && c['COURSE_DESCRIPTION'].errors }"
-                        placeholder="Course Description" formControlName="COURSE_DESCRIPTION" ></textarea>
+                        placeholder="Course Description" formControlName="COURSE_DESCRIPTION"></textarea>
                     <div *ngIf="courseSubmitted && c['COURSE_DESCRIPTION'].errors" class="invalid-feedback">
                         <div class="form-validation-msg" *ngIf="c['COURSE_DESCRIPTION'].errors?.['required']"> Please
                             course description</div>
@@ -343,7 +342,7 @@
             <div class="form-row ml-3">
                 <div class="form-group col-md-12  mt-2">
                     <label for="MODULE_DESCRIPTION" class="label-1">Module Description</label>
-                    <textarea type="text" class="form-control input-3 mr-2" id="MODULE_DESCRIPTION"  rows="6" cols="40"
+                    <textarea type="text" class="form-control input-3 mr-2" id="MODULE_DESCRIPTION" rows="6" cols="40"
                         [ngClass]="{ 'is-invalid': moduleSubmitted && m['MODULE_DESCRIPTION'].errors }"
                         placeholder="Module Description" formControlName="MODULE_DESCRIPTION"> </textarea>
                     <div *ngIf="moduleSubmitted && m['MODULE_DESCRIPTION'].errors" class="invalid-feedback">
@@ -354,18 +353,21 @@
             </div>
             <div class="form-row ml-3">
                 <div class="form-group col-md-6 mt-2">
-                    <label for="THUMBNAIL_PATH" class="label-1">Upload Your Thumbnail <span class="text-danger">*</span></label>
+                    <label for="THUMBNAIL_PATH" class="label-1">Upload Your Thumbnail <span
+                            class="text-danger">*</span></label>
                     <div class="upload-box text-center ">
                         <div class="file-upload">
                             <button (click)="fileupload.click()" style="all: unset;"><img class=" img-upload"
                                     id="delnullFile" src="assets/img/Capture.png"></button>
                         </div>
-                        <small style="font-weight: 700;margin-bottom: 2px;">Click here to upload or <br> drop media here</small>
+                        <small style="font-weight: 700;margin-bottom: 2px;">Click here to upload or <br> drop media
+                            here</small>
                         <input class="file-upload text-center" hidden type="file" id="THUMBNAIL_PATH"
                             accept="image/jpeg" name="myfile" formControlDOC_DOC_NAME="THUMBNAIL_PATH"
                             [ngClass]="{ 'is-invalid': moduleSubmitted && m['THUMBNAIL_PATH'].errors }"
                             (change)="upload($event)" #fileupload multiple>
-                        <div *ngIf="moduleSubmitted && m['THUMBNAIL_PATH'].errors" class="invalid-feedback" style="margin-bottom: 10px;">
+                        <div *ngIf="moduleSubmitted && m['THUMBNAIL_PATH'].errors" class="invalid-feedback"
+                            style="margin-bottom: 10px;">
                             <div class="form-validation-msg" *ngIf="m['THUMBNAIL_PATH'].errors?.['required']"> Please
                                 upload thumbnail</div>
                         </div>
@@ -379,10 +381,11 @@
                                 (click)="setThumbnail($event)"></div>
                         <small style="font-weight: 700;">Click here to upload or <br> drop media here</small>
                         <input class="file-upload text-center" hidden type="file" id="VIDEO_PATH" accept="video/*"
-                            [ngClass]="{ 'is-invalid': moduleSubmitted && m['VIDEO_PATH'].errors }"
-                            name="myfile" formControlDOC_DOC_NAME="VIDEO_PATH" #nam multiple>
+                            [ngClass]="{ 'is-invalid': moduleSubmitted && m['VIDEO_PATH'].errors }" name="myfile"
+                            formControlDOC_DOC_NAME="VIDEO_PATH" #nam multiple>
                         <div *ngIf="moduleSubmitted && m['VIDEO_PATH'].errors" class="invalid-feedback">
-                            <div class="form-validation-msg" *ngIf="m['VIDEO_PATH'].errors?.['required']"> Please upload video</div>
+                            <div class="form-validation-msg" *ngIf="m['VIDEO_PATH'].errors?.['required']"> Please upload
+                                video</div>
                         </div>
                     </div>
                 </div>
@@ -391,36 +394,40 @@
             <button class="btn-add pull-right ml-2" (click)="addButton()">
                 Add</button>
 
-            <div style="margin-left: 12px;"><table class="table table-scroll table-bordered">
-                <thead class="table-2 bg-head-1 ">
-                    <tr>
-                        <td>Module Name</td>
-                        <td>Module Number</td>
-                        <td>Duration</td>
-                        <td>Module Description</td>
-                        <td>Action</td>
+            <div style="margin-left: 12px;">
+                <table class="table table-scroll table-bordered">
+                    <thead class="table-2 bg-head-1 ">
+                        <tr>
+                            <td>Module Name</td>
+                            <td>Module Number</td>
+                            <td>Duration</td>
+                            <td>Module Description</td>
+                            <td>Action</td>
 
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let item of arryAddModule">
-                        <td>{{item?.MODULE_NAME}}</td>
-                        <td>{{item?.MODULE_NUMBER}}</td>
-                        <td>{{item?.MODULE_DURATION}}</td>
-                        <td>{{item?.MODULE_DESCRIPTION}}</td>
-                        <td class="">
-                            <div><a><i class='bx bx-trash' style='color:#e22326;size: 10px;font-size: 15px;'></i></a>
-                                <a><i class='bx bxs-edit' style="font-size: 15px;" (click)="editModule(item)"></i></a>
-                                <a><i class='bx bx-video-plus' style='color:#1a1a1a;font-size: 15px;'></i></a>
-                                <a><i class='bx bx-list-ul bx-flip-vertical'
-                                        style='color:#1a1a1a;font-size: 15px;'></i></a>
-                            </div>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of arryAddModule">
+                            <td>{{item?.MODULE_NAME}}</td>
+                            <td>{{item?.MODULE_NUMBER}}</td>
+                            <td>{{item?.MODULE_DURATION}}</td>
+                            <td>{{item?.MODULE_DESCRIPTION}}</td>
+                            <td class="">
+                                <div><a><i class='bx bx-trash'
+                                            style='color:#e22326;size: 10px;font-size: 15px;'></i></a>
+                                    <a><i class='bx bxs-edit' style="font-size: 15px;"
+                                            (click)="editModule(item)"></i></a>
+                                    <a><i class='bx bx-video-plus' style='color:#1a1a1a;font-size: 15px;'></i></a>
+                                    <a><i class='bx bx-list-ul bx-flip-vertical'
+                                            style='color:#1a1a1a;font-size: 15px;'></i></a>
+                                </div>
 
-                        </td>
-                    </tr>
-                </tbody>
-            </table></div>
-            
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
 
 
             <!-- <div class="container">

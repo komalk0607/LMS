@@ -15,7 +15,7 @@ export class CourseUploadComponent implements OnInit {
 
   @ViewChild("addModule") addModule: any;
 
- 
+
   formAddCourse!: FormGroup;
   formAddModule!: FormGroup;
   formSearchGrid!: FormGroup;
@@ -30,8 +30,8 @@ export class CourseUploadComponent implements OnInit {
   fileToUpload: any = [];
   arrfileData: any;
   index: any;
-  courseSubmitted: boolean=false;
-  moduleSubmitted: boolean=false;
+  courseSubmitted: boolean = false;
+  moduleSubmitted: boolean = false;
 
   constructor(private fb: FormBuilder, private modalservice: NgbModal, private service: CourseServiceService, private http: HttpClient) {
 
@@ -39,7 +39,7 @@ export class CourseUploadComponent implements OnInit {
   ngOnInit(): void {
     sessionStorage.removeItem('courseDetails');
     sessionStorage.removeItem('SingleModuleData');
-    
+
     this.getGridData();
     this.dtoptions = {
       pagingType: 'full_numbers',
@@ -49,7 +49,7 @@ export class CourseUploadComponent implements OnInit {
     this.addModuleForm();
   }
   get c() {
-    
+
     return this.formAddCourse.controls;
   }
   get m() {
@@ -81,7 +81,7 @@ export class CourseUploadComponent implements OnInit {
   }
   addModuleForm() {
     this.formAddModule = this.fb.group({
-      COURSE_NAME:[null],
+      COURSE_NAME: [null],
       MODULE_NAME: [null, [Validators.required]],
       MODULE_NUMBER: [null, [Validators.required]],
       MODULE_DESCRIPTION: [null, [Validators.required]],
@@ -146,30 +146,30 @@ export class CourseUploadComponent implements OnInit {
   }
   submitModule() {
     debugger
-    this.courseSubmitted=true;
-    this.moduleSubmitted=false;
-   if(this.formAddCourse.valid){
-    this.formAddModule.controls['COURSE_NAME'].setValue(this.formAddCourse.controls['COURSE_NAME']?.value);
-    if (this.editData?.MODULE) {
-      for (let i = 0; i <= this.editData.MODULE.length - 1; i++) {
-        this.arryAddModule.push(this.editData.MODULE[i]);
+    this.courseSubmitted = true;
+    this.moduleSubmitted = false;
+    if (this.formAddCourse.valid) {
+      this.formAddModule.controls['COURSE_NAME'].setValue(this.formAddCourse.controls['COURSE_NAME']?.value);
+      if (this.editData?.MODULE) {
+        for (let i = 0; i <= this.editData.MODULE.length - 1; i++) {
+          this.arryAddModule.push(this.editData.MODULE[i]);
+        }
       }
+      else {
+
+      }
+      this.addModule.nativeElement.click()
     }
-    else{
-      
-    }
-    this.addModule.nativeElement.click()
-   }
   }
   addButton() {
     debugger
-    this.moduleSubmitted=true;
-   const singleModuleData=JSON.parse(`${sessionStorage.getItem("SingleModuleData")}`)
-    if(this.formAddModule.valid){
-      if(singleModuleData){
-        this.arryAddModule.splice(this.index,1)
+    this.moduleSubmitted = true;
+    const singleModuleData = JSON.parse(`${sessionStorage.getItem("SingleModuleData")}`)
+    if (this.formAddModule.valid) {
+      if (singleModuleData) {
+        this.arryAddModule.splice(this.index, 1)
         const ADDMODULEDATA = {
-          "MODULE_ID":singleModuleData.MODULE_ID,
+          "MODULE_ID": singleModuleData.MODULE_ID,
           "MODULE_NAME": this.formAddModule.controls['MODULE_NAME']?.value,
           "MODULE_NUMBER": this.formAddModule.controls['MODULE_NUMBER']?.value,
           "MODULE_DURATION": this.formAddModule.controls['MODULE_DURATION']?.value,
@@ -180,9 +180,9 @@ export class CourseUploadComponent implements OnInit {
         this.arryAddModule.push(ADDMODULEDATA);
         sessionStorage.removeItem('SingleModuleData');
         this.formAddModule.reset();
-       }
-       else {
-        this.arryAddModule.slice(this.index,1)
+      }
+      else {
+        this.arryAddModule.slice(this.index, 1)
         const ADDMODULEDATA = {
           "MODULE_NAME": this.formAddModule.controls['MODULE_NAME']?.value,
           "MODULE_NUMBER": this.formAddModule.controls['MODULE_NUMBER']?.value,
@@ -193,18 +193,18 @@ export class CourseUploadComponent implements OnInit {
         }
         this.arryAddModule.push(ADDMODULEDATA);
         this.formAddModule.reset();
-       }
-        
+      }
+
     }
-   
+
   }
   saveButton() {
     debugger
-    
-    if(this.arryAddModule.length==0){
+
+    if (this.arryAddModule.length == 0) {
       Swal.fire('Add atleast one module')
     }
-    else{
+    else {
       var obj = {
         "COURSE_NAME": this.formAddCourse.controls['COURSE_NAME'].value,
         "COURSE_DESCRIPTION": this.formAddCourse.controls['COURSE_DESCRIPTION'].value,
@@ -218,7 +218,7 @@ export class CourseUploadComponent implements OnInit {
         "CREATED_DATE": '2023-08-07T11:02:46.055Z',
         "UPDATED_BY": 'string',
         "UPDATED_DATE": '2023-08-07T11:02:46.055Z',
-  
+
         "MODULE": this.arryAddModule,
       }
       console.log(obj)
@@ -234,7 +234,7 @@ export class CourseUploadComponent implements OnInit {
         }
       })
     }
-   
+
 
   }
   setThumbnail(e: any) {
@@ -325,11 +325,11 @@ export class CourseUploadComponent implements OnInit {
   }
   editModule(value: any) {
     debugger
-   const courseAndModuleDetails=JSON.parse(`${sessionStorage.getItem("courseAndModuleDetails")}`)
+    const courseAndModuleDetails = JSON.parse(`${sessionStorage.getItem("courseAndModuleDetails")}`)
 
-    this.index  = courseAndModuleDetails.MODULE.findIndex((i: { MODULE_NUMBER: Number; }) => i.MODULE_NUMBER === value.MODULE_NUMBER);
+    this.index = courseAndModuleDetails.MODULE.findIndex((i: { MODULE_NUMBER: Number; }) => i.MODULE_NUMBER === value.MODULE_NUMBER);
     this.formAddModule.patchValue(value);
-    sessionStorage.setItem('SingleModuleData',JSON.stringify(value));
+    sessionStorage.setItem('SingleModuleData', JSON.stringify(value));
   }
   searchGrid() {
     debugger
