@@ -15,10 +15,10 @@ export class CourseServiceService {
   }
   getCourseGridData(obj:Course) {
     debugger
-    return this.http.get<any>(this.baseUrl + "GetCourse?CREATED_BY=" +obj.CREATED_BY)
+    return this.http.get<any>(this.baseUrl + "GetAllCourse?CREATED_BY=" +obj.CREATED_BY)
   }
   getCourseById(obj:Course){
-    return this.http.get<any>(this.baseUrl + "GetByIdCourse?COURSE_ID=" +obj.COURSE_ID)
+    return this.http.get<any>(this.baseUrl + "GetCourseById?COURSE_ID=" +obj.COURSE_ID)
   }
   insertCourseData(obj:any){
     debugger

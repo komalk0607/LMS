@@ -365,7 +365,7 @@
                         <input class="file-upload text-center" hidden type="file" id="THUMBNAIL_PATH"
                             accept="image/jpeg" name="myfile" formControlDOC_DOC_NAME="THUMBNAIL_PATH"
                             [ngClass]="{ 'is-invalid': moduleSubmitted && m['THUMBNAIL_PATH'].errors }"
-                            (change)="upload($event)" #fileupload multiple>
+                            (change)="uploadThumbnail($event)" #fileupload multiple>
                         <div *ngIf="moduleSubmitted && m['THUMBNAIL_PATH'].errors" class="invalid-feedback"
                             style="margin-bottom: 10px;">
                             <div class="form-validation-msg" *ngIf="m['THUMBNAIL_PATH'].errors?.['required']"> Please
@@ -373,12 +373,32 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group col-md-6  mt-2">
+                <div class="form-group col-md-6 mt-2">
+                    <label for="VIDEO_PATH" class="label-1">Upload Your Video <span
+                            class="text-danger">*</span></label>
+                    <div class="upload-box text-center ">
+                        <div class="file-upload">
+                            <button (click)="fileupload1.click()" style="all: unset;"><img class=" img-upload"
+                                    id="delnullFile" src="assets/img/Capture.png"></button>
+                        </div>
+                        <small style="font-weight: 700;margin-bottom: 2px;">Click here to upload or <br> drop media
+                            here</small>
+                        <input class="file-upload text-center" hidden type="file" id="VIDEO_PATH"
+                            accept="video/*" name="myfile" formControlDOC_DOC_NAME="VIDEO_PATH"
+                            [ngClass]="{ 'is-invalid': moduleSubmitted && m['VIDEO_PATH'].errors }"
+                            (change)="uploadVideo($event)" #fileupload1 multiple>
+                        <div *ngIf="moduleSubmitted && m['VIDEO_PATH'].errors" class="invalid-feedback"
+                            style="margin-bottom: 10px;">
+                            <div class="form-validation-msg" *ngIf="m['VIDEO_PATH'].errors?.['required']"> Please
+                                upload video</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="form-group col-md-6  mt-2">
 
                     <label for="VIDEO_PATH" class="label-1">Upload Your Video <span class="text-danger">*</span></label>
                     <div class="upload-box text-center">
-                        <div class=""> <img class=" img-upload" id="delnullFile" src="assets/img/Capture.png"
-                                (click)="setThumbnail($event)"></div>
+                        <div class=""> <img class=" img-upload" id="delnullFile" src="assets/img/Capture.png"></div>
                         <small style="font-weight: 700;">Click here to upload or <br> drop media here</small>
                         <input class="file-upload text-center" hidden type="file" id="VIDEO_PATH" accept="video/*"
                             [ngClass]="{ 'is-invalid': moduleSubmitted && m['VIDEO_PATH'].errors }" name="myfile"
@@ -388,7 +408,7 @@
                                 video</div>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
 
             <button class="btn-add pull-right ml-2" (click)="addButton()">
@@ -463,7 +483,7 @@
 
 
             <div class="row pull-right">
-                <button class="btn-p pull-right ml-2" (click)="saveButton()" aria-controls='offcanvasExample'>
+                <button class="btn-p pull-right ml-2" (click)="saveButton()" data-bs-toggle='offcanvas' aria-controls='offcanvasExample'>
                     Save</button>
                 <button class="btn-p  ml-2" data-bs-toggle='offcanvas' aria-controls='offcanvasExample'
                     data-bs-target='#filter'>

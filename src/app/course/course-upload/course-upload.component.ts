@@ -22,6 +22,28 @@ export class CourseUploadComponent implements OnInit {
   dtoptions: DataTables.Settings = {}
   dtTrigger: Subject<any> = new Subject<any>();
   formGlag: boolean = false;
+  // data=[{
+  //   "COURSE_ID":1,
+  //   "COURSE_NAME":"Api",
+  //   "NO_OF_MODULES":"2",
+  //   "CATEGORY":"test",
+  //   "SUB_CATEGORY":"test",
+  //   "LEVEL_OF_COURSE":"advance",
+  // },{
+  //   "COURSE_ID":1,
+  //   "COURSE_NAME":"springboot",
+  //   "NO_OF_MODULES":"2",
+  //   "CATEGORY":"test",
+  //   "SUB_CATEGORY":"test",
+  //   "LEVEL_OF_COURSE":"advance",
+  // },{
+  //   "COURSE_ID":1,
+  //   "COURSE_NAME":"Api",
+  //   "NO_OF_MODULES":"2",
+  //   "CATEGORY":"test",
+  //   "SUB_CATEGORY":"test",
+  //   "LEVEL_OF_COURSE":"advance",
+  // }];
   data: any;
   editData: any;
   arryAddModule: any = [];
@@ -32,6 +54,8 @@ export class CourseUploadComponent implements OnInit {
   index: any;
   courseSubmitted: boolean = false;
   moduleSubmitted: boolean = false;
+  thumbnailData: FormData = new FormData();
+  videoData: FormData = new FormData();
 
   constructor(private fb: FormBuilder, private modalservice: NgbModal, private service: CourseServiceService, private http: HttpClient) {
 
@@ -123,13 +147,13 @@ export class CourseUploadComponent implements OnInit {
         "UPDATED_BY": 'string',
         "UPDATED_DATE": '2023-08-07T11:02:46.055Z',
 
-        "MODULES": [
+        "MODULE": [
 
         ]
       }
       this.service.insertCourseData(obj).subscribe(res => {
         debugger
-        if (res.ResponseCode == 200) {
+        if (res.responseCode == 200) {
           Swal.fire({
             icon: 'success',
             title: 'Your course has been saved',
@@ -161,9 +185,19 @@ export class CourseUploadComponent implements OnInit {
       this.addModule.nativeElement.click()
     }
   }
+  uploadThumbnail(event: any) {
+
+    this.fileToUpload = event.target.files[0] as File;
+    this.thumbnailData.append('file', this.fileToUpload, this.fileToUpload.name);
+  }
+  uploadVideo(event: any) {
+
+    this.fileToUpload = event.target.files[0] as File;
+    this.videoData.append('file', this.fileToUpload, this.fileToUpload.name);
+  }
   addButton() {
     debugger
-    this.moduleSubmitted = true;
+
     const singleModuleData = JSON.parse(`${sessionStorage.getItem("SingleModuleData")}`)
     if (this.formAddModule.valid) {
       if (singleModuleData) {
@@ -188,16 +222,20 @@ export class CourseUploadComponent implements OnInit {
           "MODULE_NUMBER": this.formAddModule.controls['MODULE_NUMBER']?.value,
           "MODULE_DURATION": this.formAddModule.controls['MODULE_DURATION']?.value,
           "MODULE_DESCRIPTION": this.formAddModule.controls['MODULE_DESCRIPTION']?.value,
-          "THUMBNAIL_PATH": this.formAddModule.controls['THUMBNAIL_PATH']?.value,
-          "VIDEO_PATH": this.formAddModule.controls['VIDEO_PATH']?.value,
+          "THUMBNAIL_PATH": "string",
+          "VIDEO_PATH": "string",
         }
         this.arryAddModule.push(ADDMODULEDATA);
         this.formAddModule.reset();
       }
 
     }
+    else {
+      this.moduleSubmitted = true;
+    }
 
   }
+
   saveButton() {
     debugger
 
@@ -223,19 +261,43 @@ export class CourseUploadComponent implements OnInit {
       }
       console.log(obj)
       this.service.insertCourseData(obj).subscribe(res => {
-        if (res.ResponseCode == 200) {
-          Swal.fire({
-            icon: 'success',
-            title: 'Your course has been saved',
-            showConfirmButton: false,
-            timer: 1500
-          })
-          this.getGridData();
+        if (res.responseCode == 200) {
+         this.insertThumbnail(res.data);
         }
       })
     }
-
-
+  }
+  insertThumbnail(value:number){
+    debugger
+    var obj = new Course();
+    obj.COURSE_ID = value;
+    obj.file = this.thumbnailData;
+    this.service.uploadFiles(obj).subscribe(res => {
+      debugger
+      if(res.responseMessage=='Thumbnail Uploaded SuccessFully!'){
+        this.insertVideo(value)
+      }
+      
+    })
+  }
+  insertVideo(value:number){
+    debugger
+    var obj = new Course();
+    obj.COURSE_ID = value;
+    obj.file = this.videoData;
+    this.service.uploadFiles(obj).subscribe(res => {
+      debugger
+      if(res.responseMessage=='Course Uploaded SuccessFully!'){
+        Swal.fire({
+          icon: 'success',
+          title: 'Your course has been saved',
+          showConfirmButton: false,
+          timer: 1500
+        })
+        this.getGridData();
+      }
+      
+    })
   }
   setThumbnail(e: any) {
     debugger
@@ -243,23 +305,8 @@ export class CourseUploadComponent implements OnInit {
     if (fThumbnail) {
       fThumbnail.click();
     }
-
-
-
   }
-  upload(event: any) {
-    const formData: FormData = new FormData();
-    this.fileToUpload = event.target.files[0] as File;
-    formData.append('file', this.fileToUpload, this.fileToUpload.name)
-    var obj = new Course();
-    obj.COURSE_ID = 37;
-    obj.file = formData;
-    this.service.uploadFiles(obj).subscribe(res => {
-      debugger
-    })
 
-    debugger
-  }
   deleteCourse(item: number) {
     debugger
     const swalWithBootstrapButtons = Swal.mixin({
@@ -362,6 +409,8 @@ export class CourseUploadComponent implements OnInit {
 
   closeCanvas() {
     debugger
+    this.courseSubmitted = false;
+    this.moduleSubmitted = false;
     this.formAddCourse.reset();
     this.formAddModule.reset();
     this.arryAddModule = [];
