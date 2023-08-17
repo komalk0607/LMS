@@ -1,3 +1,5 @@
+<app-side-bar></app-side-bar>
+
 <div class="container">
     <div class="row">
         <div class="card-group">
@@ -127,7 +129,7 @@
                 <th>Sub Category</th>
                 <th>Level of Course</th>
                 <th>Like</th>
-                <th>Purchased</th>
+
                 <th>View</th>
                 <th>Rating</th>
                 <th style="width: 120px;">Action</th>
@@ -141,7 +143,6 @@
                 <td>{{item?.CATEGORY}}</td>
                 <td>{{item?.SUB_CATEGORY}}</td>
                 <td>{{item?.LEVEL_OF_COURSE}}</td>
-                <td>-</td>
                 <td>-</td>
                 <td>-</td>
                 <td>-</td>
@@ -279,7 +280,7 @@
             <button class="btn-p pull-right ml-2" data-bs-toggle='offcanvas' data-bs-target=''
                 aria-controls='offcanvasExample' (click)="submitCourse()">
                 Save Only Course</button>
-            <button class="btn-p pull-right ml-2" data-bs-toggle='offcanvas' data-bs-target=''
+            <button class="btn-p pull-right ml-2" data-bs-toggle='offcanvas' data-bs-target='#filter2'
                 aria-controls='offcanvasExample'>
                 Add Quiz</button>
             <button class="btn-p pull-right ml-2 mr-4" (click)="submitModule()">
@@ -355,17 +356,28 @@
                 <div class="form-group col-md-6 mt-2">
                     <label for="THUMBNAIL_PATH" class="label-1">Upload Your Thumbnail <span
                             class="text-danger">*</span></label>
-                    <div class="upload-box text-center ">
-                        <div class="file-upload">
+                    <div class="upload-box text-center">
+                        <div *ngIf="!imageSrc" class="file-upload ">
                             <button (click)="fileupload.click()" style="all: unset;"><img class=" img-upload"
                                     id="delnullFile" src="assets/img/Capture.png"></button>
                         </div>
-                        <small style="font-weight: 700;margin-bottom: 2px;">Click here to upload or <br> drop media
+                        <small *ngIf="!imageSrc" style="font-weight: 700;margin-bottom: 2px;">Click here to
+                            upload or <br> drop media
                             here</small>
+                        <!-- <small *ngIf="fileToUpload.length!=0" style="font-weight: 700;margin-bottom: 2px;">{{fileToUpload.name}}</small> -->
                         <input class="file-upload text-center" hidden type="file" id="THUMBNAIL_PATH"
                             accept="image/jpeg" name="myfile" formControlDOC_DOC_NAME="THUMBNAIL_PATH"
                             [ngClass]="{ 'is-invalid': moduleSubmitted && m['THUMBNAIL_PATH'].errors }"
                             (change)="uploadThumbnail($event)" #fileupload multiple>
+
+                        <div class="row" *ngIf="imageSrc" >
+                            <img [src]="imageSrc" class="col-md-10" 
+                            style="margin-left:14px; margin-right:4px; margin-top: -13px; height: 80px; width: 220px;">
+                            <button type="button" class="col-md-2 btn-close btn-btn-close" style="margin-left:-20px; margin-top:-18px" (click)="uploadCrossClick('image')"></button>
+                            
+                        </div>
+
+
                         <div *ngIf="moduleSubmitted && m['THUMBNAIL_PATH'].errors" class="invalid-feedback"
                             style="margin-bottom: 10px;">
                             <div class="form-validation-msg" *ngIf="m['THUMBNAIL_PATH'].errors?.['required']"> Please
@@ -374,19 +386,30 @@
                     </div>
                 </div>
                 <div class="form-group col-md-6 mt-2">
-                    <label for="VIDEO_PATH" class="label-1">Upload Your Video <span
-                            class="text-danger">*</span></label>
+                    <label for="VIDEO_PATH" class="label-1">Upload Your Video <span class="text-danger">*</span></label>
                     <div class="upload-box text-center ">
-                        <div class="file-upload">
+                        <div *ngIf="!videoSrc" class="file-upload">
                             <button (click)="fileupload1.click()" style="all: unset;"><img class=" img-upload"
                                     id="delnullFile" src="assets/img/Capture.png"></button>
                         </div>
-                        <small style="font-weight: 700;margin-bottom: 2px;">Click here to upload or <br> drop media
+                        <small *ngIf="!videoSrc" style="font-weight: 700;margin-bottom: 2px;">Click here
+                            to upload or <br> drop media
                             here</small>
-                        <input class="file-upload text-center" hidden type="file" id="VIDEO_PATH"
-                            accept="video/*" name="myfile" formControlDOC_DOC_NAME="VIDEO_PATH"
+                        <input class="file-upload text-center" hidden type="file" id="VIDEO_PATH" accept="video/*"
+                            name="myfile" formControlDOC_DOC_NAME="VIDEO_PATH"
                             [ngClass]="{ 'is-invalid': moduleSubmitted && m['VIDEO_PATH'].errors }"
                             (change)="uploadVideo($event)" #fileupload1 multiple>
+                            <div class="row" *ngIf="videoSrc" >
+                                <video [src]="videoSrc" type="video/mp4" class="col-md-10" 
+                                style="margin-left:14px; margin-right:4px; margin-top: -13px; height: 80px; width: 220px;" *ngIf="videoSrc" controls muted autoplay> </video>
+                                <button type="button" class="col-md-2 btn-close btn-btn-close" style="margin-left:-20px; margin-top:-18px" (click)="uploadCrossClick('video')"></button>
+                                
+                            </div>
+                       
+
+                        <!-- <video autoplay muted>
+                                <source src="videoSrc" *ngIf="videoSrc" style="margin-top:-13px;height: 80px; width: 200px;"type="video/mp4" />
+                            </video> -->
                         <div *ngIf="moduleSubmitted && m['VIDEO_PATH'].errors" class="invalid-feedback"
                             style="margin-bottom: 10px;">
                             <div class="form-validation-msg" *ngIf="m['VIDEO_PATH'].errors?.['required']"> Please
@@ -394,7 +417,7 @@
                         </div>
                     </div>
                 </div>
-                
+                <!-- <h1></h1> -->
                 <!-- <div class="form-group col-md-6  mt-2">
 
                     <label for="VIDEO_PATH" class="label-1">Upload Your Video <span class="text-danger">*</span></label>
@@ -419,6 +442,7 @@
                 <table class="table table-scroll table-bordered">
                     <thead class="table-2 bg-head-1 ">
                         <tr>
+                            <td>Sr.No</td>
                             <td>Module Name</td>
                             <td>Module Number</td>
                             <td>Duration</td>
@@ -428,13 +452,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let item of arryAddModule">
+                        <tr *ngFor="let item of arryAddModule,let i=index">
+                           <td>{{i+1}}</td>
                             <td>{{item?.MODULE_NAME}}</td>
                             <td>{{item?.MODULE_NUMBER}}</td>
                             <td>{{item?.MODULE_DURATION}}</td>
                             <td>{{item?.MODULE_DESCRIPTION}}</td>
                             <td class="">
-                                <div><a><i class='bx bx-trash'
+                                <div><a><i class='bx bx-trash' (click)="deleteModuleById(item?.MODULE_ID)"
                                             style='color:#e22326;size: 10px;font-size: 15px;'></i></a>
                                     <a><i class='bx bxs-edit' style="font-size: 15px;"
                                             (click)="editModule(item)"></i></a>
@@ -484,7 +509,8 @@
 
 
             <div class="row pull-right">
-                <button class="btn-p pull-right ml-2" (click)="saveButton()" data-bs-toggle='offcanvas' aria-controls='offcanvasExample'>
+                <button class="btn-p pull-right ml-2" (click)="saveButton()" data-bs-toggle='offcanvas'
+                    aria-controls='offcanvasExample'>
                     Save</button>
                 <button class="btn-p  ml-2" data-bs-toggle='offcanvas' aria-controls='offcanvasExample'
                     data-bs-target='#filter'>
@@ -493,6 +519,94 @@
             </div>
 
         </form>
+         
+    </div>
+</div>
+
+<div class="offcanvas offcanvas-end offcanvas-border" tabindex="-1" id="filter2"
+    aria-labelledby="offcanvasExampleLabel">
+      <div class=" row offcanvas-header">
+        <h5 class="offcanvas-title add-module-title col-md-10" id="offcanvasExampleLabel">Final Quiz</h5>
+            <button type="button" class="btn-close text-reset col-md-2" data-bs-dismiss="offcanvas"
+            aria-label="Close"></button>
+         
+    </div>
+      <div class="offcanvas-body" style="margin-top:-50px;">
+
+
+        <div class=" row add-quiz-card shadow p-3 mb-5 bg-white rounded">
+            <div class="row">
+                <input class=" col-md-11 add-question" type="text" name="" id="" placeholder="Add Questions">
+                <button class="col-md-1 quiz-btn-1">Add More</button>
+            </div>
+
+            <div class="container">
+                <div class="row">
+                    <table class="table">
+                        <tr>
+                            <th>No.</th>
+                            <th>Option</th>
+                            <th>Correct Options</th>
+                        </tr>
+                        <tr>
+                            <th>1</th>
+                            <th><input class="form-control" type="text"></th>
+                            <th><input type="radio"></th>
+                        </tr>
+                        <tr>
+                            <th>2</th>
+                            <th><input class="form-control" type="text"></th>
+                            <th><input type="radio"></th>
+                        </tr>
+                        <tr>
+                            <th>3</th>
+                            <th><input class="form-control " type="text"></th>
+                            <th><input type="radio"></th>
+                        </tr>
+                        <tr>
+                            <th>4</th>
+                            <th><input class="form-control" type="text"></th>
+                            <th><input type="radio"></th>
+                        </tr>
+
+                    </table>
+
+                </div>
+
+            </div>
+            <!-- <button class="quiz-btn-1" (click)="addNewOption()">Add new option</button> -->
+
+            <!-- <div formArrayName="formArrayQuiz"  *ngFor="let quiz of formArrayQuiz.controls;let i=index" >
+                    <input type="radio">
+                    <input type="text">
+                </div> -->
+        </div>
+        <div class=" row add-quiz-card shadow p-3 mb-5 bg-white rounded">
+            <input class="add-question" type="text" name="" id="" placeholder=" 1.Add Questions">
+            <h4 class="">
+                Top Trending Videos
+            </h4>
+        </div>
+        <div class=" row add-quiz-card shadow p-3 mb-5 bg-white rounded">
+            <input class="add-question" type="text" name="" id="" placeholder="Add Questions">
+            <h4 class="">
+                Top Trending Videos
+            </h4>
+        </div>
+        <div class=" row add-quiz-card shadow p-3 mb-5 bg-white rounded">
+            <input class="add-question" type="text" name="" id="" placeholder="Add Questions">
+            <h4 class="">
+                Top Trending Videos
+            </h4>
+        </div>
+        <div class=" row add-quiz-card shadow p-3 mb-5 bg-white rounded">
+            <input class="add-question" type="text" name="" id="" placeholder="Add Questions">
+            <h4 class="">
+                Top Trending Videos
+            </h4>
+        </div>
+
+
          
     </div>
 </div>
