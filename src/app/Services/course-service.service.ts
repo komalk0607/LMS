@@ -24,8 +24,15 @@ export class CourseServiceService {
     debugger
     return this.http.post<any>(this.baseUrl + "InsertCourse",obj,this.httpOptions)
   }
+  insertCourseData1(obj:any){
+    debugger
+    return this.http.post<any>(this.baseUrl + "InsertCourse1",obj,this.httpOptions)
+  }
   deleteCourseById(obj:Course) {
     return this.http.delete<any>(this.baseUrl + "DeleteCourseById?COURSE_ID=" +obj.COURSE_ID,this.httpOptions)
+  }
+  deleteModuleById(obj:Course) {
+    return this.http.delete<any>(this.baseUrl + "DeleteModuleById?MODULE_ID=" +obj.MODULE_ID,this.httpOptions)
   }
   searchGrid(obj:Course){
     return this.http.get<any>(this.baseUrl + "GetSearchCourse?COURSE_NAME="+obj.COURSE_NAME+
@@ -36,11 +43,18 @@ export class CourseServiceService {
     "&CREATED_BY="+ obj.CREATED_BY,this.httpOptions)
   }
 
-  uploadFiles(obj:Course){
+  uploadThumbnail(obj:Course){
+    debugger
+    return this.http.post<any>(this.baseUrl + "UploadThumbnail?COURSE_ID="+ obj.COURSE_ID, obj.file)
+  }
+  uploadVideo(obj:Course){
     debugger
     return this.http.post<any>(this.baseUrl + "UploadCourse?COURSE_ID="+ obj.COURSE_ID, obj.file)
   }
-  getFileById(obj:Course){
-    return this.http.get<any>(this.baseUrl + "GetCourses?GetCourses=" +obj.COURSE_ID)
+  GetUploadedCourseImgAndVideo(obj1:Course){
+    return this.http.get<any>(this.baseUrl + "GetUploadedCourseImgAndVideo?MODULE_ID=" +obj1.MODULE_ID)
+  }
+  getVideoById(obj:Course){
+    return this.http.get<any>(this.baseUrl + "GetUploadCourse?COURSE_ID=" +obj.COURSE_ID)
   }
 }

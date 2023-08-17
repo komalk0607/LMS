@@ -12,5 +12,6 @@ export class Course{
     INSTRUCTOR_NAME   :any;
     COURSE_OUTCOME    :any;
   file: any;
+  MODULE_ID:any
 
 }

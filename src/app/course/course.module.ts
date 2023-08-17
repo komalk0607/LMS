@@ -7,12 +7,14 @@ import { CourseUploadComponent } from './course-upload/course-upload.component';
 import { DataTablesModule } from 'angular-datatables';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SideBarComponent } from '../side-bar/side-bar.component';
 
 
 @NgModule({
   declarations: [
     CourseAssignmentComponent,
-    CourseUploadComponent
+    CourseUploadComponent,
+    SideBarComponent,
   ],
   imports: [
     CommonModule,

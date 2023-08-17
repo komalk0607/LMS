@@ -358,3 +358,37 @@ border-collapse: collapse;
   .form-validation-msg{
     font-size: 11px;
   }
+  .add-quiz-card{
+    width: 435px;
+    height: 275px;
+    margin-right: 10px;
+    margin-left: 23px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+ border-left: 10px solid;
+   border-left-color:#825de9;
+  }
+  .add-question{
+    width: 285px;
+    height: 25px;
+    margin-left: 5px;
+    background-color: #e6e6e6;
+    border: none;
+  }
+  .quiz-btn-1{
+    background-color: #825de9;
+    color: #ffff;
+    border-color: #825de9;
+    width: 61px;
+    height: 24px;
+    border-radius: 7px;
+    margin-top: 0px;
+    float: right;
+    font-size: xx-small;
+    font-weight: 600;
+    margin-left: 39px;
+  }
+  .btn-btn-close{
+    width: 10px;
+  }
+  
