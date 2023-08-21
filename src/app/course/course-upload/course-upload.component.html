@@ -1,6 +1,6 @@
 <app-side-bar></app-side-bar>
 
-<div class="container">
+<!-- <div class="container">
     <div class="row">
         <div class="card-group">
             <div class="card-3 col-sm-12 text-white bg-1">
@@ -59,20 +59,13 @@
                 </div>
             </div>
 
-            <div class="col-md-8 offset-1">
-                <button class="btn-new-course pull-right" data-bs-toggle='offcanvas' data-bs-target='#filter'
-                    (click)="closeCanvas()" aria-controls='offcanvasExample'><img src="assets/img/video.png"
-                        class="camera" alt="">
-                    Add New Course</button>
-
-
-            </div>
+          
         </div>
     </div>
 
-</div>
+</div> -->
 
-<div id="div-1" class="container">
+<div id="div-1" class=" mt-5">
     <div class="row" style="margin-left: -20px;">
         <form [formGroup]="formSearchGrid">
             <div class="col-md-2">
@@ -118,8 +111,16 @@
     </div>
 
 </div>
+<div class="row">  <div class="col-md-10 offset-1 ">
+    <button class="btn-new-course pull-right" data-bs-toggle='offcanvas' data-bs-target='#filter'
+        (click)="closeCanvas()" aria-controls='offcanvasExample'><img src="assets/img/video.png"
+            class="camera" alt="">
+        Add New Course</button>
+
+
+</div></div>
 <div class="table-1">
-    <table datatable [dtOptions]="dtoptions" class="table bg-head table-hover">
+    <table datatable [dtOptions]="dtoptions"   [dtTrigger]="dtTrigger"          class="table bg-head table-hover">
         <thead class="text-center">
             <tr>
                 <th style="padding-left: 60px;padding-top: 20px;">Course Name</th>
@@ -281,7 +282,7 @@
                 aria-controls='offcanvasExample' (click)="submitCourse()">
                 Save Only Course</button>
             <button class="btn-p pull-right ml-2" data-bs-toggle='offcanvas' data-bs-target='#filter2'
-                aria-controls='offcanvasExample'>
+                (click)="addquzibutton()" aria-controls='offcanvasExample'>
                 Add Quiz</button>
             <button class="btn-p pull-right ml-2 mr-4" (click)="submitModule()">
                 Add Module</button>
@@ -370,11 +371,13 @@
                             [ngClass]="{ 'is-invalid': moduleSubmitted && m['THUMBNAIL_PATH'].errors }"
                             (change)="uploadThumbnail($event)" #fileupload multiple>
 
-                        <div class="row" *ngIf="imageSrc" >
-                            <img [src]="imageSrc" class="col-md-10" 
-                            style="margin-left:14px; margin-right:4px; margin-top: -13px; height: 80px; width: 220px;">
-                            <button type="button" class="col-md-2 btn-close btn-btn-close" style="margin-left:-20px; margin-top:-18px" (click)="uploadCrossClick('image')"></button>
-                            
+                        <div class="row" *ngIf="imageSrc">
+                            <img [src]="imageSrc" class="col-md-10"
+                                style="margin-left:14px; margin-right:4px; margin-top: -13px; height: 80px; width: 220px;">
+                            <button type="button" class="col-md-2 btn-close btn-btn-close"
+                                style="margin-left:-20px; margin-top:-18px"
+                                (click)="uploadCrossClick('image')"></button>
+
                         </div>
 
 
@@ -399,13 +402,16 @@
                             name="myfile" formControlDOC_DOC_NAME="VIDEO_PATH"
                             [ngClass]="{ 'is-invalid': moduleSubmitted && m['VIDEO_PATH'].errors }"
                             (change)="uploadVideo($event)" #fileupload1 multiple>
-                            <div class="row" *ngIf="videoSrc" >
-                                <video [src]="videoSrc" type="video/mp4" class="col-md-10" 
-                                style="margin-left:14px; margin-right:4px; margin-top: -13px; height: 80px; width: 220px;" *ngIf="videoSrc" controls muted autoplay> </video>
-                                <button type="button" class="col-md-2 btn-close btn-btn-close" style="margin-left:-20px; margin-top:-18px" (click)="uploadCrossClick('video')"></button>
-                                
-                            </div>
-                       
+                        <div class="row" *ngIf="videoSrc">
+                            <video [src]="videoSrc" type="video/mp4" class="col-md-10"
+                                style="margin-left:14px; margin-right:4px; margin-top: -13px; height: 80px; width: 220px;"
+                                *ngIf="videoSrc" controls muted autoplay> </video>
+                            <button type="button" class="col-md-2 btn-close btn-btn-close"
+                                style="margin-left:-20px; margin-top:-18px"
+                                (click)="uploadCrossClick('video')"></button>
+
+                        </div>
+
 
                         <!-- <video autoplay muted>
                                 <source src="videoSrc" *ngIf="videoSrc" style="margin-top:-13px;height: 80px; width: 200px;"type="video/mp4" />
@@ -453,7 +459,7 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let item of arryAddModule,let i=index">
-                           <td>{{i+1}}</td>
+                            <td>{{i+1}}</td>
                             <td>{{item?.MODULE_NAME}}</td>
                             <td>{{item?.MODULE_NUMBER}}</td>
                             <td>{{item?.MODULE_DURATION}}</td>
@@ -526,7 +532,8 @@
 <div class="offcanvas offcanvas-end offcanvas-border" tabindex="-1" id="filter2"
     aria-labelledby="offcanvasExampleLabel">
       <div class=" row offcanvas-header">
-        <h5 class="offcanvas-title add-module-title col-md-10" id="offcanvasExampleLabel">Final Quiz</h5>
+        <h5 class="offcanvas-title add-module-title col-md-8" id="offcanvasExampleLabel">Final Quiz</h5>
+       
             <button type="button" class="btn-close text-reset col-md-2" data-bs-dismiss="offcanvas"
             aria-label="Close"></button>
          
@@ -534,14 +541,22 @@
       <div class="offcanvas-body" style="margin-top:-50px;">
 
 
-        <div class=" row add-quiz-card shadow p-3 mb-5 bg-white rounded">
+        <div *ngFor="let quiz of addRowControls?.controls;let j=index;"
+            class=" row add-quiz-card shadow p-3 mb-5 bg-white rounded" [formGroup]="getFormQuestion(j)">
+
+
             <div class="row">
-                <input class=" col-md-11 add-question" type="text" name="" id="" placeholder="Add Questions">
-                <button class="col-md-1 quiz-btn-1">Add More</button>
+
+                <small class="col-md-1 mt-2">{{j+1}}</small>
+                
+                <input class=" col-md-11 add-question" type="text" name="" id="" placeholder="Add Questions"
+                    formControlName="QUIZ_QUESTION">
+                <!-- <button class="col-md-1 quiz-btn-1">Add More</button> -->
             </div>
 
-            <div class="container">
+            <div class="container" [formGroup]="getFormGroup(j)" >
                 <div class="row">
+
                     <table class="table">
                         <tr>
                             <th>No.</th>
@@ -550,30 +565,39 @@
                         </tr>
                         <tr>
                             <th>1</th>
-                            <th><input class="form-control" type="text"></th>
-                            <th><input type="radio"></th>
+                            <th><input class="form-control" formControlName="QUIZ_OPTION_1" type="text">
+                            </th>
+                            <th><input type="checkbox" formControlName="IS_CORRECT_1" 
+                                   ></th>
                         </tr>
                         <tr>
                             <th>2</th>
-                            <th><input class="form-control" type="text"></th>
-                            <th><input type="radio"></th>
+                            <th><input class="form-control" formControlName="QUIZ_OPTION_2" type="text">
+                            </th>
+                            <th><input type="checkbox" formControlName="IS_CORRECT_2"   >
+                            </th>
                         </tr>
                         <tr>
                             <th>3</th>
-                            <th><input class="form-control " type="text"></th>
-                            <th><input type="radio"></th>
+                            <th><input class="form-control " formControlName="QUIZ_OPTION_3" type="text"></th>
+                            <th><input type="checkbox" formControlName="IS_CORRECT_3">
+                            </th>
                         </tr>
                         <tr>
                             <th>4</th>
-                            <th><input class="form-control" type="text"></th>
-                            <th><input type="radio"></th>
+                            <th><input class="form-control" formControlName="QUIZ_OPTION_4" type="text">
+                            </th>
+                            <th><input type="checkbox" formControlName="IS_CORRECT_4">
+                            </th>
                         </tr>
 
                     </table>
 
+
                 </div>
 
             </div>
+
             <!-- <button class="quiz-btn-1" (click)="addNewOption()">Add new option</button> -->
 
             <!-- <div formArrayName="formArrayQuiz"  *ngFor="let quiz of formArrayQuiz.controls;let i=index" >
@@ -581,32 +605,13 @@
                     <input type="text">
                 </div> -->
         </div>
-        <div class=" row add-quiz-card shadow p-3 mb-5 bg-white rounded">
-            <input class="add-question" type="text" name="" id="" placeholder=" 1.Add Questions">
-            <h4 class="">
-                Top Trending Videos
-            </h4>
-        </div>
-        <div class=" row add-quiz-card shadow p-3 mb-5 bg-white rounded">
-            <input class="add-question" type="text" name="" id="" placeholder="Add Questions">
-            <h4 class="">
-                Top Trending Videos
-            </h4>
-        </div>
-        <div class=" row add-quiz-card shadow p-3 mb-5 bg-white rounded">
-            <input class="add-question" type="text" name="" id="" placeholder="Add Questions">
-            <h4 class="">
-                Top Trending Videos
-            </h4>
-        </div>
-        <div class=" row add-quiz-card shadow p-3 mb-5 bg-white rounded">
-            <input class="add-question" type="text" name="" id="" placeholder="Add Questions">
-            <h4 class="">
-                Top Trending Videos
-            </h4>
-        </div>
 
 
+
+        <div class="row  mr-4">
+            <button class="col-md-10 quiz-btn-1" (click)="saveQuiz()">Save</button>
+            <button class=" col-md-2 quiz-btn-1 " (click)="addCard()">Add Question</button>
+        </div>
          
     </div>
 </div>
