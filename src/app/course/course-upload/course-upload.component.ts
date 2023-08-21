@@ -20,6 +20,7 @@ export class CourseUploadComponent implements OnInit {
   formAddCourse!: FormGroup;
   formAddModule!: FormGroup;
   formSearchGrid!: FormGroup;
+  formQuizGroup!: FormGroup;
   dtoptions: DataTables.Settings = {}
   dtTrigger: Subject<any> = new Subject<any>();
   formGlag: boolean = false;
@@ -61,15 +62,17 @@ export class CourseUploadComponent implements OnInit {
   imageSrc: any;
   videoSrc: any;
   videoToUpload: any = [];
-  
-  formQuizOption!:FormGroup
+
+  formQuizOption!: FormGroup
   formArrayQuiz!: FormArray;
-  files: any=[];
-  arrayfilesDelete: any=[];
-  sequenceNo: number=1;
-  flagg: boolean=false;
+  files: any = [];
+  arrayfilesDelete: any = [];
+  sequenceNo: number = 1;
+  flagg: boolean = false;
+  containers: any = [];
+
   constructor(private fb: FormBuilder, private modalservice: NgbModal, private service: CourseServiceService, private http: HttpClient) {
-    this.formArrayQuiz=this.fb.array([])
+    this.formArrayQuiz = this.fb.array([])
   }
   ngOnInit(): void {
     sessionStorage.removeItem('courseDetails');
@@ -82,8 +85,19 @@ export class CourseUploadComponent implements OnInit {
     this.searchGridForm();
     this.addCourseForm();
     this.addModuleForm();
-  
-   
+    // this.addNewOption();
+    this.quizFormGroup();
+    // this.formQuizGroup = this.fb.group({
+
+    //   formArrayQuiz: this.fb.array([
+    //     this.addNewQuestion(),
+    //   ])
+    // });
+  }
+  quizFormGroup() {
+    this.formQuizGroup = this.fb.group({
+      formArrayQuiz: new FormArray([this.addNewQuestion()])
+    })
   }
   get c() {
 
@@ -91,15 +105,6 @@ export class CourseUploadComponent implements OnInit {
   }
   get m() {
     return this.formAddModule.controls;
-  }
-  addNewOption(){
-    debugger
-    const quiz=this.fb.group({
-      QUIZ_NO:[],
-      QUIZ_OPTION:[],
-      QUIZ_CORRECT_ANS:[],
-    });
-    this.formArrayQuiz.push(quiz)
   }
   searchGridForm() {
     this.formSearchGrid = this.fb.group({
@@ -144,6 +149,7 @@ export class CourseUploadComponent implements OnInit {
     obj.CREATED_BY = 'komalk0607';
     this.service.getCourseGridData(obj).subscribe(res => {
       this.data = res.Data;
+      this.dtTrigger.next(res.Data)
       debugger
     })
   }
@@ -196,20 +202,20 @@ export class CourseUploadComponent implements OnInit {
     debugger
     this.courseSubmitted = true;
     this.moduleSubmitted = false;
-    this.flagg=false
-    
-    
+    this.flagg = false
+
+
     if (this.formAddCourse.valid) {
       this.formAddModule.controls['COURSE_NAME'].setValue(this.formAddCourse.controls['COURSE_NAME']?.value);
       if (this.editData?.MODULE) {
         for (let i = 0; i <= this.editData.MODULE.length - 1; i++) {
           this.arryAddModule.push(this.editData.MODULE[i]);
         }
-        if(this.arryAddModule.length==0){
-          this.sequenceNo=1;
+        if (this.arryAddModule.length == 0) {
+          this.sequenceNo = 1;
         }
-        else{
-          this.sequenceNo=this.arryAddModule.length+1;
+        else {
+          this.sequenceNo = this.arryAddModule.length + 1;
         }
       }
       else {
@@ -218,73 +224,75 @@ export class CourseUploadComponent implements OnInit {
       this.addModule.nativeElement.click()
     }
   }
-  uploadThumbnail(event: any) {
-debugger
 
- let moduleId=JSON.parse(`${sessionStorage.getItem("moduleId")}`)
-    this.fileToUpload=event.target.files[0] as File ;
+  uploadThumbnail(event: any) {
+    debugger
+
+    let moduleId = JSON.parse(`${sessionStorage.getItem("moduleId")}`)
+    this.fileToUpload = event.target.files[0] as File;
     // if(this.videoSrc==undefined ||this.videoSrc=='' ){
     //   this.sequenceNo=this.sequenceNo+1;
     // }
-    this.fileToUpload.seqNo=this.sequenceNo
+    // this.fileToUpload.seqNo = this.sequenceNo
     // this.fileToUpload.seqNo=moduleId?this.index:this.arryAddModule.length;
     this.files.push(this.fileToUpload)
-    
+
     var reader = new FileReader();
-		reader.readAsDataURL(event.target.files[0]);
-    reader.onload = ()=>{
+    reader.readAsDataURL(event.target.files[0]);
+    reader.onload = () => {
       this.imageSrc = reader.result as string;
       this.formAddModule.controls['THUMBNAIL_PATH']?.setValue(this.imageSrc)
     }
   }
   uploadVideo(event: any) {
-    let moduleId=JSON.parse(`${sessionStorage.getItem("moduleId")}`)
-    this.videoToUpload=event.target.files[0]  as File ;
+    let moduleId = JSON.parse(`${sessionStorage.getItem("moduleId")}`)
+    this.videoToUpload = event.target.files[0] as File;
+    this.files.push(this.videoToUpload)
     // if(this.imageSrc==undefined ||this.imageSrc==''  ){
     //   this.sequenceNo=this.sequenceNo+1;
     // }
-    this.videoToUpload.seqNo=this.sequenceNo
+    // this.videoToUpload.seqNo = this.sequenceNo
     // this.videoToUpload.seqNo=moduleId?this.index:this.arryAddModule.length;
-    this.files.push(this.videoToUpload)
-     // this.videoToUpload = event.target.files[0] as File;
+    // this.files.push(this.videoToUpload)
+    // this.videoToUpload = event.target.files[0] as File;
     // this.videoToUpload.append('file', this.videoToUpload, this.videoToUpload.name);
     var reader = new FileReader();
-		reader.readAsDataURL(event.target.files[0]);
-    reader.onload = ()=>{
+    reader.readAsDataURL(event.target.files[0]);
+    reader.onload = () => {
       this.videoSrc = reader.result as string;
       this.formAddModule.controls['VIDEO_PATH']?.setValue(this.videoSrc)
     }
   }
-  uploadCrossClick(value:string){
+  uploadCrossClick(value: string) {
     debugger
-  ;
-    if(value=='image'){
+    ;
+    if (value == 'image') {
       this.arrayfilesDelete?.push(this.imageSrc);
-      this.imageSrc='';
+      this.imageSrc = '';
       // if((this.videoSrc!='' && !this.flagg)|| (this.videoSrc=='' && !this.flagg)||(this.videoSrc!=undefined && !this.flagg))
       // this.sequenceNo=this.sequenceNo-1
       // this.flagg=true
     }
     else {
       this.arrayfilesDelete?.push(this.videoSrc);
-      this.videoSrc='';
+      this.videoSrc = '';
       // if((this.imageSrc=='' && !this.flagg) ||(this.imageSrc!='' && !this.flagg) || (this.imageSrc==undefined && !this.flagg))
       // this.sequenceNo=this.sequenceNo-1
       // this.flagg=true
     }
-    
+
   }
   addButton() {
     debugger
-    this.moduleSubmitted=false
+    this.moduleSubmitted = false
     const singleModuleData = JSON.parse(`${sessionStorage.getItem("SingleModuleData")}`)
     if (this.formAddModule.valid) {
       if (singleModuleData) {
         this.arryAddModule.splice(this.index, 1)
         const ADDMODULEDATA = {
-          "COURSE_ID":singleModuleData.COURSE_ID,
+          "COURSE_ID": singleModuleData.COURSE_ID,
           "MODULE_ID": singleModuleData.MODULE_ID,
-          "SEQ_NO":this.sequenceNo,
+          "SEQ_NO": this.sequenceNo,
           "MODULE_NAME": this.formAddModule.controls['MODULE_NAME']?.value,
           "MODULE_NUMBER": this.formAddModule.controls['MODULE_NUMBER']?.value,
           "MODULE_DURATION": this.formAddModule.controls['MODULE_DURATION']?.value,
@@ -295,36 +303,36 @@ debugger
         this.arryAddModule.push(ADDMODULEDATA);
         sessionStorage.removeItem('SingleModuleData');
         this.formAddModule.reset();
-        this.videoSrc='';
-        this.imageSrc='';
-        this.videoToUpload=[];
-        this.fileToUpload=[];
+        this.videoSrc = '';
+        this.imageSrc = '';
+        this.videoToUpload = [];
+        this.fileToUpload = [];
       }
       else {
-        
+
         this.arryAddModule.slice(this.index, 1)
         const ADDMODULEDATA = {
-          "COURSE_ID":"0",
+          "COURSE_ID": "0",
           "MODULE_ID": "0",
-          "SEQ_NO":this.sequenceNo,
+          "SEQ_NO": this.sequenceNo,
           "MODULE_NAME": this.formAddModule.controls['MODULE_NAME']?.value,
           "MODULE_NUMBER": this.formAddModule.controls['MODULE_NUMBER']?.value,
           "MODULE_DURATION": this.formAddModule.controls['MODULE_DURATION']?.value,
           "MODULE_DESCRIPTION": this.formAddModule.controls['MODULE_DESCRIPTION']?.value,
-          "THUMBNAIL_PATH":"string" ,
+          "THUMBNAIL_PATH": "string",
           "VIDEO_PATH": "string",
         }
 
         console.log(this.formData.get('files'));
         this.arryAddModule.push(ADDMODULEDATA);
         // 
-       
+
         this.formAddModule.reset();
-        this.sequenceNo= this.sequenceNo+1
-        this.videoSrc='';
-        this.imageSrc='';
-        this.videoToUpload=[];
-        this.fileToUpload=[];
+        this.sequenceNo = this.sequenceNo + 1
+        this.videoSrc = '';
+        this.imageSrc = '';
+        this.videoToUpload = [];
+        this.fileToUpload = [];
       }
 
     }
@@ -333,7 +341,7 @@ debugger
     }
 
   }
-//Save button in module canvas
+  //Save button in module canvas
   saveButton() {
     debugger
 
@@ -342,7 +350,7 @@ debugger
     }
     else {
       var obj = {
-        "COURSE_ID":this.editData.COURSE_ID?this.editData.COURSE_ID:"0",
+        "COURSE_ID": this.editData.COURSE_ID ? this.editData.COURSE_ID : "0",
         "COURSE_NAME": this.formAddCourse.controls['COURSE_NAME'].value,
         "COURSE_DESCRIPTION": this.formAddCourse.controls['COURSE_DESCRIPTION'].value,
         "NO_OF_MODULES": this.formAddCourse.controls['NO_OF_MODULES'].value,
@@ -356,44 +364,63 @@ debugger
         "UPDATED_BY": 'string',
         "UPDATED_DATE": '2023-08-07T11:02:46.055Z',
 
-        "MODULE": this.arryAddModule,
+        "MODULES": this.arryAddModule,
       }
       console.log(obj)
-    
+
       // this.thumbnailData.append( this.fileToUpload,'file');
       //  this.thumbnailData.append(JSON.stringify(obj),"payload");
-      this.formData.append(JSON.stringify(obj),"payload")
-      this.formData.append( this.files,'files')
-      console.log(this.formData.get('payload'));
-      console.log(this.formData.get('files'));
-      this.service.insertCourseData1(this.formData).subscribe(res => {
-        if (res.responseCode == 200) {
-         this.insertThumbnail(res.data);
+      var payload = {
+        OPERATION: "Insert",
+        USER_ID: "Admin",
+        VALUES: [obj]
+
+      }
+      var p = {
+        payload: JSON.stringify(payload),
+        images: this.files
+      }
+
+      // this.formData.append("payload",JSON.stringify(payload))
+      this.formData.append("file", this.files)
+      this.formData.append("payload", JSON.stringify(payload))
+
+      this.service.insertCourseData(this.formData).subscribe(res => {
+        debugger
+        if (res[0]!=null || res[0]!=undefined) {
+          // this.insertThumbnail(res.data);
+          Swal.fire({
+            icon: 'success',
+            title: 'Your course has been saved',
+            showConfirmButton: false,
+            timer: 1500
+          })
+          this.getGridData();
         }
       })
     }
   }
-  insertThumbnail(value:number){
+  insertThumbnail(value: number) {
     debugger
     var obj = new Course();
     obj.COURSE_ID = value;
     obj.file = this.thumbnailData;
     this.service.uploadThumbnail(obj).subscribe(res => {
       debugger
-      if(res.responseMessage=='Thumbnail Uploaded SuccessFully!'){
+      if (res.responseMessage == 'Thumbnail Uploaded SuccessFully!') {
         this.insertVideo(value)
       }
-      
+
     })
   }
-  insertVideo(value:number){
+  insertVideo(value: number) {
     debugger
     var obj = new Course();
     obj.COURSE_ID = value;
     obj.file = this.videoData;
     this.service.uploadVideo(obj).subscribe(res => {
       debugger
-      if(res.responseMessage=='Course Uploaded SuccessFully!'){
+      if (res.responseMessage == 'Course Uploaded SuccessFully!') {
         Swal.fire({
           icon: 'success',
           title: 'Your course has been saved',
@@ -402,7 +429,7 @@ debugger
         })
         this.getGridData();
       }
-      
+
     })
   }
   setThumbnail(e: any) {
@@ -457,7 +484,7 @@ debugger
       }
     })
   }
-  deleteModuleById(value:number){
+  deleteModuleById(value: number) {
     debugger
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
@@ -481,7 +508,7 @@ debugger
         obj.MODULE_ID = value;
         this.service.deleteModuleById(obj).subscribe(res => {
           debugger
-          if(res.ResponseMessage=='Module deleted Successfully'){
+          if (res.ResponseMessage == 'Module deleted Successfully') {
             swalWithBootstrapButtons.fire(
               'Deleted!',
               'Your record has been deleted.',
@@ -491,7 +518,7 @@ debugger
         })
 
       } else if (
-       
+
         result.dismiss === Swal.DismissReason.cancel
       ) {
         swalWithBootstrapButtons.fire(
@@ -512,7 +539,7 @@ debugger
       this.editData = res.Data;
       this.formAddCourse.patchValue(this.editData);
       sessionStorage.setItem('courseAndModuleDetails', JSON.stringify(this.editData));
-      
+
 
     })
   }
@@ -522,16 +549,16 @@ debugger
     const courseAndModuleDetails = JSON.parse(`${sessionStorage.getItem("courseAndModuleDetails")}`)
     sessionStorage.setItem("moduleId", value.MODULE_ID)
     var obj = new Course();
-      obj.MODULE_ID = value.MODULE_ID
-      this.service.GetUploadedCourseImgAndVideo(obj).subscribe(res => {
-        debugger
-        this.arrfileData = res.data[0];
-        this.imageSrc=res.data[0].filE_PATH
-        this.videoSrc=res.data1[0].filE_PATH
-        // this.formAddModule.controls['THUMBNAIL_PATH'].setValue(res.data1[0].filE_PATH)
-        // this.formAddModule.controls['THUMBNAIL_PATH'].setValue(res.data[0].filE_PATH)
+    obj.MODULE_ID = value.MODULE_ID
+    this.service.GetUploadedCourseImgAndVideo(obj).subscribe(res => {
+      debugger
+      this.arrfileData = res.data[0];
+      this.imageSrc = res.data[0].filE_PATH
+      this.videoSrc = res.data1[0].filE_PATH
+      // this.formAddModule.controls['THUMBNAIL_PATH'].setValue(res.data1[0].filE_PATH)
+      // this.formAddModule.controls['THUMBNAIL_PATH'].setValue(res.data[0].filE_PATH)
 
-      })
+    })
     this.index = courseAndModuleDetails.MODULE.findIndex((i: { MODULE_NUMBER: Number; }) => i.MODULE_NUMBER === value.MODULE_NUMBER);
     this.formAddModule.patchValue(value);
     sessionStorage.setItem('SingleModuleData', JSON.stringify(value));
@@ -575,5 +602,65 @@ debugger
     this.editData = [];
     sessionStorage.removeItem('courseDetails');
   }
+  //Quiz part
 
+  addNewQuestion(): FormGroup {
+    return this.fb.group({
+      QUIZ_NO: [],
+      QUIZ_QUESTION: [],
+      formArrayQuizOption: this.addNewOption()
+
+    })
+  }
+  addNewOption() {
+    return this.fb.group({
+      QUIZ_OPTION_1: [],
+      QUIZ_OPTION_2: [],
+      QUIZ_OPTION_3: [],
+      QUIZ_OPTION_4: [],
+      IS_CORRECT_1: [false],
+      IS_CORRECT_2: [false],
+      IS_CORRECT_3: [false],
+      IS_CORRECT_4: [false],
+
+    })
+  }
+
+  getFormGroup(i: any) {
+    const ad = this.formQuizGroup.get('formArrayQuiz') as FormArray;
+    return ad.at(i).get('formArrayQuizOption') as FormGroup;
+  }
+
+  getFormQuestion(i: any) {
+    
+    const ad = this.formQuizGroup.get('formArrayQuiz') as FormArray;
+    return ad.at(i) as FormGroup;
+    this.addRowControls.value[i].QUIZ_NO.setValue(i+1);
+  }
+  get addRowControls(): FormArray {
+    return this.formQuizGroup.get('formArrayQuiz') as FormArray;
+  }
+  addCard() {
+    
+    // const control = <FormArray> this.formQuizGroup.get('formArrayQuiz');
+    // control.push(this.addNewQuestion());
+    this.addRowControls?.push(this.addNewQuestion());
+    // this.formArrayQuiz.push(this.addRowControls?.length)
+    // this.addRowControls?.push(this.addNewQuestion());
+  }
+  // addNewOption():FormGroup{
+  //   debugger
+  //   const quiz=this.fb.group({
+
+  //   });
+  //   this.formArrayQuiz?.push(quiz)
+  // }
+  addquzibutton() {
+    this.formArrayQuiz = this.fb.array([])
+  }
+  saveQuiz() {
+    debugger
+    console.log(this.addRowControls.value)
+
+  }
 }

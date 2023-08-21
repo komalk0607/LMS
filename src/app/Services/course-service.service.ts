@@ -10,6 +10,10 @@ export class CourseServiceService {
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' })
   };
+
+  httpOptions1 = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded'})
+  };
   constructor(private http: HttpClient) {
     this.baseUrl = environment.BaseUrl;
   }
@@ -22,7 +26,7 @@ export class CourseServiceService {
   }
   insertCourseData(obj:any){
     debugger
-    return this.http.post<any>(this.baseUrl + "InsertCourse",obj,this.httpOptions)
+    return this.http.post<any>(this.baseUrl + "insertCourse",obj)
   }
   insertCourseData1(obj:any){
     debugger
