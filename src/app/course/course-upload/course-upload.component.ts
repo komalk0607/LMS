@@ -190,52 +190,57 @@ export class CourseUploadComponent implements OnInit {
   }
   
   submitCourse() { //save only course
-    debugger
-    this.courseSubmitted = true;
-    // this.moduleSubmitted = false;
-      this.flagg = false
-    if (this.formAddCourse.valid) 
-      
-      {
-        // alert(JSON.stringify(this.formAddCourse.value))
-        var obj = {
-          "COURSE_NAME": this.formAddCourse.controls['COURSE_NAME'].value,
-          "USER_ID": 'komalk0607',
-          "COURSE_DESCRIPTION": this.formAddCourse.controls['COURSE_DESCRIPTION'].value,
-          "NO_OF_MODULES": this.formAddCourse.controls['NO_OF_MODULES'].value,
-          "CATEGORY": this.formAddCourse.controls['CATEGORY'].value,
-          "SUB_CATEGORY": this.formAddCourse.controls['SUB_CATEGORY'].value,
-          "LEVEL_OF_COURSE": this.formAddCourse.controls['LEVEL_OF_COURSE'].value,
-          "INSTRUCTOR_NAME": this.formAddCourse.controls['INSTRUCTOR_NAME'].value,
-          "COURSE_OUTCOME": this.formAddCourse.controls['COURSE_OUTCOME'].value,
-          "CREATED_BY": 'komalk0607',
-          "CREATED_DATE": '2023-08-07T11:02:46.055Z',
-          "UPDATED_BY": 'string',
-          "UPDATED_DATE": '2023-08-07T11:02:46.055Z',
-  
-          "MODULE": [
-  
-          ]
+      debugger
+      this.courseSubmitted = true;
+      if (this.formAddCourse.invalid) {
+       this.formGlag = true
+      }
+      else {
+       // alert(JSON.stringify(this.formAddCourse.value))
+       var obj = {
+        "COURSE_NAME": this.formAddCourse.controls['COURSE_NAME'].value,
+        "USER_ID": 'komalk0607',
+        "COURSE_DESCRIPTION": this.formAddCourse.controls['COURSE_DESCRIPTION'].value,
+        "NO_OF_MODULES": this.formAddCourse.controls['NO_OF_MODULES'].value,
+        "CATEGORY": this.formAddCourse.controls['CATEGORY'].value,
+        "SUB_CATEGORY": this.formAddCourse.controls['SUB_CATEGORY'].value,
+        "LEVEL_OF_COURSE": this.formAddCourse.controls['LEVEL_OF_COURSE'].value,
+        "INSTRUCTOR_NAME": this.formAddCourse.controls['INSTRUCTOR_NAME'].value,
+        "COURSE_OUTCOME": this.formAddCourse.controls['COURSE_OUTCOME'].value,
+        "CREATED_BY": 'komalk0607',
+        "CREATED_DATE": '2023-08-07T11:02:46.055Z',
+        "UPDATED_BY": 'string',
+        "UPDATED_DATE": '2023-08-07T11:02:46.055Z',
+    
+        "MODULE": [
+    
+        ]
+       }
+       var payload = {
+        OPERATION: "Insert",
+        USER_ID: "Admin",
+        VALUES: [obj]
+    
+       }
+       const formData = new FormData();
+       formData.append("payload",JSON.stringify(payload));
+       this._service.insertCourseData(formData).subscribe(res => {
+        debugger
+        if (res.responseCode == 200) {
+         Swal.fire({
+          icon: 'success',
+          title: 'Your course has been saved',
+          showConfirmButton: false,
+          timer: 1500
+         })
+         this.getGridData();
         }
-        this._service.insertCourseData(obj).subscribe(res => {
-          debugger
-          if (res.responseCode == 200) {
-            Swal.fire({
-              icon: 'success',
-              title: 'Your course has been saved',
-              showConfirmButton: false,
-              timer: 1500
-            })
-            this.getGridData();
-          }
-  
-        })
-        // this.addModule.nativeElement.click()
+    
+       })
+       // this.addModule.nativeElement.click()
       }
     
-   
-
-  }
+     }
   //add module button
   submitModule() {
     debugger
