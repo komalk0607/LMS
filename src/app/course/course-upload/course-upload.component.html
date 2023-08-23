@@ -96,10 +96,12 @@
 
 
             <div class="col-md-2 mt-5" style="width: 150px;margin-right:20px;margin-left:-20px">
-                <button class="btn-div"><img src="assets/img/search.png" class="btn-search" alt=""
+                <!-- <button class="btn-div"><img src="assets/img/search.png" class="btn-search" alt=""
                         (click)="searchGrid()">
-                    <!-- <i class='bx bx-search button btn-search' style='color:#eeeeee'></i> -->
-                </button>
+                    
+                </button> -->
+                <button class="btn-div" style="color: #ffffff"
+                (click)="searchGrid()">Search</button>
                 <!-- <i class='bx bx-search button btn-search'style='color:#ffffff' (click)="searchGrid()"></i> -->
                 <!-- <i class="fa fa-search button btn-search" aria-hidden="true"></i> -->
             </div>
@@ -111,16 +113,18 @@
     </div>
 
 </div>
-<div class="row">  <div class="col-md-10 offset-1 ">
-    <button class="btn-new-course pull-right" data-bs-toggle='offcanvas' data-bs-target='#filter'
-        (click)="closeCanvas()" aria-controls='offcanvasExample'><img src="assets/img/video.png"
-            class="camera" alt="">
-        Add New Course</button>
+<div class="row">
+    <div class="col-md-10 offset-1 ">
+        <button class="btn-new-course pull-right" data-bs-toggle='offcanvas' data-bs-target='#filter'
+            (click)="closeCanvas()" aria-controls='offcanvasExample'><img src="assets/img/video.png" class="camera"
+                alt="">
+            Add New Course</button>
 
 
-</div></div>
+    </div>
+</div>
 <div class="table-1">
-    <table datatable [dtOptions]="dtoptions"   [dtTrigger]="dtTrigger"          class="table bg-head table-hover">
+    <table datatable [dtOptions]="dtoptions" [dtTrigger]="dtTrigger" class="table bg-head table-hover">
         <thead class="text-center">
             <tr>
                 <th style="padding-left: 60px;padding-top: 20px;">Course Name</th>
@@ -276,13 +280,14 @@
         <div class="row pull-right">
             <button #addModule style="visibility: hidden;" data-bs-toggle='offcanvas' data-bs-target='#filter1'
                 aria-controls='offcanvasExample'></button>
+                <button #addquiz style="visibility: hidden;" data-bs-toggle='offcanvas' data-bs-target='#filter2'
+                aria-controls='offcanvasExample'></button>
 
 
-            <button class="btn-p pull-right ml-2" data-bs-toggle='offcanvas' data-bs-target=''
-                aria-controls='offcanvasExample' (click)="submitCourse()">
+            <button class="btn-p pull-right ml-2" (click)="submitCourse()">
                 Save Only Course</button>
-            <button class="btn-p pull-right ml-2" data-bs-toggle='offcanvas' data-bs-target='#filter2'
-                (click)="addquzibutton()" aria-controls='offcanvasExample'>
+            <button class="btn-p pull-right ml-2" 
+                (click)="addquzibutton()">
                 Add Quiz</button>
             <button class="btn-p pull-right ml-2 mr-4" (click)="submitModule()">
                 Add Module</button>
@@ -533,7 +538,7 @@
     aria-labelledby="offcanvasExampleLabel">
       <div class=" row offcanvas-header">
         <h5 class="offcanvas-title add-module-title col-md-8" id="offcanvasExampleLabel">Final Quiz</h5>
-       
+
             <button type="button" class="btn-close text-reset col-md-2" data-bs-dismiss="offcanvas"
             aria-label="Close"></button>
          
@@ -548,13 +553,13 @@
             <div class="row">
 
                 <small class="col-md-1 mt-2">{{j+1}}</small>
-                
+
                 <input class=" col-md-11 add-question" type="text" name="" id="" placeholder="Add Questions"
-                    formControlName="QUIZ_QUESTION">
+                    formControlName="QUESTION">
                 <!-- <button class="col-md-1 quiz-btn-1">Add More</button> -->
             </div>
 
-            <div class="container" [formGroup]="getFormGroup(j)" >
+            <div class="container" [formGroup]="getFormGroup(j)">
                 <div class="row">
 
                     <table class="table">
@@ -563,33 +568,13 @@
                             <th>Option</th>
                             <th>Correct Options</th>
                         </tr>
-                        <tr>
-                            <th>1</th>
-                            <th><input class="form-control" formControlName="QUIZ_OPTION_1" type="text">
+                        <tr *ngFor="let options of getOptionArray(j,0).controls;let z=index" [formGroup]="getOptionForm(options)">
+                            <th>{{z+1}}</th>
+                            <th><input class="form-control" formControlName="OPTIONS" type="text">
                             </th>
-                            <th><input type="checkbox" formControlName="IS_CORRECT_1" 
-                                   ></th>
+                            <th><input type="checkbox" formControlName="IS_CORRECT"></th>
                         </tr>
-                        <tr>
-                            <th>2</th>
-                            <th><input class="form-control" formControlName="QUIZ_OPTION_2" type="text">
-                            </th>
-                            <th><input type="checkbox" formControlName="IS_CORRECT_2"   >
-                            </th>
-                        </tr>
-                        <tr>
-                            <th>3</th>
-                            <th><input class="form-control " formControlName="QUIZ_OPTION_3" type="text"></th>
-                            <th><input type="checkbox" formControlName="IS_CORRECT_3">
-                            </th>
-                        </tr>
-                        <tr>
-                            <th>4</th>
-                            <th><input class="form-control" formControlName="QUIZ_OPTION_4" type="text">
-                            </th>
-                            <th><input type="checkbox" formControlName="IS_CORRECT_4">
-                            </th>
-                        </tr>
+                       
 
                     </table>
 
