@@ -11,7 +11,8 @@ export class Course{
     LEVEL_OF_COURSE   :any;
     INSTRUCTOR_NAME   :any;
     COURSE_OUTCOME    :any;
-  file: any;
-  MODULE_ID:any
+     file: any;
+     MODULE_ID:any;
+     VALUES:any;
 
 }

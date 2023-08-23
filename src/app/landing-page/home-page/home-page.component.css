@@ -68,7 +68,8 @@ h4{
 }
 
 .card:hover {
-    background-color: #825de9;
+    background-color: rgb(240, 79, 4);
+    color: #ffff;;
     color: #fff;
 }
 
