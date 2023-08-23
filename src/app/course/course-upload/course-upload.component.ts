@@ -67,8 +67,9 @@ export class CourseUploadComponent implements OnInit {
 
   formQuizOption!: FormGroup
   formArrayQuiz!: FormArray;
-  optionsform!: FormGroup
-  files: any = [];
+  optionsform!: FormGroup;
+   files: File[] = [];
+  files1: File[] = [];
   arrayfilesDelete: any = [];
   sequenceNo: number = 1;
   flagg: boolean = false;
@@ -273,13 +274,13 @@ export class CourseUploadComponent implements OnInit {
     debugger
 
     let moduleId = JSON.parse(`${sessionStorage.getItem("moduleId")}`)
-    this.fileToUpload = event.target.files[0] as File;
+    this.fileToUpload = event.target.files;
+        this.files = this.fileToUpload
     // if(this.videoSrc==undefined ||this.videoSrc=='' ){
     //   this.sequenceNo=this.sequenceNo+1;
     // }
     // this.fileToUpload.seqNo = this.sequenceNo
     // this.fileToUpload.seqNo=moduleId?this.index:this.arryAddModule.length;
-    this.files.push(this.fileToUpload)
 
     var reader = new FileReader();
     reader.readAsDataURL(event.target.files[0]);
@@ -290,8 +291,8 @@ export class CourseUploadComponent implements OnInit {
   }
   uploadVideo(event: any) {
     let moduleId = JSON.parse(`${sessionStorage.getItem("moduleId")}`)
-    this.videoToUpload = event.target.files[0] as File;
-    this.files.push(this.videoToUpload)
+    this.videoToUpload = event.target.files;
+    this.files1 = this.videoToUpload
     // if(this.imageSrc==undefined ||this.imageSrc==''  ){
     //   this.sequenceNo=this.sequenceNo+1;
     // }
@@ -367,7 +368,7 @@ export class CourseUploadComponent implements OnInit {
           "VIDEO_PATH": "string",
         }
 
-        console.log(this.formData.get('files'));
+        // console.log(this.formData.get('files'));
         this.arryAddModule.push(ADDMODULEDATA);
         // 
 
@@ -420,16 +421,23 @@ export class CourseUploadComponent implements OnInit {
         VALUES: [obj]
 
       }
-      var p = {
-        payload: JSON.stringify(payload),
-        images: this.files
-      }
+      // var p = {
+      //   payload: JSON.stringify(payload),
+      //   images: this.files
+      // }
+    const formData = new FormData();
 
+        for (const image of this.files) {
+          formData.append('images', image);
+        }
+        for (const image1 of this.files1) {
+          formData.append('images', image1);
+        }
       // this.formData.append("payload",JSON.stringify(payload))
-      this.formData.append("file", this.files)
-      this.formData.append("payload", JSON.stringify(payload))
+      // this.formData.append("file", this.files)
+        formData.append("payload", JSON.stringify(payload))
 
-      this._service.insertCourseData(this.formData).subscribe(res => {
+      this._service.insertCourseData(formData).subscribe(res => {
         debugger
         if (res[0]!=null || res[0]!=undefined) {
           // this.insertThumbnail(res.data);
@@ -502,7 +510,7 @@ export class CourseUploadComponent implements OnInit {
       confirmButtonText: 'Yes, delete it! ',
       cancelButtonText: 'No, cancel!',
       reverseButtons: true,
-    }).then((result) => {
+    }).then((result:any) => {
       if (result.isConfirmed) {
         var obj = new Course();
         obj.COURSE_ID = item;
@@ -546,7 +554,7 @@ export class CourseUploadComponent implements OnInit {
       confirmButtonText: 'Yes, delete it! ',
       cancelButtonText: 'No, cancel!',
       reverseButtons: true,
-    }).then((result) => {
+    }).then((result:any) => {
       if (result.isConfirmed) {
         var obj = new Course();
         obj.MODULE_ID = value;
