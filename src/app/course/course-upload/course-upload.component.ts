@@ -186,7 +186,9 @@ export class CourseUploadComponent implements OnInit {
     obj.CREATED_BY = 'komalk0607';
     this._service.getCourseGridData(obj).subscribe(res => {
       this.data = res.Data;
+
       //  this.dtTrigger.next(res.Data)
+
       debugger
     })
   }
@@ -276,7 +278,15 @@ export class CourseUploadComponent implements OnInit {
 
     let moduleId = JSON.parse(`${sessionStorage.getItem("moduleId")}`)
     this.fileToUpload = event.target.files;
-    this.files = this.fileToUpload;
+
+    for(let i=0; i<this.fileToUpload.length; i++){
+      this.files.push(this.fileToUpload);
+      const formData = new FormData()
+      formData.append("files", this.fileToUpload[i]);
+
+    }
+
+    
 
     var file = {
       "name": this.fileToUpload[0].name,
@@ -285,6 +295,7 @@ export class CourseUploadComponent implements OnInit {
     this.fileData.push(file)
     
     
+
     // if(this.videoSrc==undefined ||this.videoSrc=='' ){
     //   this.sequenceNo=this.sequenceNo+1;
     // }
@@ -301,13 +312,20 @@ export class CourseUploadComponent implements OnInit {
   uploadVideo(event: any) {
     let moduleId = JSON.parse(`${sessionStorage.getItem("moduleId")}`)
     this.videoToUpload = event.target.files;
-    this.files1 = this.videoToUpload
 
+    for(let i=0; i<this.videoToUpload.length; i++){
+      this.files1.push(this.videoToUpload[i]);
+      const formData = new FormData()
+      formData.append("video",this.videoToUpload[i]);
+    }
+
+ 
     var file = {
       "name": this.videoToUpload[0].name,
       "module":this.formAddModule.get("MODULE_NUMBER")?.value
     }
     this.fileData.push(file)
+
     // if(this.imageSrc==undefined ||this.imageSrc==''  ){
     //   this.sequenceNo=this.sequenceNo+1;
     // }
