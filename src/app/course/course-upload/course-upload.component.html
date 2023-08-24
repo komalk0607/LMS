@@ -158,9 +158,12 @@
                         <a data-bs-toggle='offcanvas' (click)="editCourseById(item?.COURSE_ID)" data-bs-target='#filter'
                             aria-controls='offcanvasExample'>
                             <i class='bx bxs-edit mr-2' style='color:#686868 ;font-size: 20px;'></i></a>
+
                         <a><i class='bx bx-video-plus mr-2' style='color:#686868 ;font-size: 20px; '></i></a>
-                        <a><i class='bx bx-list-ul bx-flip-vertical mr-2'
-                                style='color:#686868;font-size: 20px;'></i></a>
+
+                        <a  data-bs-toggle='offcanvas' (click)="viewCourseDetails(item?.COURSE_ID)" data-bs-target="#filter3"
+                        aria-controls='offcanvasExample'>
+                        <i class='bx bx-list-ul bx-flip-vertical mr-2'  style='color:#686868;font-size: 20px;'></i></a>
                     </div>
 
                 </td>
@@ -284,9 +287,13 @@
                 aria-controls='offcanvasExample'></button>
 
 
-            <button class="btn-p pull-right ml-2" (click)="submitCourse()">
+            <button class="btn-p pull-right ml-2" data-bs-toggle='offcanvas'
+            aria-controls='offcanvasExample' (click)="submitCourse()">
                 Save Only Course</button>
-            <button class="btn-p pull-right ml-2" 
+            <button class="btn-p pull-right ml-2"  *ngIf="editData?.length!=0"
+                (click)="addquzibutton()">
+                Edit Quiz</button>
+                <button class="btn-p pull-right ml-2"  *ngIf="editData?.length==0"
                 (click)="addquzibutton()">
                 Add Quiz</button>
             <button class="btn-p pull-right ml-2 mr-4" (click)="submitModule()">
@@ -597,6 +604,140 @@
             <button class="col-md-10 quiz-btn-1" data-bs-toggle='offcanvas'
             aria-controls='offcanvasExample' (click)="saveQuiz()">Save</button>
             <button class=" col-md-2 quiz-btn-1 " (click)="addCard()">Add Question</button>
+        </div>
+         
+    </div>
+</div>
+
+
+<div class="offcanvas offcanvas-end offcanvas-border" tabindex="-1" id="filter3"
+    aria-labelledby="offcanvasExampleLabel">
+      <div class=" row offcanvas-header">
+        <h5 class="offcanvas-title add-module-title col-md-8" id="offcanvasExampleLabel">Course Details</h5>
+
+            <button type="button" class="btn-close text-reset col-md-2" data-bs-dismiss="offcanvas"
+            aria-label="Close"></button>
+         
+    </div>
+      <div class="offcanvas-body" style="margin-top:-50px;">
+        <div class="form-row ml-3 mt-4">
+
+            
+            <div class="form-group form-check col-md-6 mt-2">
+                <label  class="label-2 text-dark">Course Name</label>
+                <div class="label-3">Spring Boot</div> 
+
+                
+            </div>
+            <div class="form-group col-md-6  mt-3">
+                <label class="label-2 text-dark">Number of Module</label>
+                <div class="label-3">Spring Boot</div> 
+               
+            </div>
+            <div class="form-group col-md-6 mt-3">
+                <label class="label-2 text-dark">Category </label>
+                <div class="label-3">Spring Boot</div> 
+               
+            </div>
+            <div class="form-group col-md-6  mt-3">
+                <label class="label-2 text-dark">Sub Category</label>
+                <div class="label-3">Spring Boot</div> 
+               
+            </div>
+            <div class="form-group col-md-6  mt-3">
+                <label class="label-2 text-dark">Level Of Course</label>
+                <div class="label-3">Spring Boot</div> 
+            </div>
+            <div class="form-group col-md-6  mt-3">
+                <label class="label-2 text-dark">Instructor</label>
+                <div class="label-3">Spring Boot</div> 
+            </div>
+            <div class="form-group col-md-12  mt-3">
+                <label class="label-2 text-dark">What you will learn </label>
+                <div class="label-3">Spring Boot</div> 
+            </div>
+        </div>
+        <div class="form-row ml-3">
+            <div class="form-group col-md-12  mt-3">
+                <label class="label-2 text-dark">Course Description </label>
+                        <div class="label-3">Spring Boot</div> 
+               
+            </div>
+
+        </div>
+        <div class="row"> <h5 class="add-module-title col-md-12 mt-2 mb-3 ml-3">Module Details</h5></div>
+       
+        <table class="table table-scroll table-bordered ml-3">
+            <thead class="table-2 bg-head-1 ">
+                <tr>
+                    <td>Sr.No</td>
+                    <td>Module Name</td>
+                    <td>Module Number</td>
+                    <td>Duration</td>
+                    <td>Module Description</td>
+                    
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr >
+                    <td>1</td>
+                    <td>Api</td>
+                    <td>1</td>
+                    <td>1 hr</td>
+                    <td>test123</td>
+                    
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="row"> <h5 class="add-module-title col-md-12 mt-2 mb-3 ml-3">Quiz Details</h5></div>
+
+
+        <div class="row">
+
+          
+            <label class="label-2 text-dark">Question 1</label>
+            <div class="label-3">What is..?</div>
+        </div>
+
+        <div class="container" >
+            <div class="row">
+
+                <table class="table">
+                    <tr>
+                        <th>No.</th>
+                        <th>Option</th>
+                        <th>Correct Options</th>
+                    </tr>
+                    <tr >
+                        <th>1</th>
+                        <th> 
+                            <div class="label-3">Option 1?</div>
+                        </th>
+                        <th><input type="checkbox" [disabled]="true"  checked></th>
+                        
+                       
+                    </tr>
+                    <tr><th>2</th>
+                        <th> 
+                            <div class="label-3">Option2</div>
+                        </th>
+                        <th><input type="checkbox" [disabled]="true" ></th></tr>
+                    
+
+                </table>
+
+
+            </div>
+
+        </div>
+
+
+        <div class="row  mr-4">
+            <button class="col-md-10 quiz-btn-1" data-bs-toggle='offcanvas'
+            aria-controls='offcanvasExample'>Back</button>
+           
         </div>
          
     </div>

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomePageComponent } from './landing-page/home-page/home-page.component';
 import { CourseUploadComponent } from './course/course-upload/course-upload.component';
+import { CourseDisplayComponent } from './course/course-display/course-display.component';
 
 
 const routes: Routes = [
@@ -12,7 +13,6 @@ const routes: Routes = [
 },
 {
   path:'course' ,
-  component:CourseUploadComponent,
   loadChildren: () => import('./course/course.module').then(m => m.CourseModule)
 },
 {
