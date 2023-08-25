@@ -77,13 +77,14 @@ export class CourseUploadComponent implements OnInit {
   fileData: Array<any>=[];
 
   constructor(private _fb: FormBuilder, private _modalservice: NgbModal, private _service: CourseServiceService, private _http: HttpClient) {
-    this.formArrayQuiz = this._fb.array([])
+     this.formArrayQuiz = this._fb.array([])
   }
   ngOnInit(): void {
     // this.dtTrigger.next('');
     sessionStorage.removeItem('courseDetails');
     sessionStorage.removeItem('SingleModuleData');
-
+    sessionStorage.removeItem('courseAndModuleDetails');
+    sessionStorage.removeItem('moduleId');
     this.getGridData();
 
     // $(document).ready( function() {
@@ -130,7 +131,7 @@ export class CourseUploadComponent implements OnInit {
   }
   quizFormGroup() {
     this.formQuizGroup = this._fb.group({
-      formArrayQuiz: new FormArray([this.addNewQuestion()])
+      formArrayQuiz: new FormArray([this.addNewQuestion(0)])
     })
 
 
@@ -221,7 +222,7 @@ export class CourseUploadComponent implements OnInit {
         ]
       }
       var payload = {
-        OPERATION: "Insert",
+        OPERATION: "InsertOnlyCourse",
         USER_ID: "Admin",
         VALUES: [obj]
 
@@ -230,12 +231,12 @@ export class CourseUploadComponent implements OnInit {
       formData.append("payload", JSON.stringify(payload));
       this._service.insertCourseData(formData).subscribe(res => {
         debugger
-        if (res.responseCode == 200) {
+        if (res[0] != null || res[0] != undefined) {
          Swal.fire({
           icon: 'success',
           title: 'Your course has been saved',
           showConfirmButton: false,
-          timer: 1500
+          timer: 2000
         })
          this.getGridData();
         }
@@ -280,13 +281,11 @@ export class CourseUploadComponent implements OnInit {
     this.fileToUpload = event.target.files;
 
     for(let i=0; i<this.fileToUpload.length; i++){
-      this.files.push(this.fileToUpload);
+      this.files.push(this.fileToUpload[i]);
       const formData = new FormData()
       formData.append("files", this.fileToUpload[i]);
 
     }
-
-    
 
     var file = {
       "name": this.fileToUpload[0].name,
@@ -643,7 +642,7 @@ export class CourseUploadComponent implements OnInit {
       debugger
       this.arrfileData = res.data[0];
       this.imageSrc = res.data[0].filE_PATH
-      this.videoSrc = res.data1[0].filE_PATH
+      this.videoSrc = res.data[0].filE_PATH
       // this.formAddModule.controls['THUMBNAIL_PATH'].setValue(res.data1[0].filE_PATH)
       // this.formAddModule.controls['THUMBNAIL_PATH'].setValue(res.data[0].filE_PATH)
 
@@ -690,10 +689,14 @@ export class CourseUploadComponent implements OnInit {
     this.arryAddModule = [];
     this.editData = [];
     sessionStorage.removeItem('courseDetails');
+    sessionStorage.removeItem('moduleId');
+    sessionStorage.removeItem('courseAndModuleDetails');
+    sessionStorage.removeItem('SingleModuleData');
   }
   //Quiz part
 
-  addNewQuestion(): FormGroup {
+  addNewQuestion(e:any): FormGroup {
+    debugger
     return this._fb.group({
       QUESTION_ID: [0],
       QUESTION_NUMBER: [],
@@ -750,7 +753,7 @@ export class CourseUploadComponent implements OnInit {
 
     // const control = <FormArray> this.formQuizGroup.get('formArrayQuiz');
     // control.push(this.addNewQuestion());
-    this.addRowControls?.push(this.addNewQuestion());
+    this.addRowControls?.push(this.addNewQuestion(0));
     // this.formArrayQuiz.push(this.addRowControls?.length)
     // this.addRowControls?.push(this.addNewQuestion());
   }
@@ -765,9 +768,30 @@ export class CourseUploadComponent implements OnInit {
     debugger
     this.courseSubmitted = true;
     this.flagg = false
+
     if (this.formAddCourse.valid) {
       this.addquiz.nativeElement.click()
-      this.formArrayQuiz = this._fb.array([])
+      // sessionStorage.removeItem('moduleId')
+      const courseAndModuleDetails = JSON.parse(`${sessionStorage.getItem("courseAndModuleDetails")}`)
+      // sessionStorage.setItem("moduleId", value.MODULE_ID)
+     
+      if(courseAndModuleDetails!=null){
+        this.addRowControls.clear();
+        for(let i=0;i<(courseAndModuleDetails.VALUES).length;i++){
+          this.addRowControls.push(this.addNewQuestion(null));
+          //this.addRowControls?.at(i).patchValue(courseAndModuleDetails.VALUES[i]);
+        }
+
+          this.addRowControls?.patchValue(courseAndModuleDetails.VALUES);
+
+        
+      }
+      else {
+        this.formArrayQuiz = this._fb.array([])
+        //this.addRowControls?.push('');
+        
+      }
+      
     }
 
   }
@@ -795,7 +819,7 @@ export class CourseUploadComponent implements OnInit {
       }
       console.log(obj)
       var payload = {
-        OPERATION: "Insert",
+        OPERATION: "InsertOnlyCourse",
         USER_ID: "Admin",
         VALUES: [obj]
 
@@ -819,7 +843,7 @@ export class CourseUploadComponent implements OnInit {
     debugger
     console.log(this.addRowControls.value)
     var obj = new Course()
-    obj.OPERATION = "Insert",
+    obj.OPERATION = "InsertQuiz",
       obj.USER_ID = "komalk0607",
       obj.COURSE_ID = value,
       obj.VALUES =
@@ -839,4 +863,5 @@ export class CourseUploadComponent implements OnInit {
       }
     })
   }
+  viewCourseDetails(id:any){}
 }

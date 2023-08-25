@@ -266,7 +266,7 @@ gap:2rem;
     font-weight: 500;
 }
 #div7 {
-    background-color: rgba(15, 2, 34, 0.945);
+    background-color: rgb(240, 79, 4);
     color: #fff;
 }
 .text-color{
@@ -280,4 +280,7 @@ gap:2rem;
 .carousel-caption {
     color:#000000;
     text-decoration-style:none;
+}
+.landing-icon{
+    font-size: 20px;
 }
