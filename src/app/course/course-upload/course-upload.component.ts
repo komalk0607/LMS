@@ -236,7 +236,7 @@ export class CourseUploadComponent implements OnInit {
           icon: 'success',
           title: 'Your course has been saved',
           showConfirmButton: false,
-          timer: 1500
+          timer: 2000
         })
          this.getGridData();
         }
