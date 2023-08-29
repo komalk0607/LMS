@@ -42,7 +42,7 @@ export class CourseServiceService {
     return this.http.get<any>(this.baseUrl + "Course/GetSearchCourse?COURSE_NAME="+obj.COURSE_NAME+
     "&NO_OF_MODULES="+obj.NO_OF_MODULES+
     "&CATEGORY="+obj.CATEGORY+
-    "&SUB_CATEGORY="+obj.SUB_CATEGORY+
+    "&APPROVER="+obj.APPROVER+
     "&LEVEL_OF_COURSE="+obj.LEVEL_OF_COURSE+
     "&CREATED_BY="+ obj.CREATED_BY,this.httpOptions)
   }
@@ -64,5 +64,8 @@ export class CourseServiceService {
 
   insertQuiz(obj:Course){
     return this.http.post<any>(this.baseUrl + "Quiz/InsertQuiz",obj,this.httpOptions)
+  }
+  deleteQuestion(obj:Course){
+    return this.http.post<any>(this.baseUrl + "Quiz/DeleteSingleQuestion",obj,this.httpOptions)
   }
 }

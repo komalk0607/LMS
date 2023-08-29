@@ -81,12 +81,12 @@
                     formControlName="CATEGORY" placeholder="Category">
             </div>
             <div class="col-md-2">
-                <input class="input-field form-control" style="width: 150px;" type="text" formControlName="SUB_CATEGORY"
-                    placeholder="Sub Category">
+                <input class="input-field form-control" style="width: 150px;" type="text" formControlName="APPROVER"
+                    placeholder="Approver">
             </div>
             <div class="col-md-2">
-                <ng-select class="search-input-dropdown" [searchable]="true" [clearable]="true" style="width: 130px;" formControlName="LEVEL_OF_COURSE"
-                    placeholder="Level Of Course">
+                <ng-select class="search-input-dropdown" [searchable]="true" [clearable]="true" style="width: 130px;"
+                    formControlName="LEVEL_OF_COURSE" placeholder="Level Of Course">
                     <ng-option class="dropdown-item" [disabled]="true" value="">--Select Level Of Course--
                     </ng-option>
                     <ng-option value="Beginner">Beginner</ng-option>
@@ -100,8 +100,7 @@
                         (click)="searchGrid()">
                     
                 </button> -->
-                <button class="btn-div" style="color: #ffffff"
-                (click)="searchGrid()">Search</button>
+                <button class="btn-div" style="color: #ffffff" (click)="searchGrid()">Search</button>
                 <!-- <i class='bx bx-search button btn-search'style='color:#ffffff' (click)="searchGrid()"></i> -->
                 <!-- <i class="fa fa-search button btn-search" aria-hidden="true"></i> -->
             </div>
@@ -131,7 +130,7 @@
                 <th>No of Module</th>
                 <!-- <th>No of Sub Module</th> -->
                 <th>Category</th>
-                <th>Sub Category</th>
+                <th>Approver</th>
                 <th>Level of Course</th>
                 <th>Like</th>
 
@@ -146,7 +145,7 @@
                 <td>{{item?.NO_OF_MODULES}}</td>
                 <!-- <td>-</td> -->
                 <td>{{item?.CATEGORY}}</td>
-                <td>{{item?.SUB_CATEGORY}}</td>
+                <td>{{item?.APPROVER}}</td>
                 <td>{{item?.LEVEL_OF_COURSE}}</td>
                 <td>-</td>
                 <td>-</td>
@@ -161,9 +160,10 @@
 
                         <a><i class='bx bx-video-plus mr-2' style='color:#686868 ;font-size: 20px; '></i></a>
 
-                        <a  data-bs-toggle='offcanvas' (click)="viewCourseDetails(item?.COURSE_ID)" data-bs-target="#filter3"
-                        aria-controls='offcanvasExample'>
-                        <i class='bx bx-list-ul bx-flip-vertical mr-2'  style='color:#686868;font-size: 20px;'></i></a>
+                        <a data-bs-toggle='offcanvas' (click)="viewCourseDetails(item?.COURSE_ID)"
+                            data-bs-target="#filter3" aria-controls='offcanvasExample'>
+                            <i class='bx bx-list-ul bx-flip-vertical mr-2'
+                                style='color:#686868;font-size: 20px;'></i></a>
                     </div>
 
                 </td>
@@ -180,6 +180,7 @@
             (click)="closeCanvas()"></button>
     </div>
     <div class="offcanvas-body add-course">
+
         <form [formGroup]="formAddCourse">
             <div class="form-row ml-3 mt-2">
                 <div class="form-group form-check col-md-6 mt-2">
@@ -214,13 +215,12 @@
                     </div>
                 </div>
                 <div class="form-group col-md-6  mt-2">
-                    <label for="SUB_CATEGORY" class="label-1">Sub Category <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control input-1" id="SUB_CATEGORY" formControlName="SUB_CATEGORY"
-                        [ngClass]="{ 'is-invalid': courseSubmitted && c['SUB_CATEGORY'].errors }"
-                        placeholder="Sub Category">
-                    <div *ngIf="courseSubmitted && c['SUB_CATEGORY'].errors" class="invalid-feedback">
-                        <div class="form-validation-msg" *ngIf="c['SUB_CATEGORY'].errors?.['required']"> Please enter
-                            sub category</div>
+                    <label for="APPROVER" class="label-1">Approver <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control input-1" id="APPROVER" formControlName="APPROVER"
+                        [ngClass]="{ 'is-invalid': courseSubmitted && c['APPROVER'].errors }" placeholder="Approver">
+                    <div *ngIf="courseSubmitted && c['APPROVER'].errors" class="invalid-feedback">
+                        <div class="form-validation-msg" *ngIf="c['APPROVER'].errors?.['required']"> Please enter
+                            Approver</div>
                     </div>
                 </div>
                 <div class="form-group col-md-6  mt-2">
@@ -233,6 +233,7 @@
                         <ng-option value="Beginner">Beginner</ng-option>
                         <ng-option value="Advance">Advance</ng-option>
                     </ng-select>
+
                     <div *ngIf="courseSubmitted && c['LEVEL_OF_COURSE'].errors" class="invalid-feedback">
                         <div class="form-validation-msg" *ngIf="c['LEVEL_OF_COURSE'].errors?.['required']"> Please
                             select level of course</div>
@@ -248,7 +249,7 @@
                             instructor name</div>
                     </div>
                 </div>
-                <div class="form-group col-md-12  mt-2">
+                <!-- <div class="form-group col-md-12  mt-2">
                     <label for="COURSE_OUTCOME" class="label-1">What you will learn <span
                             class="text-danger">*</span></label>
                     <textarea type="text" class="form-control  input-3 mr-1" id="COURSE_OUTCOME" rows="6" cols="40"
@@ -258,7 +259,7 @@
                         <div class="form-validation-msg" *ngIf="c['COURSE_OUTCOME'].errors?.['required']"> Please enter
                             course outcome </div>
                     </div>
-                </div>
+                </div> -->
                 <!-- <div class="form-group col-md-6  mt-2">
                     <label for="whoCanAttend" class="label-1">Who can attend</label>
                     <input type="text" class="form-control  input-2" id="whoCanAttend" placeholder="Who can attend"
@@ -267,7 +268,7 @@
             </div>
             <div class="form-row ml-3">
                 <div class="form-group col-md-12  mt-2">
-                    <label for="COURSE_DESCRIPTION" class="label-1">Course Description <span
+                    <label for="COURSE_DESCRIPTION" class="label-1">Course Description And Objective<span
                             class="text-danger">*</span></label>
                     <textarea type="text" class="form-control input-3 mr-1" id="COURSE_DESCRIPTION" rows="6" cols="40"
                         [ngClass]="{ 'is-invalid': courseSubmitted && c['COURSE_DESCRIPTION'].errors }"
@@ -283,18 +284,16 @@
         <div class="row pull-right">
             <button #addModule style="visibility: hidden;" data-bs-toggle='offcanvas' data-bs-target='#filter1'
                 aria-controls='offcanvasExample'></button>
-                <button #addquiz style="visibility: hidden;" data-bs-toggle='offcanvas' data-bs-target='#filter2'
+            <button #addquiz style="visibility: hidden;" data-bs-toggle='offcanvas' data-bs-target='#filter2'
                 aria-controls='offcanvasExample'></button>
 
 
-            <button class="btn-p pull-right ml-2" data-bs-toggle='offcanvas'
-            aria-controls='offcanvasExample' (click)="submitCourse()">
+            <button class="btn-p pull-right ml-2" data-bs-toggle='offcanvas' aria-controls='offcanvasExample'
+                (click)="submitCourse()">
                 Save Only Course</button>
-            <button class="btn-p pull-right ml-2"  *ngIf="editData?.length!=0"
-                (click)="addquzibutton()">
+            <button class="btn-p pull-right ml-2" *ngIf="editData?.length!=0" (click)="addquzibutton()">
                 Edit Quiz</button>
-                <button class="btn-p pull-right ml-2"  *ngIf="editData?.length==0"
-                (click)="addquzibutton()">
+            <button class="btn-p pull-right ml-2" *ngIf="editData?.length==0" (click)="addquzibutton()">
                 Add Quiz</button>
             <button class="btn-p pull-right ml-2 mr-4" (click)="submitModule()">
                 Add Module</button>
@@ -341,7 +340,8 @@
                     </div>
                 </div>
                 <div class="form-group col-md-6 mt-2">
-                    <label for="MODULE_DURATION" class="label-1">Duration(in hrs) <span class="text-danger">*</span></label>
+                    <label for="MODULE_DURATION" class="label-1">Duration(in hrs) <span
+                            class="text-danger">*</span></label>
                     <input type="text" class="form-control input-5" id="MODULE_DURATION"
                         [ngClass]="{ 'is-invalid': moduleSubmitted && m['MODULE_DURATION'].errors }"
                         formControlName="MODULE_DURATION" placeholder="Duration">
@@ -463,7 +463,7 @@
                             <td>Sr.No</td>
                             <td>Module Name</td>
                             <td>Module Number</td>
-                            <td>Duration</td>
+                            <td>Duration(in hrs)</td>
                             <td>Module Description</td>
                             <td>Action</td>
 
@@ -556,7 +556,8 @@
         <div *ngFor="let quiz of addRowControls?.controls;let j=index;"
             class=" row add-quiz-card shadow p-3 mb-5 bg-white rounded" [formGroup]="getFormQuestion(j)">
 
-
+            <button type="button" class="col-md-2 btn-close  pull-right"
+            style="margin-left: 390px; padding-top: -8px;" (click)="deleteQuestion(j)"></button>
             <div class="row">
 
                 <small class="col-md-1 mt-2">{{j+1}}</small>
@@ -575,13 +576,14 @@
                             <th>Option</th>
                             <th>Correct Options</th>
                         </tr>
-                        <tr *ngFor="let options of getOptionArray(j,0).controls;let z=index" [formGroup]="getOptionForm(options)">
+                        <tr *ngFor="let options of getOptionArray(j,0).controls;let z=index"
+                            [formGroup]="getOptionForm(options)">
                             <th>{{z+1}}</th>
                             <th><input class="form-control" formControlName="OPTIONS" type="text">
                             </th>
                             <th><input type="checkbox" formControlName="IS_CORRECT"></th>
                         </tr>
-                       
+
 
                     </table>
 
@@ -601,8 +603,8 @@
 
 
         <div class="row  mr-4">
-            <button class="col-md-10 quiz-btn-1" data-bs-toggle='offcanvas'
-            aria-controls='offcanvasExample' (click)="saveQuiz()">Save</button>
+            <button class="col-md-10 quiz-btn-1" data-bs-toggle='offcanvas' aria-controls='offcanvasExample'
+                (click)="saveQuiz()">Save</button>
             <button class=" col-md-2 quiz-btn-1 " (click)="addCard()">Add Question</button>
         </div>
          
@@ -612,132 +614,140 @@
 
 <div class="offcanvas offcanvas-end offcanvas-border" tabindex="-1" id="filter3"
     aria-labelledby="offcanvasExampleLabel">
-      <div class=" row offcanvas-header">
-        <h5 class="offcanvas-title add-module-title col-md-8" id="offcanvasExampleLabel">Course Details</h5>
 
-            <button type="button" class="btn-close text-reset col-md-2" data-bs-dismiss="offcanvas"
+      <div class=" row offcanvas-header">
+        <hr style="border-bottom: 10px solid  rgb(240, 79, 4);">
+        <h5 class="offcanvas-title add-module-title col-md-11 ml-3 mt-2" id="offcanvasExampleLabel">Course Details</h5>
+
+            <button type="button" class="btn-close text-reset col-md-2 mt-2" data-bs-dismiss="offcanvas"
             aria-label="Close"></button>
          
     </div>
+    <hr>
       <div class="offcanvas-body" style="margin-top:-50px;">
-        <div class="form-row ml-3 mt-4">
+        <div class="form-row ml-4 mt-4">
 
-            
-            <div class="form-group form-check col-md-6 mt-2">
-                <label  class="label-2 text-dark">Course Name</label>
-                <div class="label-3">Spring Boot</div> 
 
-                
+            <div class="form-group form-check col-md-6 mt-3">
+                <label class="label-2 text-dark">Course Name</label>
+                <div class="label-3">{{editData?.COURSE_NAME}}</div>
+
+
             </div>
             <div class="form-group col-md-6  mt-3">
                 <label class="label-2 text-dark">Number of Module</label>
-                <div class="label-3">Spring Boot</div> 
-               
+                <div class="label-3">{{editData?.NO_OF_MODULES}}</div>
+
             </div>
+
             <div class="form-group col-md-6 mt-3">
                 <label class="label-2 text-dark">Category </label>
-                <div class="label-3">Spring Boot</div> 
-               
+                <div class="label-3">{{editData?.CATEGORY}}</div>
+
             </div>
             <div class="form-group col-md-6  mt-3">
-                <label class="label-2 text-dark">Sub Category</label>
-                <div class="label-3">Spring Boot</div> 
-               
+                <label class="label-2 text-dark">Approver</label>
+                <div class="label-3">{{editData?.APPROVER}}</div>
+
             </div>
             <div class="form-group col-md-6  mt-3">
                 <label class="label-2 text-dark">Level Of Course</label>
-                <div class="label-3">Spring Boot</div> 
+                <div class="label-3">{{editData?.LEVEL_OF_COURSE}}</div>
             </div>
             <div class="form-group col-md-6  mt-3">
                 <label class="label-2 text-dark">Instructor</label>
-                <div class="label-3">Spring Boot</div> 
+                <div class="label-3">{{editData?.INSTRUCTOR_NAME}}</div>
             </div>
-            <div class="form-group col-md-12  mt-3">
+            <!-- <div class="form-group col-md-12  mt-3">
                 <label class="label-2 text-dark">What you will learn </label>
-                <div class="label-3">Spring Boot</div> 
-            </div>
+                <div class="label-3">{{editData?.COURSE_OUTCOME}}</div>
+            </div> -->
         </div>
-        <div class="form-row ml-3">
+        <div class="form-row ml-4">
             <div class="form-group col-md-12  mt-3">
                 <label class="label-2 text-dark">Course Description </label>
-                        <div class="label-3">Spring Boot</div> 
-               
+                <div class="label-3">{{editData?.COURSE_DESCRIPTION}}</div>
+
             </div>
 
         </div>
-        <div class="row"> <h5 class="add-module-title col-md-12 mt-2 mb-3 ml-3">Module Details</h5></div>
-       
-        <table class="table table-scroll table-bordered ml-3">
-            <thead class="table-2 bg-head-1 ">
+
+        <div *ngIf="editData?.MODULES?.length!=0" class="row">
+            <hr style="border-bottom: 10px solid  rgb(240, 79, 4);">
+
+            <h5 class="add-module-title col-md-12 mt-2 mb-3 ml-3">Module Details</h5>
+            <hr>
+        </div>
+
+        <table *ngIf="editData?.MODULES?.length!=0" class="table table-scroll table-bordered ml-3 ml-4 mb-5">
+            <thead class="table-2 bg-head-1" style="font-size: 12px;">
                 <tr>
                     <td>Sr.No</td>
                     <td>Module Name</td>
                     <td>Module Number</td>
-                    <td>Duration</td>
+                    <td>Duration(in hrs)</td>
                     <td>Module Description</td>
-                    
+
 
                 </tr>
             </thead>
-            <tbody>
-                <tr >
+            <tbody style="font-size: 12px;">
+                <tr *ngFor="let module of editData?.MODULES">
                     <td>1</td>
-                    <td>Api</td>
-                    <td>1</td>
-                    <td>1 hr</td>
-                    <td>test123</td>
-                    
+                    <td>{{module?.MODULE_NAME?module?.MODULE_NAME:'-'}}</td>
+                    <td>{{module?.MODULE_NUMBER ?module?.MODULE_NUMBER:'-'}}</td>
+                    <td>{{module?.MODULE_DURATION ?module?.MODULE_DURATION:'-'}}</td>
+                    <td>{{module?.MODULE_DESCRIPTION ?module?.MODULE_DESCRIPTION:'-'}}</td>
+
                 </tr>
             </tbody>
         </table>
 
-        <div class="row"> <h5 class="add-module-title col-md-12 mt-2 mb-3 ml-3">Quiz Details</h5></div>
+        <div *ngIf="editData?.VALUES?.length!=0" class="row">
+            <hr style="border-bottom: 10px solid  rgb(240, 79, 4);">
 
-
-        <div class="row">
-
-          
-            <label class="label-2 text-dark">Question 1</label>
-            <div class="label-3">What is..?</div>
+            <h5 class="add-module-title col-md-12 mt-2 mb-3 ml-3">Quiz Details</h5>
         </div>
-
-        <div class="container" >
-            <div class="row">
-
-                <table class="table">
-                    <tr>
-                        <th>No.</th>
-                        <th>Option</th>
-                        <th>Correct Options</th>
-                    </tr>
-                    <tr >
-                        <th>1</th>
-                        <th> 
-                            <div class="label-3">Option 1?</div>
-                        </th>
-                        <th><input type="checkbox" [disabled]="true"  checked></th>
-                        
-                       
-                    </tr>
-                    <tr><th>2</th>
-                        <th> 
-                            <div class="label-3">Option2</div>
-                        </th>
-                        <th><input type="checkbox" [disabled]="true" ></th></tr>
-                    
-
-                </table>
+        <hr>
+        <div *ngFor="let question of editData?.VALUES;let i=index">
+            <div class="row ml-4">
 
 
+                <!-- <label class="label-2 ml-4 text-dark">Question </label> -->
+                <div class="label-3 mt-1 ml-4">{{i+1}}. {{question?.QUESTION}}</div>
             </div>
 
+            <div class="container">
+                <div class="row mt-3">
+
+                    <table class="table ml-5">
+                        <tr>
+                            <th>No.</th>
+                            <th>Option</th>
+                            <th>Correct Options</th>
+                        </tr>
+                        <tr *ngFor="let option of question?.formArrayQuizOption;let j=index;">
+                            <th class="label-3">{{j+1}}</th>
+                            <th>
+                                <div class="label-3">{{option?.OPTIONS}}</div>
+                            </th>
+                            <th><input type="checkbox" [disabled]="true" [checked]="option?.OPTIONS?'checked':''"></th>
+                        </tr>
+
+                    </table>
+
+
+                </div>
+
+            </div>
         </div>
+
 
 
         <div class="row  mr-4">
             <button class="col-md-10 quiz-btn-1" data-bs-toggle='offcanvas'
-            aria-controls='offcanvasExample'>Back</button>
-           
+                aria-controls='offcanvasExample'>Back</button>
+
         </div>
          
     </div>
