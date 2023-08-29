@@ -7,10 +7,10 @@ export class Course{
     COURSE_DESCRIPTION:any;
     NO_OF_MODULES:any;		
     CATEGORY	:any;	   
-    SUB_CATEGORY:any;		
+    APPROVER:any;		
     LEVEL_OF_COURSE   :any;
     INSTRUCTOR_NAME   :any;
-    COURSE_OUTCOME    :any;
+    // COURSE_OUTCOME    :any;
      file: any;
      MODULE_ID:any;
      VALUES:any;

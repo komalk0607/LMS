@@ -8,6 +8,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SideBarComponent } from '../side-bar/side-bar.component';
 import { CourseDisplayComponent } from './course-display/course-display.component';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { CourseDisplayComponent } from './course-display/course-display.componen
     NgSelectModule,
     ReactiveFormsModule,
     FormsModule,
+    NgMultiSelectDropDownModule.forRoot()
   ]
 })
 export class CourseModule { }
