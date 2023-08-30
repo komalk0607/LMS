@@ -84,6 +84,7 @@
                 <input class="input-field form-control" style="width: 150px;" type="text" formControlName="APPROVER"
                     placeholder="Approver">
             </div>
+
             <div class="col-md-2">
                 <ng-select class="search-input-dropdown" [searchable]="true" [clearable]="true" style="width: 130px;"
                     formControlName="LEVEL_OF_COURSE" placeholder="Level Of Course">
@@ -139,7 +140,8 @@
                 <th style="width: 120px;">Action</th>
             </tr>
         </thead>
-        <tbody class="text-center " style="font-size: small;">
+        <tbody    class="text-center " style="font-size: small;">
+           
             <tr *ngFor="let item of data">
                 <td>{{item?.COURSE_NAME}}</td>
                 <td>{{item?.NO_OF_MODULES}}</td>
@@ -168,9 +170,15 @@
 
                 </td>
             </tr>
+            
         </tbody>
+        
     </table>
-
+    <div  *ngIf="flagLoader"class="d-flex justify-content-center">
+        <div class="spinner-border loader" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
 </div>
 
 <div class="offcanvas offcanvas-end offcanvas-border" tabindex="-1" id="filter" aria-labelledby="offcanvasExampleLabel">
@@ -223,6 +231,22 @@
                             Approver</div>
                     </div>
                 </div>
+                <div class="form-group col-md-6  mt-2"> 
+                    <label for="APPROVER" class="label-1">Business <span class="text-danger">*</span></label> 
+                    
+                    <ng-multiselect-dropdown
+                       [settings]="dropdownSettings"
+                       [data]="dropdownList" 
+                       formControlName="BUSINESS" placeholder="Business" class="custom-font-size"
+                       [ngClass]="{ 'is-invalid': courseSubmitted && c['BUSINESS'].errors }">
+                    </ng-multiselect-dropdown>
+                    <div *ngIf="courseSubmitted && c['BUSINESS'].errors" class="invalid-feedback">
+                        <div class="form-validation-msg" *ngIf="c['BUSINESS'].errors?.['required']"> Please
+                            select business</div>
+                    </div>
+                
+                  
+                  </div>
                 <div class="form-group col-md-6  mt-2">
                     <label for="" class="form-label label-1">Level Of Course <span class="text-danger">*</span></label>
                     <ng-select class="input-dropdown" [searchable]="true" [clearable]="true"
@@ -370,7 +394,7 @@
                     <label for="THUMBNAIL_PATH" class="label-1">Upload Your Thumbnail <span
                             class="text-danger">*</span></label>
                     <div class="upload-box text-center">
-                        <div *ngIf="!imageSrc" class="file-upload ">
+                        <div *ngIf="!imageSrc" class="file-upload">
                             <button (click)="fileupload.click()" style="all: unset;"><img class=" img-upload"
                                     id="delnullFile" src="assets/img/Capture.png"></button>
                         </div>
@@ -384,10 +408,14 @@
                             (change)="uploadThumbnail($event)" #fileupload multiple>
 
                         <div class="row" *ngIf="imageSrc">
-                            <img [src]="imageSrc" class="col-md-10"
+                             <img [src]="imageSrc" class="col-md-10"
                                 style="margin-left:14px; margin-right:4px; margin-top: -13px; height: 80px; width: 220px;">
-                            <button type="button" class="col-md-2 btn-close btn-btn-close"
-                                style="margin-left:-20px; margin-top:-18px"
+                                <!-- <div  class=" col-md-10 text-center after-upload" >
+                                <div class="file-name">   <small >{{imageSrc}}</small></div>
+                             
+                            </div> -->
+                            <button type="button" class="col-md-2 btn-close btn-btn-close file-close-btn"
+                            
                                 (click)="uploadCrossClick('image')"></button>
 
                         </div>
@@ -415,11 +443,14 @@
                             [ngClass]="{ 'is-invalid': moduleSubmitted && m['VIDEO_PATH'].errors }"
                             (change)="uploadVideo($event)" #fileupload1 multiple>
                         <div class="row" *ngIf="videoSrc">
-                            <video [src]="videoSrc" type="video/mp4" class="col-md-10"
+                             <video [src]="videoSrc" type="video/mp4" class="col-md-10"
                                 style="margin-left:14px; margin-right:4px; margin-top: -13px; height: 80px; width: 220px;"
                                 *ngIf="videoSrc" controls muted autoplay> </video>
+                                <!-- <div  class=" col-md-10 text-center after-upload" >
+                                    <div class="file-name">   <small >{{videoSrc}}</small></div>
+                                </div> -->
                             <button type="button" class="col-md-2 btn-close btn-btn-close"
-                                style="margin-left:-20px; margin-top:-18px"
+                            style="margin-left: -11px; margin-top: -17px; font-size: 11px;"
                                 (click)="uploadCrossClick('video')"></button>
 
                         </div>

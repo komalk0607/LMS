@@ -334,6 +334,21 @@ border-collapse: collapse;
   height: 30px;
   margin-top: -11px;
 }
+.after-upload{
+  margin-left: 15px;
+    margin-right: 3px;
+    margin-top: -11px;
+    height: 77px;
+    width: 217px;
+    background-color: rgb(255, 231, 211);
+    border: 1px dashed;
+}
+.file-close-btn{
+  margin-left: -11px; margin-top: -17px; font-size: 10px;
+}
+.file-name{
+  font-weight: 700; margin-bottom: 2px; margin-top:30px;font-size:15px
+}
 .upload-img-div{
   width: 46px;
   height: 26px;
@@ -390,7 +405,7 @@ border-collapse: collapse;
     border: none;
   }
   .quiz-btn-1{
-    background-color:  rgb(240, 79, 4);;;
+    background-color:  rgb(240, 79, 4);
     color: #ffff;
     border:none;
     border-color: rgb(240, 79, 4);
@@ -415,3 +430,65 @@ border-collapse: collapse;
     font-size: larger;
     margin-top: -9px;
   }
+  .loader{
+    margin-left: -8px;
+    color: rgb(240, 79, 4);
+    font-size: 12px;
+    
+    --bs-spinner-width: 3rem;
+    --bs-spinner-height: 3rem;
+  }
+  /* .multiselect-dropdown .dropdown-btn .selected-item-container .selected-item {
+    border: 1px solid #0ae9a1;
+    margin-right: 5px;
+    background: #f55b1e;
+    padding: 0 5px;
+    color: #fff;
+    border-radius: 2px;
+    float: left;
+    max-width: 100px;
+    margin-bottom: 7px;
+} */
+.custom-font-size .multiselect-dropdown .dropdown-btn .selected-item-container .selected-item {
+  border: 1px solid #f55b1e !important;
+  margin-right: 5px;
+  background: #f55b1e !important;
+  padding: 0 5px;
+  color: #fff;
+  border-radius: 2px;
+  float: left;
+  max-width: 100px;
+  margin-bottom: 7px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+}
+
+.multiselect-dropdown .dropdown-btn .dropdown-multiselect__caret:before { 
+  border-width: 5px 5px 0 5px !important;
+}
+.multiselect-dropdown .dropdown-btn .dropdown-multiselect__caret {
+  
+  width: 30px !important;
+  height: 30px !important;
+ 
+}
+.multiselect-item-checkbox[_ngcontent-ng-c1411523848] input[type=checkbox]+div[_ngcontent-ng-c1411523848]:before{
+  box-sizing: content-box;
+    content: "";
+    color: #f55b1e !important;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 14px;
+    height: 14px;
+    margin-top: -9px;
+    border: 2px solid #f55b1e !important;
+    text-align: center;
+    transition: all .4s ease;
+}
+.multiselect-item-checkbox[_ngcontent-ng-c1411523848] input[type=checkbox][_ngcontent-ng-c1411523848]:checked+div:before {
+  animation: _ngcontent-ng-c1411523848_borderscale .2s ease-in;
+  background: #f55b1e !important;
+}
