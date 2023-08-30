@@ -14,5 +14,6 @@ export class Course{
      file: any;
      MODULE_ID:any;
      VALUES:any;
+     STR:any;
 
 }

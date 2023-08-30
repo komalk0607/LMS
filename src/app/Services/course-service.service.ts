@@ -68,4 +68,8 @@ export class CourseServiceService {
   deleteQuestion(obj:Course){
     return this.http.post<any>(this.baseUrl + "Quiz/DeleteSingleQuestion",obj,this.httpOptions)
   }
+
+  getMasterDetails(obj:Course){
+    return this.http.get<any>(this.baseUrl + "Course/getMasterDetails?STR=" +obj.STR)
+  }
 }
