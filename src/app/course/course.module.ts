@@ -9,6 +9,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SideBarComponent } from '../side-bar/side-bar.component';
 import { CourseDisplayComponent } from './course-display/course-display.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { FacultyDashboardComponent } from './faculty-dashboard/faculty-dashboard.component';
+import { CourseAssignmentComponent } from './course-assignment/course-assignment.component';
 
 
 @NgModule({
@@ -16,6 +18,8 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
     CourseUploadComponent,
     SideBarComponent,
     CourseDisplayComponent,
+    FacultyDashboardComponent,
+    CourseAssignmentComponent,
   ],
   imports: [
     CommonModule,

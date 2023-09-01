@@ -1,0 +1,211 @@
+<app-side-bar></app-side-bar>
+<div class="row mt-3">
+    <div class="assign-course-div1">
+        <h1 class="mt-5 ml-5">Assign Course</h1>
+    </div>
+</div>
+
+<div id="div-1" class=" mt-5">
+    <div class="row" style="margin-left: -20px;">
+        <form [formGroup]="formSearchGrid">
+            <div class="col-md-2">
+                <input class="input-field form-control" style="width: 150px;font-size:13px" type="text"
+                    formControlName="EMPLOYEE_NAME" placeholder="Enter Employee Name">
+            </div>
+            <div class="col-md-2">
+                <input class="input-field form-control ml-5" style="width: 140px; margin-left:10px;font-size:13px" type="text"
+                    formControlName="COURSE_NAME" placeholder="Enter Course Name">
+            </div>
+           
+            <div class="col-md-2">
+                <input class="input-field form-control ml-5" style="width: 130px;margin-left:-10px;font-size:13px" type="date"
+                    formControlName="START_DATE" placeholder="Start Date">
+            </div>
+            <div class="col-md-2">
+                <input class="input-field form-control ml-5" style="width: 130px;margin-left:-10px;font-size:13px" type="date"
+                    formControlName="END_DATE" placeholder="End Date">
+            </div>
+           
+
+            <div class="col-md-2">
+                <ng-select class="search-input-dropdown" [searchable]="true" [clearable]="true" style="width: 130px;font-size:13px;margin-left:-30px"
+                    formControlName="STATUS" placeholder="Status">
+                    <ng-option class="dropdown-item" [disabled]="true" value="">--Select Status--
+                    </ng-option>
+                    <ng-option value="Active">Active</ng-option>
+                    <ng-option value="Inactive">Inactive</ng-option>
+                    
+                </ng-select>
+            </div>
+
+
+            <div class="col-md-1 mt-5" style="width: 150px;margin-right:20px;margin-left:-80px">
+             
+                <button class="btn-div" style="color: #ffffff" (click)="searchGrid()">Search</button>
+               
+            </div>
+            <div class="col-md-1 mt-5" style="width: 150px;margin-left: -30px;">
+                <button class="btn-div" style="color: #ffffff;"
+                    (click)="clearSearch()">Clear</button>
+            </div>
+        </form>
+    </div>
+
+</div>
+<div class="row">
+    <div class="col-md-10 offset-1 ">
+        <button class="btn-new-course pull-right" data-bs-toggle='offcanvas' data-bs-target='#assigncourse'
+            aria-controls='offcanvasExample'><img src="assets/img/video.png" class="camera" alt="">Assign New
+            Course</button>
+
+
+    </div>
+</div>
+<div class="table-1">
+    <table datatable [dtOptions]="dtoptions" [dtTrigger]="dtTrigger" class="table bg-head table-hover">
+        <thead class="text-center">
+            <tr>
+                <th>Employee Name</th>
+                <th>Course Name</th>
+                <th>Attempt</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Status</th>
+                <th style="width: 120px;">Action</th>
+            </tr>
+        </thead>
+        <tbody class="text-center " style="font-size: small;">
+
+            <tr *ngFor="let item of data">
+                <td>{{item?.EMPLOYEE_NAME}}</td>
+                <td>{{item?.COURSE_NAME}}</td>
+                <td>{{item?.ATTEMPT}}</td>
+                <td>{{item?.START_DATE}}</td>
+                <td>{{item?.END_DATE}}</td>
+                <td>{{item?.STATUS}}</td>
+                <td>-</td>
+
+                <!-- <td>
+                    <div><a data-bs-toggle="modWal" (click)="deleteCourse(item?.COURSE_ID)" data-bs-target=""
+                            aria-controls='exampleModal'>
+                            <i class='bx bx-trash mr-2' style='color:#e22326;font-size: 20px;'></i></a>
+                        <a data-bs-toggle='offcanvas' (click)="editCourseById(item?.COURSE_ID)" data-bs-target='#filter'
+                            aria-controls='offcanvasExample'>
+                            <i class='bx bxs-edit mr-2' style='color:#686868 ;font-size: 20px;'></i></a>
+
+                        <a><i class='bx bx-video-plus mr-2' style='color:#686868 ;font-size: 20px; '></i></a>
+
+                        <a data-bs-toggle='offcanvas' (click)="viewCourseDetails(item?.COURSE_ID)"
+                            data-bs-target="#filter3" aria-controls='offcanvasExample'>
+                            <i class='bx bx-list-ul bx-flip-vertical mr-2'
+                                style='color:#686868;font-size: 20px;'></i></a>
+                    </div>
+
+                </td> -->
+            </tr>
+
+        </tbody>
+
+    </table>
+    <!-- <div  class="d-flex justify-content-center">
+        <div class="spinner-border loader" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div> -->
+</div>
+
+<div class="offcanvas offcanvas-end offcanvas-border" tabindex="-1" id="assigncourse"
+    aria-labelledby="offcanvasExampleLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title add-course-title" id="offcanvasExampleLabel">Assign New Course</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body add-course">
+
+        <form [formGroup]="formAssignCourse">
+            <div class="form-row ml-3 mt-3 mb-3">
+                <div class="form-group form-check col-md-6 mt-2">
+                    <label for="COURSE_NAME" class="label-1">Course Name <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control  input-1" id="COURSE_NAME" formControlName="COURSE_NAME"
+                        [ngClass]="{ 'is-invalid': assignCourse && a['COURSE_NAME'].errors }" maxlength="30"
+                        placeholder="Course Name">
+                    <div *ngIf="assignCourse && a['COURSE_NAME'].errors" class="invalid-feedback">
+                        <div class="form-validation-msg" *ngIf="a['COURSE_NAME'].errors?.['required']"> Please enter
+                            course name</div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6  mt-2">
+                    <label for="EMPLOYEE_NAME" class="label-1">Employee Name <span class="text-danger">*</span></label>
+                    <input type="number" class="form-control input-1" id="EMPLOYEE_NAME" formControlName="EMPLOYEE_NAME"
+                        [ngClass]="{ 'is-invalid': assignCourse && a['EMPLOYEE_NAME'].errors }"
+                        placeholder="Employee Name">
+                    <div *ngIf="assignCourse && a['EMPLOYEE_NAME'].errors" class="invalid-feedback">
+                        <div class="form-validation-msg" *ngIf="a['EMPLOYEE_NAME'].errors?.['required']"> Please enter
+                            employee name</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row ml-3 mt-2 assign-course-div2">
+                <h4>Company Details</h4></div>
+            <div class="form-row ml-3 mt-3 mb-3">
+                <div class="form-group col-md-6 mt-2">
+                    <label for="COMPANY_NAME" class="label-1">Company Name <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control input-1" id="COMPANY_NAME" formControlName="COMPANY_NAME"
+                        [ngClass]="{ 'is-invalid': assignCourse && a['COMPANY_NAME'].errors }" placeholder="Company Name">
+                    <div *ngIf="assignCourse && a['COMPANY_NAME'].errors" class="invalid-feedback">
+                        <div class="form-validation-msg" *ngIf="a['COMPANY_NAME'].errors?.['required']"> Please Enter
+                            Company Name</div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6  mt-2">
+                    <label for="BRANCH" class="label-1">Branch <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control input-1" id="BRANCH" formControlName="BRANCH"
+                        [ngClass]="{ 'is-invalid': assignCourse && a['BRANCH'].errors }" placeholder="Branch">
+                    <div *ngIf="assignCourse && a['BRANCH'].errors" class="invalid-feedback">
+                        <div class="form-validation-msg" *ngIf="a['BRANCH'].errors?.['required']"> Please Enter
+                            Branch</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row ml-3 mt-2 assign-course-div2">
+                <h4>Duration of Course</h4></div>
+                <div class="form-row ml-3 mt-3 mb-3">
+                    <div class="form-group col-md-6 mt-3">
+                        <label for="START_DATE" class="label-1">Start Date <span class="text-danger">*</span></label>
+                        <input type="date" class="form-control input-1" id="START_DATE" 
+                            [ngClass]="{ 'is-invalid': assignCourse && a['START_DATE'].errors }"
+                            formControlName="START_DATE" placeholder="Instructor">
+                        <div *ngIf="assignCourse && a['START_DATE'].errors" class="invalid-feedback">
+                            <div class="form-validation-msg" *ngIf="a['START_DATE'].errors?.['required']"> Please Select Start Date</div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6  mt-3">
+                        <label for="END_DATE" class="label-1">End Date <span class="text-danger">*</span></label>
+                        <input type="date" class="form-control input-1" id="END_DATE"
+                            [ngClass]="{ 'is-invalid': assignCourse && a['END_DATE'].errors }"
+                            formControlName="END_DATE" placeholder="Instructor">
+                        <div *ngIf="assignCourse && a['END_DATE'].errors" class="invalid-feedback">
+                            <div class="form-validation-msg" *ngIf="a['END_DATE'].errors?.['required']"> Please Select End Date</div>
+                        </div>
+                    </div>
+                </div>
+            
+
+
+
+        </form>
+        <div class="row pull-right">
+
+            <button  hidden   id="save"
+            data-bs-toggle='offcanvas' aria-controls='offcanvasExample' 
+            >Save</button>
+            <button class="btn-p  ml-2"  (click)="save()">
+                Save</button>
+
+
+
+        </div>
+    </div>
+</div>

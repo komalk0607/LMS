@@ -158,7 +158,7 @@
   margin-bottom: 20px;
   margin-left: 105px;
   width: 1205px;
-  border-radius: 40px;
+  border-radius: 20px;
 }
 #div-1 ::placeholder {
   font-weight: 300;
@@ -299,6 +299,17 @@ border-collapse: collapse;
     margin-left: 105px;
     margin-right: 83px;
 }
+.table-1,tbody{
+  font-size: small;
+}
+.action-icon-1{
+  font-size: 20px;
+  color:#686868
+}
+.action-icon-2{
+  font-size: 15px;
+  color:#1a1a1a
+}
 .table-2 {
   width: 100px;
 }
@@ -402,7 +413,7 @@ border-collapse: collapse;
     height: 25px;
     margin-left: 5px;
     background-color: #e6e6e6;
-    border: none;
+    /* border: none; */
   }
   .quiz-btn-1{
     background-color:  rgb(240, 79, 4);
@@ -420,7 +431,9 @@ border-collapse: collapse;
   }
   .btn-btn-close{
     width: 10px;
+    margin-left: -11px; margin-top: -17px; font-size: 11px;
   }
+
   .label-2 {
     font-weight: 490;
     font-size: medium;
@@ -491,4 +504,37 @@ border-collapse: collapse;
 .multiselect-item-checkbox[_ngcontent-ng-c1411523848] input[type=checkbox][_ngcontent-ng-c1411523848]:checked+div:before {
   animation: _ngcontent-ng-c1411523848_borderscale .2s ease-in;
   background: #f55b1e !important;
+}
+.assign-course-div2{
+  background-color: rgb(255, 231, 211);
+  width: 505px;
+  height: 28px;
+  font-size: larger;
+  font-weight: 600;
+  padding: 5px 6px 4px;
+  margin-left: -20px;
+  
+  /* border-bottom: 10px solid  rgb(255, 231, 211); */
+}
+.assign-course-div1{
+  background-color: rgb(248, 248, 248);
+  height: 84px;
+  margin-bottom: 20px;
+  margin-left: 105px;
+  width: 1205px;
+  border-radius: 20px;
+  
+}
+.search-field-1{
+  width: 110px;
+  margin-left:10px
+}
+.visibility{
+  visibility: hidden
+}
+.file-upload-text{
+  font-weight: 700;margin-bottom: 2px;
+}
+.quiz-btn-close{
+  margin-left: 390px; padding-top: -8px;
 }

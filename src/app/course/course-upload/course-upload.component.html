@@ -66,48 +66,45 @@
 </div> -->
 
 <div id="div-1" class=" mt-5">
-    <div class="row" style="margin-left: -20px;">
+    <div class="row">
         <form [formGroup]="formSearchGrid">
-            <div class="col-md-2">
-                <input class="input-field form-control" style="width: 110px;" type="text" formControlName="COURSE_NAME"
+            <div class="col-md-2 ml-4">
+                <input class="input-field form-control search-field-1" type="text" formControlName="COURSE_NAME"
                     placeholder="Course Name">
             </div>
             <div class="col-md-2">
-                <input class="input-field form-control" style="width: 120px; margin-left:10px" type="text"
-                    formControlName="NO_OF_MODULES" placeholder="No Of Module">
+                <input class="input-field form-control search-field-1" type="text" formControlName="NO_OF_MODULES"
+                    placeholder="No Of Module">
             </div>
             <div class="col-md-1">
-                <input class="input-field form-control" style="width: 130px;margin-left:-10px;" type="text"
-                    formControlName="CATEGORY" placeholder="Category">
+                <input class="input-field form-control search-field-1" type="text" formControlName="CATEGORY"
+                    placeholder="Category">
             </div>
-            <div class="col-md-2">
-                <input class="input-field form-control" style="width: 150px;" type="text" formControlName="APPROVER"
+            <div class="col-md-2 ml-5">
+                <input class="input-field form-control search-field-1" type="text" formControlName="APPROVER"
                     placeholder="Approver">
             </div>
 
             <div class="col-md-2">
-                <ng-select class="search-input-dropdown" [searchable]="true" [clearable]="true" style="width: 130px;"
+                <ng-select class="search-input-dropdown search-field-1" [searchable]="true" [clearable]="true"
                     formControlName="LEVEL_OF_COURSE" placeholder="Level Of Course">
                     <ng-option class="dropdown-item" [disabled]="true" value="">--Select Level Of Course--
                     </ng-option>
                     <ng-option value="Beginner">Beginner</ng-option>
+                    <ng-option value="Intermediate">Intermediate</ng-option>
                     <ng-option value="Advance">Advance</ng-option>
+
                 </ng-select>
             </div>
 
 
-            <div class="col-md-2 mt-5" style="width: 150px;margin-right:20px;margin-left:-20px">
-                <!-- <button class="btn-div"><img src="assets/img/search.png" class="btn-search" alt=""
-                        (click)="searchGrid()">
-                    
-                </button> -->
+            <div class="col-md-1 mt-5" style="margin-right:20px;margin-left:-20px">
+
                 <button class="btn-div" style="color: #ffffff" (click)="searchGrid()">Search</button>
-                <!-- <i class='bx bx-search button btn-search'style='color:#ffffff' (click)="searchGrid()"></i> -->
-                <!-- <i class="fa fa-search button btn-search" aria-hidden="true"></i> -->
+
             </div>
-            <div class="col-md-1 mt-5" style="width: 150px;">
-                <button class="btn-div" style="color: #ffffff;margin-left: -30px;"
-                    (click)="clearSearch()">Clear</button>
+            <div class="col-md-1 mt-5" style="margin-right:20px;margin-left:-20px">
+                <button class="btn-div" style="color: #ffffff" (click)="clearSearch()">Clear</button>
             </div>
         </form>
     </div>
@@ -115,9 +112,8 @@
 </div>
 <div class="row">
     <div class="col-md-10 offset-1 ">
-        <button class="btn-new-course pull-right" data-bs-toggle='offcanvas' data-bs-target='#filter'
-            (click)="closeCanvas()" aria-controls='offcanvasExample'><img src="assets/img/video.png" class="camera"
-                alt="">
+        <button class="btn-new-course" data-bs-toggle='offcanvas' data-bs-target='#filter' (click)="closeCanvas()"
+            aria-controls='offcanvasExample'><img src="assets/img/video.png" class="camera" alt="">
             Add New Course</button>
 
 
@@ -140,8 +136,8 @@
                 <th style="width: 120px;">Action</th>
             </tr>
         </thead>
-        <tbody    class="text-center " style="font-size: small;">
-           
+        <tbody class="text-center">
+
             <tr *ngFor="let item of data">
                 <td>{{item?.COURSE_NAME}}</td>
                 <td>{{item?.NO_OF_MODULES}}</td>
@@ -155,30 +151,29 @@
                 <td>
                     <div><a data-bs-toggle="modal" (click)="deleteCourse(item?.COURSE_ID)" data-bs-target=""
                             aria-controls='exampleModal'>
-                            <i class='bx bx-trash mr-2' style='color:#e22326;font-size: 20px;'></i></a>
+                            <i class='bx bx-trash mr-2  text-danger action-icon-1 '></i></a>
                         <a data-bs-toggle='offcanvas' (click)="editCourseById(item?.COURSE_ID)" data-bs-target='#filter'
                             aria-controls='offcanvasExample'>
-                            <i class='bx bxs-edit mr-2' style='color:#686868 ;font-size: 20px;'></i></a>
+                            <i class='bx bxs-edit mr-2 action-icon-1'></i></a>
 
-                        <a><i class='bx bx-video-plus mr-2' style='color:#686868 ;font-size: 20px; '></i></a>
+                        <!-- <a><i class='bx bx-video-plus mr-2 action-icon-1'></i></a> -->
 
                         <a data-bs-toggle='offcanvas' (click)="viewCourseDetails(item?.COURSE_ID)"
                             data-bs-target="#filter3" aria-controls='offcanvasExample'>
-                            <i class='bx bx-list-ul bx-flip-vertical mr-2'
-                                style='color:#686868;font-size: 20px;'></i></a>
+                            <i class='bx bx-list-ul bx-flip-vertical mr-2 action-icon-1'></i></a>
                     </div>
 
                 </td>
             </tr>
-            
+
         </tbody>
-        
+
     </table>
-    <div  *ngIf="flagLoader"class="d-flex justify-content-center">
+    <div *ngIf="flagLoader" class="d-flex justify-content-center">
         <div class="spinner-border loader" role="status">
-          <span class="visually-hidden">Loading...</span>
+            <span class="visually-hidden">Loading...</span>
         </div>
-      </div>
+    </div>
 </div>
 
 <div class="offcanvas offcanvas-end offcanvas-border" tabindex="-1" id="filter" aria-labelledby="offcanvasExampleLabel">
@@ -231,22 +226,20 @@
                             Approver</div>
                     </div>
                 </div>
-                <div class="form-group col-md-6  mt-2"> 
-                    <label for="APPROVER" class="label-1">Business <span class="text-danger">*</span></label> 
-                    
-                    <ng-multiselect-dropdown
-                       [settings]="dropdownSettings"
-                       [data]="dropdownList" 
-                       formControlName="BUSINESS" placeholder="Business" class="custom-font-size"
-                       [ngClass]="{ 'is-invalid': courseSubmitted && c['BUSINESS'].errors }">
+                <div class="form-group col-md-6  mt-2">
+                    <label for="APPROVER" class="label-1">Business <span class="text-danger">*</span></label>
+
+                    <ng-multiselect-dropdown [settings]="dropdownSettings" [data]="dropdownList"
+                        formControlName="BUSINESS" placeholder="Business" class="custom-font-size"
+                        [ngClass]="{ 'is-invalid': courseSubmitted && c['BUSINESS'].errors }">
                     </ng-multiselect-dropdown>
                     <div *ngIf="courseSubmitted && c['BUSINESS'].errors" class="invalid-feedback">
                         <div class="form-validation-msg" *ngIf="c['BUSINESS'].errors?.['required']"> Please
                             select business</div>
                     </div>
-                
-                  
-                  </div>
+
+
+                </div>
                 <div class="form-group col-md-6  mt-2">
                     <label for="" class="form-label label-1">Level Of Course <span class="text-danger">*</span></label>
                     <ng-select class="input-dropdown" [searchable]="true" [clearable]="true"
@@ -255,7 +248,9 @@
                         <ng-option class="dropdown-item" [disabled]="true" value="">--Select Level Of Course--
                         </ng-option>
                         <ng-option value="Beginner">Beginner</ng-option>
+                        <ng-option value="Intermediate">Intermediate</ng-option>
                         <ng-option value="Advance">Advance</ng-option>
+
                     </ng-select>
 
                     <div *ngIf="courseSubmitted && c['LEVEL_OF_COURSE'].errors" class="invalid-feedback">
@@ -263,7 +258,7 @@
                             select level of course</div>
                     </div>
                 </div>
-                <div class="form-group col-md-6  mt-2">
+                <!-- <div class="form-group col-md-6  mt-2">
                     <label for="INSTRUCTOR_NAME" class="label-1">Instructor <span class="text-danger">*</span></label>
                     <input type="text" class="form-control input-1" id="INSTRUCTOR_NAME"
                         [ngClass]="{ 'is-invalid': courseSubmitted && c['INSTRUCTOR_NAME'].errors }"
@@ -272,7 +267,7 @@
                         <div class="form-validation-msg" *ngIf="c['INSTRUCTOR_NAME'].errors?.['required']"> Please enter
                             instructor name</div>
                     </div>
-                </div>
+                </div> -->
                 <!-- <div class="form-group col-md-12  mt-2">
                     <label for="COURSE_OUTCOME" class="label-1">What you will learn <span
                             class="text-danger">*</span></label>
@@ -306,21 +301,23 @@
             </div>
         </form>
         <div class="row pull-right">
-            <button #addModule style="visibility: hidden;" data-bs-toggle='offcanvas' data-bs-target='#filter1'
+            <button #addModule class="visibility" data-bs-toggle='offcanvas' data-bs-target='#filter1'
                 aria-controls='offcanvasExample'></button>
-            <button #addquiz style="visibility: hidden;" data-bs-toggle='offcanvas' data-bs-target='#filter2'
+            <button #addquiz class="visibility" data-bs-toggle='offcanvas' data-bs-target='#filter2'
                 aria-controls='offcanvasExample'></button>
 
 
             <button class="btn-p pull-right ml-2" data-bs-toggle='offcanvas' aria-controls='offcanvasExample'
                 (click)="submitCourse()">
                 Save Only Course</button>
-            <button class="btn-p pull-right ml-2" *ngIf="editData?.length!=0" (click)="addquzibutton()">
-                Edit Quiz</button>
-            <button class="btn-p pull-right ml-2" *ngIf="editData?.length==0" (click)="addquzibutton()">
+            <!-- <button class="btn-p pull-right ml-2" *ngIf="editData?.VALUES?.length!=0" (click)="addquzibutton()">
+                Edit Quiz</button> -->
+            <button class="btn-p pull-right ml-2" (click)="addquzibutton()">
                 Add Quiz</button>
             <button class="btn-p pull-right ml-2 mr-4" (click)="submitModule()">
                 Add Module</button>
+
+
         </div>
     </div>
 </div>
@@ -356,6 +353,7 @@
                 <div class="form-group col-md-6 mt-2">
                     <label for="MODULE_NUMBER" class="label-1">Module Number <span class="text-danger">*</span></label>
                     <input type="number" class="form-control input-5" id="MODULE_NUMBER" formControlName="MODULE_NUMBER"
+                        (change)="modulenumber($event)"
                         [ngClass]="{ 'is-invalid': moduleSubmitted && m['MODULE_NUMBER'].errors }"
                         placeholder="Module Number">
                     <div *ngIf="moduleSubmitted && m['MODULE_NUMBER'].errors" class="invalid-feedback">
@@ -398,7 +396,7 @@
                             <button (click)="fileupload.click()" style="all: unset;"><img class=" img-upload"
                                     id="delnullFile" src="assets/img/Capture.png"></button>
                         </div>
-                        <small *ngIf="!imageSrc" style="font-weight: 700;margin-bottom: 2px;">Click here to
+                        <small *ngIf="!imageSrc" class="file-upload-text">Click here to
                             upload or <br> drop media
                             here</small>
                         <!-- <small *ngIf="fileToUpload.length!=0" style="font-weight: 700;margin-bottom: 2px;">{{fileToUpload.name}}</small> -->
@@ -408,14 +406,13 @@
                             (change)="uploadThumbnail($event)" #fileupload multiple>
 
                         <div class="row" *ngIf="imageSrc">
-                             <img [src]="imageSrc" class="col-md-10"
-                                style="margin-left:14px; margin-right:4px; margin-top: -13px; height: 80px; width: 220px;">
-                                <!-- <div  class=" col-md-10 text-center after-upload" >
-                                <div class="file-name">   <small >{{imageSrc}}</small></div>
-                             
-                            </div> -->
-                            <button type="button" class="col-md-2 btn-close btn-btn-close file-close-btn"
-                            
+                            <!-- <img [src]="imageSrc" class="col-md-10"
+                                style="margin-left:14px; margin-right:4px; margin-top: -13px; height: 80px; width: 220px;"> -->
+                            <div class=" col-md-10 text-center after-upload">
+                                <div class="file-name"> <small>{{imageSrc}}</small></div>
+
+                            </div>
+                            <button type="button" class="col-md-2 btn-close btn-btn-close"
                                 (click)="uploadCrossClick('image')"></button>
 
                         </div>
@@ -435,7 +432,7 @@
                             <button (click)="fileupload1.click()" style="all: unset;"><img class=" img-upload"
                                     id="delnullFile" src="assets/img/Capture.png"></button>
                         </div>
-                        <small *ngIf="!videoSrc" style="font-weight: 700;margin-bottom: 2px;">Click here
+                        <small *ngIf="!videoSrc" class="file-upload-text">Click here
                             to upload or <br> drop media
                             here</small>
                         <input class="file-upload text-center" hidden type="file" id="VIDEO_PATH" accept="video/*"
@@ -443,14 +440,13 @@
                             [ngClass]="{ 'is-invalid': moduleSubmitted && m['VIDEO_PATH'].errors }"
                             (change)="uploadVideo($event)" #fileupload1 multiple>
                         <div class="row" *ngIf="videoSrc">
-                             <video [src]="videoSrc" type="video/mp4" class="col-md-10"
+                            <!-- <video [src]="videoSrc" type="video/mp4" class="col-md-10"
                                 style="margin-left:14px; margin-right:4px; margin-top: -13px; height: 80px; width: 220px;"
-                                *ngIf="videoSrc" controls muted autoplay> </video>
-                                <!-- <div  class=" col-md-10 text-center after-upload" >
-                                    <div class="file-name">   <small >{{videoSrc}}</small></div>
-                                </div> -->
+                                *ngIf="videoSrc" controls muted autoplay> </video> -->
+                            <div class=" col-md-10 text-center after-upload">
+                                <div class="file-name"> <small>{{videoSrc}}</small></div>
+                            </div>
                             <button type="button" class="col-md-2 btn-close btn-btn-close"
-                            style="margin-left: -11px; margin-top: -17px; font-size: 11px;"
                                 (click)="uploadCrossClick('video')"></button>
 
                         </div>
@@ -487,7 +483,7 @@
             <button class="btn-add pull-right ml-2" (click)="addButton()">
                 Add</button>
 
-            <div style="margin-left: 12px;">
+            <div class="ml-4">
                 <table class="table table-scroll table-bordered">
                     <thead class="table-2 bg-head-1 ">
                         <tr>
@@ -508,13 +504,11 @@
                             <td>{{item?.MODULE_DURATION}}</td>
                             <td>{{item?.MODULE_DESCRIPTION}}</td>
                             <td class="">
-                                <div><a><i class='bx bx-trash' (click)="deleteModuleById(item?.MODULE_ID)"
-                                            style='color:#e22326;size: 10px;font-size: 15px;'></i></a>
-                                    <a><i class='bx bxs-edit' style="font-size: 15px;"
-                                            (click)="editModule(item)"></i></a>
-                                    <a><i class='bx bx-video-plus' style='color:#1a1a1a;font-size: 15px;'></i></a>
-                                    <a><i class='bx bx-list-ul bx-flip-vertical'
-                                            style='color:#1a1a1a;font-size: 15px;'></i></a>
+                                <div><a><i class='bx bx-trash action-icon-2 text-danger'
+                                            (click)="deleteModuleById(item?.MODULE_ID)"></i></a>
+                                    <a><i class='bx bxs-edit action-icon-2' (click)="editModule(item)"></i></a>
+                                    <a><i class='bx bx-video-plus action-icon-2'></i></a>
+                                    <a><i class='bx bx-list-ul bx-flip-vertical action-icon-2'></i></a>
                                 </div>
 
                             </td>
@@ -522,47 +516,12 @@
                     </tbody>
                 </table>
             </div>
-
-
-
-            <!-- <div class="container">
-                <table class="table table-scroll table-striped">
-                    <thead>
-                        <tr>
-                            <td>Module Name</td>
-                            <td>Module Number</td>
-                            <td>Duration</td>
-                            <td>Module Description</td>
-                            <td>Action</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let item of arryAddModule">
-                            <td>{{item?.MODULE_NAME}}</td>
-                            <td>{{item?.MODULE_NUMBER}}</td>
-                            <td>{{item?.MODULE_DURATION}}</td>
-                            <td>{{item?.MODULE_DESCRIPTION}}</td>
-                            <td class="">
-                                <div><a><i class='bx bx-trash' style='color:#e22326;size: 10px;'></i></a>
-                                    <a><i class='bx bxs-edit'></i></a>
-                                    <a><i class='bx bx-video-plus' style='color:#1a1a1a'></i></a>
-                                    <a><i class='bx bx-list-ul bx-flip-vertical' style='color:#1a1a1a'></i></a>
-                                </div>
-    
-                            </td>
-                        </tr>
-                        
-                    </tbody>
-                </table>
-            </div> -->
-
-
             <div class="row pull-right">
                 <button class="btn-p pull-right ml-2" (click)="saveButton()" data-bs-toggle='offcanvas'
                     aria-controls='offcanvasExample'>
                     Save</button>
                 <button class="btn-p  ml-2" data-bs-toggle='offcanvas' aria-controls='offcanvasExample'
-                    data-bs-target='#filter'>
+                    data-bs-target='#filter' (click)="backButton()">
                     Back</button>
 
             </div>
@@ -587,14 +546,21 @@
         <div *ngFor="let quiz of addRowControls?.controls;let j=index;"
             class=" row add-quiz-card shadow p-3 mb-5 bg-white rounded" [formGroup]="getFormQuestion(j)">
 
-            <button type="button" class="col-md-2 btn-close  pull-right"
-            style="margin-left: 390px; padding-top: -8px;" (click)="deleteQuestion(j)"></button>
+            <button type="button" class="col-md-2 btn-close pull-right quiz-btn-close"
+                (click)="deleteQuestion(j)"></button>
             <div class="row">
 
                 <small class="col-md-1 mt-2">{{j+1}}</small>
 
-                <input class=" col-md-11 add-question" type="text" name="" id="" placeholder="Add Questions"
-                    formControlName="QUESTION">
+                <input class=" form-control col-md-11 add-question" type="text" name="" id=""
+                    placeholder="Add Questions" formControlName="QUESTION"
+                    [ngClass]="{ 'is-invalid': quizSubmitted && quiz?.get('QUESTION')?.errors}">
+                <div *ngIf="quizSubmitted" class="invalid-feedback">
+                    <small class="form-validation-msg" *ngIf="quiz?.get('QUESTION')?.errors?.['required']">
+                        Please enter
+                        Question</small>
+
+                </div>
                 <!-- <button class="col-md-1 quiz-btn-1">Add More</button> -->
             </div>
 
@@ -610,7 +576,15 @@
                         <tr *ngFor="let options of getOptionArray(j,0).controls;let z=index"
                             [formGroup]="getOptionForm(options)">
                             <th>{{z+1}}</th>
-                            <th><input class="form-control" formControlName="OPTIONS" type="text">
+                            <th><input class="form-control" formControlName="OPTIONS" type="text"
+                                    [ngClass]="{ 'is-invalid': quizSubmitted && options?.get('OPTIONS')?.errors}"
+                                    placeholder="Option{{z+1}}">
+                                <!-- <small class="invalid-feedback" style="size:smaller" *ngIf=" quizSubmitted && options?.get('OPTIONS')?.errors?.['required']"> 
+                                        Please enter
+                                        options</small> -->
+
+
+
                             </th>
                             <th><input type="checkbox" formControlName="IS_CORRECT"></th>
                         </tr>
@@ -623,19 +597,17 @@
 
             </div>
 
-            <!-- <button class="quiz-btn-1" (click)="addNewOption()">Add new option</button> -->
 
-            <!-- <div formArrayName="formArrayQuiz"  *ngFor="let quiz of formArrayQuiz.controls;let i=index" >
-                    <input type="radio">
-                    <input type="text">
-                </div> -->
         </div>
 
 
 
         <div class="row  mr-4">
+            <button hidden id="saveQuiz" data-bs-toggle='offcanvas' aria-controls='offcanvasExample'>Save</button>
             <button class="col-md-10 quiz-btn-1" data-bs-toggle='offcanvas' aria-controls='offcanvasExample'
-                (click)="saveQuiz()">Save</button>
+                data-bs-target='#filter'>Back</button>
+            <button class="col-md-10 quiz-btn-1" (click)="saveQuiz()">Save</button>
+
             <button class=" col-md-2 quiz-btn-1 " (click)="addCard()">Add Question</button>
         </div>
          
@@ -685,10 +657,10 @@
                 <label class="label-2 text-dark">Level Of Course</label>
                 <div class="label-3">{{editData?.LEVEL_OF_COURSE}}</div>
             </div>
-            <div class="form-group col-md-6  mt-3">
+            <!-- <div class="form-group col-md-6  mt-3">
                 <label class="label-2 text-dark">Instructor</label>
                 <div class="label-3">{{editData?.INSTRUCTOR_NAME}}</div>
-            </div>
+            </div> -->
             <!-- <div class="form-group col-md-12  mt-3">
                 <label class="label-2 text-dark">What you will learn </label>
                 <div class="label-3">{{editData?.COURSE_OUTCOME}}</div>
