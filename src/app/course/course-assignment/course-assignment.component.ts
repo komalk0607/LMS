@@ -8,6 +8,7 @@ import { CourseServiceService } from 'src/app/Services/course-service.service';
 import { Course } from 'src/app/Modals/CourseModals/course-model';
 import Swal from 'sweetalert2';
 import { HttpClient } from '@angular/common/http';
+import { CommonServiceService } from 'src/app/Services/CommonService/common-service.service';
 @Component({
   selector: 'app-course-assignment',
   templateUrl: './course-assignment.component.html',
@@ -26,7 +27,7 @@ export class CourseAssignmentComponent {
   employeeList: any;
   courseList: any;
   editData1: any;
-  constructor(private _fb: FormBuilder, private _service: CourseServiceService, private _http: HttpClient) {
+  constructor(private _fb: FormBuilder, private _service: CourseServiceService, private _http: HttpClient,private _commonService:CommonServiceService) {
 
   }
   ngOnInit(): void {
@@ -63,6 +64,7 @@ export class CourseAssignmentComponent {
       COURSE_NAME: [null, Validators.required],
       EMPLOYEE_NAME: [null, Validators.required],
       COMPANY_NAME: [null, Validators.required],
+      EVALUATOR_NAME: [null, Validators.required],
       LOCATION: [null, Validators.required],
       START_TIME: [null, Validators.required],
       END_TIME: [null, Validators.required],
@@ -92,9 +94,12 @@ export class CourseAssignmentComponent {
       obj.ASSIGNED_BY = "Komal"
       // obj.CREATED_BY = 'komalk0607'
       this._service.searchGridAssignCourse(obj).subscribe(res => {
+        this._commonService.destroyDT()
         this.data = res.Data
-        this.dtTrigger.next(this.data)
+        this._commonService.getDT();
+        //this.dtTrigger.next(this.data)
       })
+    
     }
 
 
@@ -102,8 +107,12 @@ export class CourseAssignmentComponent {
   }
   clearSearch() {
     debugger
-    this.formSearchGrid.reset();
+    this._commonService.destroyDT();
     this.getSearchAndGridData('');
+    
+    this.formSearchGrid.reset();
+   
+    
 
   }
   deleteRecord(value: number) {
@@ -172,6 +181,7 @@ export class CourseAssignmentComponent {
       this.formAssignCourse.controls['COURSE_NAME']?.setValue(this.ediData[0].COURSE_ID)
       this.formAssignCourse.controls['EMPLOYEE_NAME']?.setValue(this.ediData[0].EMPLOYEE_ID
       )
+      this.formAssignCourse.controls['EVALUATOR_NAME']?.setValue(this.ediData[0].EVALUATOR_ID)
       this.formAssignCourse.controls['START_TIME']?.setValue(this.ediData[0].START_TIME.split('T')[0])
       this.formAssignCourse.controls['END_TIME']?.setValue(this.ediData[0].END_TIME.split('T')[0])
     })
@@ -189,6 +199,7 @@ export class CourseAssignmentComponent {
           "START_TIME": this.formAssignCourse.controls['START_TIME']?.value + "T11:02:46.055Z",
           "END_TIME": this.formAssignCourse.controls['END_TIME']?.value + "T11:02:46.055Z",
           "EMPLOYEE_ID": this.formAssignCourse.controls['EMPLOYEE_NAME']?.value,
+          "EVALUATOR_ID": this.formAssignCourse.controls['EVALUATOR_NAME']?.value,
           "ASSIGNED_BY": "Komal"
         }]
       this._service.assignCourse(obj).subscribe(res => {

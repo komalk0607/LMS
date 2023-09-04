@@ -155,9 +155,10 @@ export class CourseUploadComponent implements OnInit {
     this._service.getCourseGridData(obj).subscribe(res => {
       this.data = res.Data;
       this.flagLoader=false;
+      this._commonService.getDT();
     //  this.dtTrigger.next(res.Data)
     })
-    this._commonService.getDT();
+    
   }
   getBusinessDropdown(){
     var obj=new Course();
@@ -663,8 +664,13 @@ export class CourseUploadComponent implements OnInit {
       obj.LEVEL_OF_COURSE = this.formSearchGrid.controls['LEVEL_OF_COURSE']?.value ? this.formSearchGrid.controls['LEVEL_OF_COURSE']?.value : '';
       obj.CREATED_BY = 'komalk0607'
       this._service.searchGrid(obj).subscribe(res => {
+        this._commonService.destroyDT()
+
         this.data = res.Data
+        this._commonService.getDT();
+        
       })
+      
     }
 
   }
