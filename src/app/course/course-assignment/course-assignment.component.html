@@ -61,7 +61,7 @@
     </div>
 </div>
 <div class="table-1">
-    <table datatable [dtOptions]="dtoptions" [dtTrigger]="dtTrigger" class="table bg-head table-hover">
+    <table datatable id="data-table-config" class="table bg-head table-hover">
         <thead class="text-center">
             <tr>
                 <th>Employee Name</th>
@@ -154,6 +154,23 @@
                         <div class="form-validation-msg" *ngIf="a['EMPLOYEE_NAME'].errors?.['required']"> Please
                             select
                             employee</div>
+                    </div>
+                </div>
+                <div class="form-group col-md-6  mt-2">
+                    <label for="" class="form-label label-1">Evaluator <span class="text-danger">*</span></label>
+                    <ng-select class="input-dropdown" [searchable]="true" [clearable]="true" (click)="changeEmployee()"
+                        [ngClass]="{ 'is-invalid': assignCourse && a['EVALUATOR_NAME'].errors }" 
+                        formControlName="EVALUATOR_NAME" placeholder="Select Evaluator">
+                        <!-- <ng-option class="dropdown-item" [disabled]="true" value="">--Select Employee--
+                        </ng-option> -->
+                        <ng-option *ngFor="let e of employeeList ; let j=index" [value]="e.EMPLOYEE_ID">{{e.EMPLOYEE_NAME}}</ng-option>
+
+                    </ng-select>
+
+                    <div *ngIf="assignCourse && a['EVALUATOR_NAME'].errors" class="invalid-feedback">
+                        <div class="form-validation-msg" *ngIf="a['EVALUATOR_NAME'].errors?.['required']"> Please
+                            select
+                            evaluator</div>
                     </div>
                 </div>
             </div>
@@ -256,6 +273,11 @@
             <div class="form-group col-md-6  mt-3">
                 <label class="label-2 text-dark">Employee Name</label>
                 <div class="label-3">{{editData1?.EMPLOYEE_NAME}}</div>
+
+            </div>
+            <div class="form-group col-md-6  mt-3">
+                <label class="label-2 text-dark">Evaluator</label>
+                <div class="label-3">{{editData1?.EVALUATOR_NAME}}</div>
 
             </div>
         </div>
