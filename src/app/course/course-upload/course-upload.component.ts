@@ -65,7 +65,6 @@ export class CourseUploadComponent implements OnInit {
     this.formArrayQuiz = this._fb.array([])
   }
   ngOnInit(): void {
-    // this.dtTrigger.next('');
     sessionStorage.removeItem('courseDetails');
     sessionStorage.removeItem('SingleModuleData');
     sessionStorage.removeItem('courseAndModuleDetails');
@@ -74,9 +73,11 @@ export class CourseUploadComponent implements OnInit {
     this.dropdownSettings = {
       idField: 'BUSINESS_ID',
       textField: 'BUSINESS_NAME',
+      allowSearchFilter:true,
     };
     this.dtoptions = {
       pagingType: 'full_numbers',
+      pageLength: 5,
       searching: true,
       order: [],
       columnDefs: [{
@@ -92,14 +93,6 @@ export class CourseUploadComponent implements OnInit {
     this.getBusinessDropdown();
 
    
-  }
-  ngAfterViewInit(): void {
-    this.dtTrigger.next('');
-  }
-
-  ngOnDestroy(): void {
-    // Do not forget to unsubscribe the event
-    this.dtTrigger.unsubscribe();
   }
   quizFormGroup() {
     this.formQuizGroup = this._fb.group({
@@ -161,7 +154,7 @@ export class CourseUploadComponent implements OnInit {
     this._service.getCourseGridData(obj).subscribe(res => {
       this.data = res.Data;
       this.flagLoader=false;
-      //  this.dtTrigger.next(res.Data)
+     this.dtTrigger.next(res.Data)
 
       debugger
     })
@@ -169,7 +162,7 @@ export class CourseUploadComponent implements OnInit {
   getBusinessDropdown(){
     var obj=new Course();
     obj.STR="BUSINESS_DETAILS"
-    this._service.getMasterDetails(obj).subscribe(res=>{
+    this._service.getBusinessDetails(obj).subscribe(res=>{
       debugger
       this.dropdownList=res.Data;
 
