@@ -15,5 +15,11 @@ export class Course{
      MODULE_ID:any;
      VALUES:any;
      STR:any;
+     EMPLOYEE_NAME   :any;
+     START_TIME   :any;
+     END_TIME   :any;
+     STATUS   :any;
+     COURSE_EMPLOYEE_ID:any;
+     ASSIGNED_BY:any;
 
 }

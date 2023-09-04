@@ -69,7 +69,29 @@ export class CourseServiceService {
     return this.http.post<any>(this.baseUrl + "Quiz/DeleteSingleQuestion",obj,this.httpOptions)
   }
 
-  getMasterDetails(obj:Course){
-    return this.http.get<any>(this.baseUrl + "Course/getMasterDetails?STR=" +obj.STR)
+  getBusinessDetails(obj:Course){
+    return this.http.get<any>(this.baseUrl + "Course/getBusinessDetails?STR=" +obj.STR)
+  }
+
+  assignCourse(obj:Course){
+    return this.http.post<any>(this.baseUrl + "Course/AssignCourse",obj,this.httpOptions)
+  }
+  searchGridAssignCourse(obj:Course){
+    return this.http.get<any>(this.baseUrl + "Course/GetCourseEmployeeDetails?OPERATION="+obj.OPERATION+
+    "&COURSE_EMPLOYEE_ID="+obj.COURSE_EMPLOYEE_ID+
+    "&EMPLOYEE_NAME="+obj.EMPLOYEE_NAME+
+    "&COURSE_NAME="+obj.COURSE_NAME+
+    "&ASSIGNED_BY="+obj.ASSIGNED_BY+
+    "&START_TIME="+obj.START_TIME+
+    "&END_TIME="+obj.END_TIME,this.httpOptions)
+  }
+  getEmployeeDropDown(obj:Course){
+    return this.http.get<any>(this.baseUrl + "Course/getEmployeeDropDown?STR=" +obj.STR)
+  }
+  getCoursesDropDown(obj:Course){
+    return this.http.get<any>(this.baseUrl + "Course/getCourseDropDown?STR=" +obj.STR)
+  }
+  deleteAssignedCourse(obj:Course){
+    return this.http.post<any>(this.baseUrl + "Course/deleteAssignedCourse",obj,this.httpOptions)
   }
 }
