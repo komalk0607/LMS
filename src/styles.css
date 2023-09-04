@@ -1,108 +1,118 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@ng-select/ng-select/themes/default.theme.css";
+
 .hero {
-    width: 100%;
-    height: 100vh;
-    background: url(assets/img/hero-bg.png) top center no-repeat;
-    background-size: cover;
-    padding-left: 10px;
-  }
-  .hero h1 {
-    margin: 0;
-    font-size: 62px;
-    font-weight: 300;
-    color: #0b0c0e;
-    padding: 59px;
-    padding-left: 104px;
-  }
-  .hero h1 span{
-    margin: 0;
-       
-        color:  rgb(240, 79, 4);
-     
-    }
-  .hero h2 {
-    color: #444444;
-    margin: -24px 0 0 0;
-    font-size: 19px;
-    padding-left: 104px;
-  }
-  
-  .hero .btn-get-started {
-    margin-top: 30px;
-    line-height: 0;
-    padding: 21px 18px;
-    border-radius: 4px;
-    transition: 0.5s;
-    color: #fff;
-    background: rgb(240, 79, 4);
-    border-color: rgb(240, 79, 4);
-    margin-right: 20px;
-    margin-left: 104px;
-    font-size: small;
-    border: none;
-  }
-  .hero .btn-get-free-trial {
-    margin-top: 30px;
-    line-height: 0;
-    padding: 21px 17px;
-    border-radius: 4px;
-    border-color: #fff;
-    transition: 0.5s;
-    color:  rgb(240, 79, 4);
-    background: #fff;
-    margin-right: 18px;
-    font-size: small;
-  }
-  
-  .hero .btn-get-started span {
-    font-family: "Nunito", sans-serif;
-    font-weight: 600;
-    font-size: 16px;
-    letter-spacing: 1px;
-  }
-  
-  .hero .btn-get-started i {
-    margin-left: 5px;
-    font-size: 18px;
-    transition: 0.3s;
-  }
-  
-  .hero .btn-get-started:hover i {
-    transform: translateX(5px);
-  }
-  
+  width: 100%;
+  height: 100vh;
+  background: url(assets/img/hero-bg.png) top center no-repeat;
+  background-size: cover;
+  padding-left: 10px;
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: 62px;
+  font-weight: 300;
+  color: #0b0c0e;
+  padding: 59px;
+  padding-left: 104px;
+}
+
+.hero h1 span {
+  margin: 0;
+
+  color: rgb(240, 79, 4);
+
+}
+
+.hero h2 {
+  color: #444444;
+  margin: -24px 0 0 0;
+  font-size: 19px;
+  padding-left: 104px;
+}
+
+.hero .btn-get-started {
+  margin-top: 30px;
+  line-height: 0;
+  padding: 21px 18px;
+  border-radius: 4px;
+  transition: 0.5s;
+  color: #fff;
+  background: rgb(240, 79, 4);
+  border-color: rgb(240, 79, 4);
+  margin-right: 20px;
+  margin-left: 104px;
+  font-size: small;
+  border: none;
+}
+
+.hero .btn-get-free-trial {
+  margin-top: 30px;
+  line-height: 0;
+  padding: 21px 17px;
+  border-radius: 4px;
+  border-color: #fff;
+  transition: 0.5s;
+  color: rgb(240, 79, 4);
+  background: #fff;
+  margin-right: 18px;
+  font-size: small;
+}
+
+.hero .btn-get-started span {
+  font-family: "Nunito", sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: 1px;
+}
+
+.hero .btn-get-started i {
+  margin-left: 5px;
+  font-size: 18px;
+  transition: 0.3s;
+}
+
+.hero .btn-get-started:hover i {
+  transform: translateX(5px);
+}
+
 .hero .hero-img {
-  
+
   text-align: right;
   background: url(assets/img/landing-learning.PNG) top center no-repeat;
-    background-size: cover;
-    margin-top: 75px;
-    width: 649px;
-    height: 208px;
-    margin-left: -3px;
-  }
-  body {
-    max-width: 100%;
-    overflow-x: hidden;
+  background-size: cover;
+  margin-top: 75px;
+  width: 649px;
+  height: 208px;
+  margin-left: -3px;
 }
-.modal-popup-content{
+
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.modal-popup-content {
   width: 520px;
   height: 185px;
 }
-.modal-popup-body{
+
+.modal-popup-body {
   font-size: large;
   margin-top: -3px;
   margin-left: 51px;
   margin-right: 51px;
 }
-.modal-popup-title{
+
+.modal-popup-title {
   width: 43px;
   height: 41px;
   margin-left: 211px;
   margin-top: 14px;
 }
-.close-popup{
+
+.close-popup {
   margin-right: -30px;
   margin-left: 15px;
   width: 72px;
@@ -152,6 +162,7 @@
 .camera {
   width: 26px;
 }
+
 #div-1 {
   background-color: rgb(248, 248, 248);
   height: 100px;
@@ -160,11 +171,13 @@
   width: 1205px;
   border-radius: 20px;
 }
+
 #div-1 ::placeholder {
   font-weight: 300;
   font-size: small;
   padding-left: 10px;
 }
+
 .input-field {
   width: 166px;
   height: 47px;
@@ -173,7 +186,8 @@
   border: none;
   border-radius: 15px;
 }
-.search-input-dropdown .ng-select-container{
+
+.search-input-dropdown .ng-select-container {
   width: 166px;
   height: 47px;
   margin-top: 30px;
@@ -181,23 +195,25 @@
   border: none;
   border-radius: 15px;
 }
+
 .ng-select.ng-select-single .ng-select-container {
   height: 48px;
 }
+
 .btn-div {
   width: 47px;
   height: 43px;
   padding-top: -4px;
   margin-top: 1px;
   margin-left: 77px;
-  border:none;
+  border: none;
   border-radius: 34px;
   background-color: rgb(240, 79, 4);
 
 }
 
 .btn-search {
-  
+
   width: 37px;
   height: 35px;
   padding-top: -4px;
@@ -212,26 +228,32 @@ select:required:invalid {
   font-size: small;
   padding-left: 10px;
 }
-.bg-head{
-border:2px solid rgb(248, 248, 248);;
-border-collapse: collapse;
+
+.bg-head {
+  border: 2px solid rgb(248, 248, 248);
+  ;
+  border-collapse: collapse;
   border-radius: 2em;
   overflow: hidden;
 }
+
 .table.bg-head th {
   background-color: rgb(255, 231, 211);
   font-size: small;
   color: rgb(240, 79, 4);
   font-weight: 800;
 }
+
 .table.bg-head td {
- border: none;
+  border: none;
 }
-.bg-head-1{
+
+.bg-head-1 {
   background-color: rgb(232, 244, 247);
-  color:  rgb(240, 79, 4);
+  color: rgb(240, 79, 4);
   font-weight: 600;
 }
+
 .add-course-title {
   margin-top: 5px;
   margin-left: 10px;
@@ -239,11 +261,12 @@ border-collapse: collapse;
   font-size: large;
   font-weight: 700;
 }
+
 .btn-p {
-  background-color:  rgb(240, 79, 4);
+  background-color: rgb(240, 79, 4);
   border: none;
-  border-color:  rgb(240, 79, 4);
-  color:#fff;
+  border-color: rgb(240, 79, 4);
+  color: #fff;
   width: 114px;
   height: 32px;
   border-radius: 7px;
@@ -252,41 +275,51 @@ border-collapse: collapse;
   font-size: larger;
   font-weight: 400;
 }
+
 .label-1 {
   font-weight: 450;
   font-size: larger;
 }
+
 .input-1 {
   height: 33px;
   width: 245px;
 }
+
 .input-dropdown .ng-select-container {
   min-height: 33px !important;
   height: 33px !important;
 }
+
 .input-2 {
   height: 87px;
   width: 237px;
 }
-.input-3{
+
+.input-3 {
   height: 90px;
   width: 505px;
   min-height: 90px;
 }
-.input-4{
+
+.input-4 {
   height: 33px;
   width: 240px;
 }
-.input-5{
+
+.input-5 {
   height: 33px;
   width: 242px;
 }
+
 .add-module {
   margin-top: -35px
 }
+
 .add-course {
   margin-top: -4px
 }
+
 .add-module-title {
   margin-top: -20px;
   margin-left: 4px;
@@ -294,33 +327,41 @@ border-collapse: collapse;
   font-size: large;
   font-weight: 700;
 }
-.table-1{
+
+.table-1 {
   width: 1205px;
-    margin-left: 105px;
-    margin-right: 83px;
+  margin-left: 105px;
+  margin-right: 83px;
 }
-.table-1,tbody{
+
+.table-1,
+tbody {
   font-size: small;
 }
-.action-icon-1{
+
+.action-icon-1 {
   font-size: 20px;
-  color:#686868
+  color: #686868
 }
-.action-icon-2{
+
+.action-icon-2 {
   font-size: 15px;
-  color:#1a1a1a
+  color: #1a1a1a
 }
+
 .table-2 {
   width: 100px;
 }
-.module-action{
+
+.module-action {
   width: 10px;
 }
-.btn-add{
-  background-color:  rgb(240, 79, 4);
+
+.btn-add {
+  background-color: rgb(240, 79, 4);
   color: #ffff;
-  border:none;
-  border-color:rgb(240, 79, 4);
+  border: none;
+  border-color: rgb(240, 79, 4);
   width: 62px;
   height: 28px;
   border-radius: 7px;
@@ -330,8 +371,9 @@ border-collapse: collapse;
   font-weight: 600;
   padding: -2px;
   padding-left: -1px;
-  padding-right: 10px; 
+  padding-right: 10px;
 }
+
 .upload-box {
   padding-top: 8%;
   border: 1px solid #ced4da;
@@ -339,28 +381,38 @@ border-collapse: collapse;
   width: 237px;
   margin-top: 0px;
 }
-.img-upload{
+
+.img-upload {
   width: 42px;
   margin-left: 6px;
   height: 30px;
   margin-top: -11px;
 }
-.after-upload{
+
+.after-upload {
   margin-left: 15px;
-    margin-right: 3px;
-    margin-top: -11px;
-    height: 77px;
-    width: 217px;
-    background-color: rgb(255, 231, 211);
-    border: 1px dashed;
+  margin-right: 3px;
+  margin-top: -11px;
+  height: 77px;
+  width: 217px;
+  background-color: rgb(255, 231, 211);
+  border: 1px dashed;
 }
-.file-close-btn{
-  margin-left: -11px; margin-top: -17px; font-size: 10px;
+
+.file-close-btn {
+  margin-left: -11px;
+  margin-top: -17px;
+  font-size: 10px;
 }
-.file-name{
-  font-weight: 700; margin-bottom: 2px; margin-top:30px;font-size:15px
+
+.file-name {
+  font-weight: 700;
+  margin-bottom: 2px;
+  margin-top: 30px;
+  font-size: 15px
 }
-.upload-img-div{
+
+.upload-img-div {
   width: 46px;
   height: 26px;
   padding-top: -4px;
@@ -369,6 +421,7 @@ border-collapse: collapse;
   border-radius: 13px;
   background-color: #ced4da;
 }
+
 .offcanvas-border {
   border-top-left-radius: 5%;
   border-bottom-left-radius: 5%;
@@ -376,6 +429,7 @@ border-collapse: collapse;
   margin-bottom: 1px;
   width: 550px;
 }
+
 .card-3 {
   width: 270px;
   height: 75px;
@@ -385,6 +439,7 @@ border-collapse: collapse;
   margin-bottom: 40px;
   border-radius: 5px;
 }
+
 .offcanvas {
   border-top-left-radius: 5%;
   border-bottom-left-radius: 5%;
@@ -392,66 +447,79 @@ border-collapse: collapse;
   margin-bottom: 1px;
   width: 550px !important;
 }
-.offcanvas.offcanvas-end{    overflow-x: hidden;
-  overflow-y: auto;
-  min-height: 8rem;}
-  .form-validation-msg{
-    font-size: 11px;
-  }
-  .add-quiz-card{
-    width: 435px;
-    height: 275px;
-    margin-right: 10px;
-    margin-left: 23px;
-    margin-top: 40px;
-    margin-bottom: 40px;
- border-left: 10px solid;
-   border-left-color: rgb(240, 79, 4);
-  }
-  .add-question{
-    width: 285px;
-    height: 25px;
-    margin-left: 5px;
-    background-color: #e6e6e6;
-    /* border: none; */
-  }
-  .quiz-btn-1{
-    background-color:  rgb(240, 79, 4);
-    color: #ffff;
-    border:none;
-    border-color: rgb(240, 79, 4);
-    width: 95px;
-    height: 36px;
-    border-radius: 7px;
-    margin-top: 0px;
-    float: right;
-    font-size: x-small;
-    font-weight: 600;
-    margin-left: 35px;
-  }
-  .btn-btn-close{
-    width: 10px;
-    margin-left: -11px; margin-top: -17px; font-size: 11px;
-  }
 
-  .label-2 {
-    font-weight: 490;
-    font-size: medium;
-  }
-  .label-3 {
-    font-weight: 400;
-    font-size: larger;
-    margin-top: -9px;
-  }
-  .loader{
-    margin-left: -8px;
-    color: rgb(240, 79, 4);
-    font-size: 12px;
-    
-    --bs-spinner-width: 3rem;
-    --bs-spinner-height: 3rem;
-  }
-  /* .multiselect-dropdown .dropdown-btn .selected-item-container .selected-item {
+.offcanvas.offcanvas-end {
+  overflow-x: hidden;
+  overflow-y: auto;
+  min-height: 8rem;
+}
+
+.form-validation-msg {
+  font-size: 11px;
+}
+
+.add-quiz-card {
+  width: 435px;
+  height: 275px;
+  margin-right: 10px;
+  margin-left: 23px;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  border-left: 10px solid;
+  border-left-color: rgb(240, 79, 4);
+}
+
+.add-question {
+  width: 285px;
+  height: 25px;
+  margin-left: 5px;
+  background-color: #e6e6e6;
+  /* border: none; */
+}
+
+.quiz-btn-1 {
+  background-color: rgb(240, 79, 4);
+  color: #ffff;
+  border: none;
+  border-color: rgb(240, 79, 4);
+  width: 95px;
+  height: 36px;
+  border-radius: 7px;
+  margin-top: 0px;
+  float: right;
+  font-size: x-small;
+  font-weight: 600;
+  margin-left: 35px;
+}
+
+.btn-btn-close {
+  width: 10px;
+  margin-left: -11px;
+  margin-top: -17px;
+  font-size: 11px;
+}
+
+.label-2 {
+  font-weight: 490;
+  font-size: medium;
+}
+
+.label-3 {
+  font-weight: 400;
+  font-size: larger;
+  margin-top: -9px;
+}
+
+.loader {
+  margin-left: -8px;
+  color: rgb(240, 79, 4);
+  font-size: 12px;
+
+  --bs-spinner-width: 3rem;
+  --bs-spinner-height: 3rem;
+}
+
+/* .multiselect-dropdown .dropdown-btn .selected-item-container .selected-item {
     border: 1px solid #0ae9a1;
     margin-right: 5px;
     background: #f55b1e;
@@ -478,34 +546,38 @@ border-collapse: collapse;
   display: inline-block;
 }
 
-.multiselect-dropdown .dropdown-btn .dropdown-multiselect__caret:before { 
+.multiselect-dropdown .dropdown-btn .dropdown-multiselect__caret:before {
   border-width: 5px 5px 0 5px !important;
 }
+
 .multiselect-dropdown .dropdown-btn .dropdown-multiselect__caret {
-  
+
   width: 30px !important;
   height: 30px !important;
- 
+
 }
-.multiselect-item-checkbox[_ngcontent-ng-c1411523848] input[type=checkbox]+div[_ngcontent-ng-c1411523848]:before{
+
+.multiselect-item-checkbox[_ngcontent-ng-c1411523848] input[type=checkbox]+div[_ngcontent-ng-c1411523848]:before {
   box-sizing: content-box;
-    content: "";
-    color: #f55b1e !important;
-    position: absolute;
-    top: 50%;
-    left: 0;
-    width: 14px;
-    height: 14px;
-    margin-top: -9px;
-    border: 2px solid #f55b1e !important;
-    text-align: center;
-    transition: all .4s ease;
+  content: "";
+  color: #f55b1e !important;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 14px;
+  height: 14px;
+  margin-top: -9px;
+  border: 2px solid #f55b1e !important;
+  text-align: center;
+  transition: all .4s ease;
 }
+
 .multiselect-item-checkbox[_ngcontent-ng-c1411523848] input[type=checkbox][_ngcontent-ng-c1411523848]:checked+div:before {
   animation: _ngcontent-ng-c1411523848_borderscale .2s ease-in;
   background: #f55b1e !important;
 }
-.assign-course-div2{
+
+.assign-course-div2 {
   background-color: rgb(255, 231, 211);
   width: 505px;
   height: 28px;
@@ -513,28 +585,35 @@ border-collapse: collapse;
   font-weight: 600;
   padding: 5px 6px 4px;
   margin-left: -20px;
-  
+
   /* border-bottom: 10px solid  rgb(255, 231, 211); */
 }
-.assign-course-div1{
+
+.assign-course-div1 {
   background-color: rgb(248, 248, 248);
   height: 84px;
   margin-bottom: 20px;
   margin-left: 105px;
   width: 1205px;
   border-radius: 20px;
-  
+
 }
-.search-field-1{
+
+.search-field-1 {
   width: 110px;
-  margin-left:10px
+  margin-left: 10px
 }
-.visibility{
+
+.visibility {
   visibility: hidden
 }
-.file-upload-text{
-  font-weight: 700;margin-bottom: 2px;
+
+.file-upload-text {
+  font-weight: 700;
+  margin-bottom: 2px;
 }
-.quiz-btn-close{
-  margin-left: 390px; padding-top: -8px;
+
+.quiz-btn-close {
+  margin-left: 390px;
+  padding-top: -8px;
 }

@@ -7,6 +7,7 @@ import { Course } from 'src/app/Modals/CourseModals/course-model';
 import Swal from 'sweetalert2';
 import { HttpClient } from '@angular/common/http';
 import { IDropdownSettings, } from 'ng-multiselect-dropdown';
+import { CommonServiceService } from 'src/app/Services/CommonService/common-service.service';
 declare var $: any;
 @Component({
   selector: 'app-course-upload',
@@ -61,7 +62,7 @@ export class CourseUploadComponent implements OnInit {
   deleteQuestionByCrossClick: any=[];
   flagLoader: boolean=false;
 
-  constructor(private _fb: FormBuilder,  private _service: CourseServiceService, private _http: HttpClient) {
+  constructor(private _fb: FormBuilder,  private _service: CourseServiceService, private _http: HttpClient,private _commonService:CommonServiceService) {
     this.formArrayQuiz = this._fb.array([])
   }
   ngOnInit(): void {
@@ -154,10 +155,9 @@ export class CourseUploadComponent implements OnInit {
     this._service.getCourseGridData(obj).subscribe(res => {
       this.data = res.Data;
       this.flagLoader=false;
-     this.dtTrigger.next(res.Data)
-
-      debugger
+    //  this.dtTrigger.next(res.Data)
     })
+    this._commonService.getDT();
   }
   getBusinessDropdown(){
     var obj=new Course();
@@ -670,6 +670,7 @@ export class CourseUploadComponent implements OnInit {
   }
   clearSearch() {
     this.getGridData();
+    this._commonService.destroyDT();
     this.formSearchGrid.reset();
   }
 

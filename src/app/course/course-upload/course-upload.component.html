@@ -1,4 +1,4 @@
-<app-side-bar></app-side-bar>
+<!-- <app-side-bar></app-side-bar> -->
 
 <!-- <div class="container">
     <div class="row">
@@ -65,7 +65,7 @@
 
 </div> -->
 
-<div id="div-1" class=" mt-5">
+<!-- <div id="div-1" class=" mt-5">
     <div class="row ml-4 mr-4">
         <form [formGroup]="formSearchGrid">
             <div class="col-md-2 ml-4">
@@ -109,7 +109,72 @@
         </form>
     </div>
 
+</div> -->
+
+
+<div class="row mt-5">
+    <div class="col-1">
+        <app-side-bar></app-side-bar>
+    </div>
+    <div class="col-11">
+        <form [formGroup]="formSearchGrid">
+        <div class="searchGrid">
+            <div class="row searchGridInfoRow pl-3">
+                <div class="col">
+                    <div class="searchGridInfo">
+                        <input class="form-control" type="text" formControlName="COURSE_NAME" placeholder="Course Name">
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="searchGridInfo">
+                        <input class="form-control" type="text" formControlName="NO_OF_MODULES"
+                            placeholder="No Of Module">
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="searchGridInfo">
+                        <input class="form-control" type="text" formControlName="CATEGORY" placeholder="Category">
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="searchGridInfo">
+                        <input class="form-control" type="text" formControlName="APPROVER" placeholder="Approver">
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="searchGridInfo">
+                        <ng-select class="" [searchable]="true" [clearable]="true"
+                            formControlName="LEVEL_OF_COURSE" placeholder="Level Of Course">
+                            <ng-option class="dropdown-item" [disabled]="true" value="">--Select Level Of Course--
+                            </ng-option>
+                            <ng-option value="Beginner">Beginner</ng-option>
+                            <ng-option value="Intermediate">Intermediate</ng-option>
+                            <ng-option value="Advance">Advance</ng-option>
+
+                        </ng-select>
+                    </div>
+                </div>
+                <div class="col-1">
+                    <div class="searchGridInfo text-center">
+                        <button class="btnSearch" (click)="searchGrid()">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="col-1">
+                    <div class="searchGridInfo">
+                        <button  class="btnSearch" (click)="clearSearch()">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    </div>
 </div>
+
+
 <div class="row">
     <div class="col-md-10 offset-1 ">
         <button class="btn-new-course" data-bs-toggle='offcanvas' data-bs-target='#filter' (click)="closeCanvas()"
@@ -120,7 +185,7 @@
     </div>
 </div>
 <div class="table-1">
-    <table datatable [dtOptions]="dtoptions" [dtTrigger]="dtTrigger" class="table bg-head table-hover">
+    <table datatable id="data-table-config" class="table bg-head table-hover">
         <thead class="text-center">
             <tr>
                 <th style="padding-left: 60px;padding-top: 20px;">Course Name</th>

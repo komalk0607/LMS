@@ -25,6 +25,7 @@ export class CourseAssignmentComponent {
   ediData: any;
   employeeList: any;
   courseList: any;
+  editData1: any;
   constructor(private _fb: FormBuilder, private _service: CourseServiceService, private _http: HttpClient) {
 
   }
@@ -165,6 +166,8 @@ export class CourseAssignmentComponent {
     obj.ASSIGNED_BY = "Komal"
     this._service.searchGridAssignCourse(obj).subscribe(res => {
       this.ediData = res.Data
+      this.editData1=this.ediData[0]
+      
       this.formAssignCourse.patchValue(this.ediData[0])
       this.formAssignCourse.controls['COURSE_NAME']?.setValue(this.ediData[0].COURSE_ID)
       this.formAssignCourse.controls['EMPLOYEE_NAME']?.setValue(this.ediData[0].EMPLOYEE_ID

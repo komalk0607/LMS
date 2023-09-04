@@ -93,7 +93,7 @@
 
                         <!-- <a><i class='bx bx-video-plus mr-2 action-icon-1'></i></a> -->
 
-                        <a data-bs-toggle='offcanvas' (click)="(item?.COURSE_ID)"
+                        <a data-bs-toggle='offcanvas' (click)="editCourseAssignment(item?.COURSE_EMPLOYEE_ID)"
                             data-bs-target="#assigncoursedetails" aria-controls='offcanvasExample'>
                             <i class='bx bx-list-ul bx-flip-vertical mr-2 action-icon-1'></i></a>
                     </div>
@@ -128,7 +128,7 @@
                         formControlName="COURSE_NAME" placeholder="Select Course">
                         <!-- <ng-option class="dropdown-item" [disabled]="true" value="">--Select Employee--
                         </ng-option> -->
-                        <ng-option *ngFor="let c of courseList ; let i=index" value="{{c.COURSE_ID}}" >{{c.COURSE_NAME}}</ng-option>
+                        <ng-option *ngFor="let c of courseList ; let i=index" [value]="c.COURSE_ID" >{{c.COURSE_NAME}}</ng-option>
 
                     </ng-select>
 
@@ -146,7 +146,7 @@
                         formControlName="EMPLOYEE_NAME" placeholder="Select Employee">
                         <!-- <ng-option class="dropdown-item" [disabled]="true" value="">--Select Employee--
                         </ng-option> -->
-                        <ng-option *ngFor="let e of employeeList ; let j=index" value="{{e.EMPLOYEE_ID}}">{{e.EMPLOYEE_NAME}}</ng-option>
+                        <ng-option *ngFor="let e of employeeList ; let j=index" [value]="e.EMPLOYEE_ID">{{e.EMPLOYEE_NAME}}</ng-option>
 
                     </ng-select>
 
@@ -249,13 +249,13 @@
         <div class="form-row ml-4 mt-4">
             <div class="form-group form-check col-md-6 mt-3">
                 <label class="label-2 text-dark">Course Name</label>
-                <div class="label-3">{{ediData?.COURSE_NAME}}</div>
+                <div class="label-3">{{editData1?.COURSE_NAME}}</div>
 
 
             </div>
             <div class="form-group col-md-6  mt-3">
                 <label class="label-2 text-dark">Employee Name</label>
-                <div class="label-3">{{ediData?.NO_OF_MODULES}}</div>
+                <div class="label-3">{{editData1?.EMPLOYEE_NAME}}</div>
 
             </div>
         </div>
@@ -264,29 +264,29 @@
             </div>
             <div class="form-group col-md-6 mt-3">
                 <label class="label-2 text-dark">Company Name</label>
-                <div class="label-3">{{ediData?.CATEGORY}}</div>
+                <div class="label-3">{{editData1?.COMPANY_NAME}}</div>
 
             </div>
             <div class="form-group col-md-6  mt-3">
                 <label class="label-2 text-dark">Branch</label>
-                <div class="label-3">{{ediData?.APPROVER}}</div>
+                <div class="label-3">{{editData1?.LOCATION}}</div>
 
             </div>
             <div class="row ml-3 mt-2 assign-course-div2">
                 <h4>Duration of Course</h4>
             </div>
             <div class="form-group col-md-6 mt-3">
-                <label class="label-2 text-dark">Company Name</label>
-                <div class="label-3">{{ediData?.CATEGORY}}</div>
+                <label class="label-2 text-dark">Start Date </label>
+                <div class="label-3">{{editData1?.START_TIME |date:'dd-MM-yyyy'}}</div>
 
             </div>
             <div class="form-group col-md-6  mt-3">
-                <label class="label-2 text-dark">Branch</label>
-                <div class="label-3">{{ediData?.APPROVER}}</div>
+                <label class="label-2 text-dark">End Date</label>
+                <div class="label-3">{{editData1?.END_TIME|date:'dd-MM-yyyy'}}</div>
 
             </div>
         
-        <div class="row  mr-4">
+        <div class="row">
             <button class="col-md-10 quiz-btn-1" data-bs-toggle='offcanvas'
                 aria-controls='offcanvasExample'>Back</button>
 
